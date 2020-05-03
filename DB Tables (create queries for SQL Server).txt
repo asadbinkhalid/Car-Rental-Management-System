@@ -1,0 +1,69 @@
+create table customer(
+	id int not null identity(1,1) primary key,
+	name varchar(60) not null,
+	phone varchar(20) not null,
+	[address] varchar(100) not null,
+	cnic varchar(13) not null
+)
+
+create table manager(
+	id int not null identity(1,1) primary key,
+	name varchar(60) not null,
+	phone varchar(20) not null,
+	[address] varchar(100) not null,
+	cnic varchar(13) not null,
+	gender varchar(10) not null,
+	salary int,
+	bonuspercentage int,
+	username varchar(50) not null,
+	[password] varchar(50) not null
+)
+
+create table driver(
+	id int not null identity(1,1) primary key,
+	name varchar(60) not null,
+	phone varchar(20) not null,
+	[address] varchar(100) not null,
+	cnic varchar(13) not null,
+	gender varchar(10) not null,
+	salary int,
+	bonuspercentage int,
+	licencenum varchar(50) not null,
+	licencetype varchar(20)
+)
+
+create table vehicle(
+	id int not null identity(1,1) primary key,
+	regnum varchar(50) not null,
+	company varchar(50) not null,
+	model varchar(50) not null,
+	color varchar(50),
+	rateperday int not null,
+	mileage bigint,
+	avgfueleco float,
+	available int,
+	vehicletype varchar(10) not null,
+	check(vehicletype in('vip', 'economy'))
+)
+
+create table rental(
+	id int not null identity(1,1) primary key,
+	vehicleid int foreign key references vehicle(id) on delete no action on update cascade,
+	driverid int foreign key references driver(id) on delete no action on update cascade,
+	managerid int foreign key references manager(id) on delete no action on update cascade,
+	customerid int foreign key references customer(id) on delete no action on update cascade,
+	usagedetails varchar(200),
+	datein date not null,
+	dateout date not null,
+	discountpercentage int,
+	tolltaxes int,
+	kmused int,
+	extracharges int
+)
+
+create table booking(
+	id int not null identity(1,1) primary key,
+	rentalid int foreign key references rental(id) on delete no action on update cascade,
+	fulfilled int not null
+)
+
