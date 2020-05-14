@@ -4,26 +4,19 @@
  * and open the template in the editor.
  */
 package gui;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JList;
+
 /**
  *
- * @author ehtis
+ * @author gng
  */
-public class AdminDrivers extends javax.swing.JFrame {
+public class AdminVehicles extends javax.swing.JFrame {
 
     /**
-     * Creates new form Home
+     * Creates new form AdminVehicles
      */
-    
-    public AdminDrivers() {
+    public AdminVehicles() {
         initComponents();
-        
-        
-        
     }
-     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,7 +27,6 @@ public class AdminDrivers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -47,22 +39,15 @@ public class AdminDrivers extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        driversList = new javax.swing.JList<>();
+        vehiclesList = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +58,7 @@ public class AdminDrivers extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(105, 132, 207));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setText("Drivers");
+        jLabel1.setText("Vehicles");
 
         backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         backButton2.setText("Back");
@@ -110,36 +95,36 @@ public class AdminDrivers extends javax.swing.JFrame {
         jLabel2.setText("ID");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Name");
+        jLabel3.setText("Company");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Phone");
+        jLabel4.setText("Model");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Licience number");
+        jLabel6.setText("Reg Number");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("Licience Type");
+        jLabel7.setText("Rate (per day)");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setText("Salary");
+        jLabel8.setText("Mileage (km)");
 
         jScrollPane1.setBorder(null);
 
-        driversList.setBackground(new java.awt.Color(177, 190, 224));
-        driversList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        driversList.setModel(new javax.swing.AbstractListModel<String>() {
+        vehiclesList.setBackground(new java.awt.Color(177, 190, 224));
+        vehiclesList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vehiclesList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        driversList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        driversList.setFixedCellHeight(20);
-        jScrollPane1.setViewportView(driversList);
+        vehiclesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        vehiclesList.setFixedCellHeight(20);
+        jScrollPane1.setViewportView(vehiclesList);
 
         jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Add New Driver");
+        jButton1.setText("Add New Vehicle");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -148,7 +133,7 @@ public class AdminDrivers extends javax.swing.JFrame {
 
         jButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setText("Delete Driver");
+        jButton2.setText("Delete Vehicle");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -156,12 +141,25 @@ public class AdminDrivers extends javax.swing.JFrame {
         });
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel5.setText("Select a Driver from the List!");
+        jLabel5.setText("Select a Vehicle from the List!");
         jLabel5.setVisible(false);
 
         jLabel9.setForeground(new java.awt.Color(0, 102, 0));
-        jLabel9.setText("Driver Deleted Successfully!");
+        jLabel9.setText("Vehicle Deleted Successfully!");
         jLabel9.setVisible(false);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("Fuel Eco");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setText("Color");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setText("Available");
+
+        jLabel13.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel13.setText("Busy vehicle cannot be deleted!");
+        jLabel13.setVisible(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -173,22 +171,30 @@ public class AdminDrivers extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(91, 91, 91)
+                        .addGap(36, 36, 36)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel4)
-                        .addGap(102, 102, 102)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel6)
-                        .addGap(87, 87, 87)
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel7)
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
                 .addContainerGap())
@@ -203,7 +209,10 @@ public class AdminDrivers extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
@@ -211,7 +220,8 @@ public class AdminDrivers extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel13))
                 .addGap(29, 29, 29))
         );
 
@@ -261,9 +271,16 @@ public class AdminDrivers extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        AddNewVehicle page = new AddNewVehicle();
+        page.start();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1MouseClicked
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        if(driversList.getSelectedIndex() >= 0) {
+        if(vehiclesList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
             jLabel9.setVisible(true);
         }
@@ -273,14 +290,9 @@ public class AdminDrivers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        AddNewDriver page = new AddNewDriver();
-        page.start();
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1MouseClicked
-
-   
+    /**
+     * @param args the command line arguments
+     */
     public void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -295,39 +307,33 @@ public class AdminDrivers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminDrivers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminVehicles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminDrivers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminVehicles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminDrivers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminVehicles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminDrivers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminVehicles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminDrivers().setVisible(true);
-                
+                new AdminVehicles().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton2;
-    private javax.swing.JList<String> driversList;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -336,10 +342,10 @@ public class AdminDrivers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> vehiclesList;
     // End of variables declaration//GEN-END:variables
 }
