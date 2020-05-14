@@ -5,7 +5,7 @@
  */
 package Main;
 
-import gui.LoginUI;
+import gui.AdminLogin;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Main {
         // TODO code application logic here
        
         
-        LoginUI a=new LoginUI();
+        AdminLogin a=new AdminLogin();
         a.main();
        // with_out_gui a=new with_out_gui();
         //a.run();

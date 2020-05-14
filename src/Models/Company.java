@@ -13,17 +13,25 @@ import java.util.List;
  * @author asadb
  */
 public class Company {
+    private static Company instance = null;
     
-    List<Employee> employeesList;
-    List<Customer> customersList;
-    List<Booking> bookingsList;
-    List<Vehicle> vehiclesList;
-
-    public Company() {
-        this.employeesList = new ArrayList<Employee>();
-        this.customersList = new ArrayList<Customer>();
-        this.bookingsList = new ArrayList<Booking>();
-        this.vehiclesList = new ArrayList<Vehicle>();
+    private List<Employee> employeesList;
+    private List<Customer> customersList;
+    private List<Booking> bookingsList;
+    private List<Vehicle> vehiclesList;
+        
+    private Company() {
+        this.employeesList = new ArrayList<>();
+        this.customersList = new ArrayList<>();
+        this.bookingsList = new ArrayList<>();
+        this.vehiclesList = new ArrayList<>();
+    }
+    
+    public static Company getInstance(){
+        if(instance == null) {
+            instance = new Company();
+        }
+        return instance;
     }
 
     public List<Employee> getEmployeesList() {
