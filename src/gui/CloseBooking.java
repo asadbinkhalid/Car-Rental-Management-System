@@ -66,12 +66,12 @@ public class CloseBooking extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(177, 190, 224));
         jPanel2.setPreferredSize(new java.awt.Dimension(799, 50));
 
+        jLabel1.setText("Close Booking");
         jLabel1.setBackground(new java.awt.Color(105, 132, 207));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setText("Close Booking");
 
-        backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         backButton2.setText("Back");
+        backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         backButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButton2MouseClicked(evt);
@@ -101,22 +101,27 @@ public class CloseBooking extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Toll taxes:  Rs.");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Extra Charges:  Rs.");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Vehicle Used (km):");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Date In:");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+        jButton1.setText("Close");
         jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Close");
         jButton1.setToolTipText("Close the booking and generate Bill.");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -213,6 +218,13 @@ public class CloseBooking extends javax.swing.JFrame {
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        AdminBookings page = new AdminBookings();
+        page.start();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1MouseClicked
 
    
     public void start() {
