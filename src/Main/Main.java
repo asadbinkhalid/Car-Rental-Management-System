@@ -5,7 +5,8 @@
  */
 package Main;
 
-import gui.AdminLogin;
+import gui.admin.AdminLogin;
+import gui.client.ClientLogin;
 
 /**
  *
@@ -16,10 +17,12 @@ public class Main {
         // TODO code application logic here
        
         
-        AdminLogin a=new AdminLogin();
-        a.main();
-       // with_out_gui a=new with_out_gui();
-        //a.run();
+//        AdminLogin admin = new AdminLogin();
+//        admin.start();
+        
+        ClientLogin client = new ClientLogin();
+        client.start();
+       
     }
     
 }
