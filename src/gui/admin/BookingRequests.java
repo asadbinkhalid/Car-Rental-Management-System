@@ -51,12 +51,12 @@ public class BookingRequests extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(177, 190, 224));
 
+        jLabel1.setText("Booking Requests");
         jLabel1.setBackground(new java.awt.Color(105, 132, 207));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setText("Booking Requests");
 
-        backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         backButton2.setText("Back");
+        backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         backButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButton2MouseClicked(evt);
@@ -86,17 +86,17 @@ public class BookingRequests extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Customer");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Date Out");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Vehicle Required");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Driver");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         requestsList.setBackground(new java.awt.Color(177, 190, 224));
         requestsList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -107,32 +107,32 @@ public class BookingRequests extends javax.swing.JFrame {
         requestsList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(requestsList);
 
-        rejectButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rejectButton.setText("Reject");
+        rejectButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rejectButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 rejectButtonMouseClicked(evt);
             }
         });
 
-        acceptButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         acceptButton.setText("Accept");
+        acceptButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         acceptButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 acceptButtonMouseClicked(evt);
             }
         });
 
-        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
         jLabel8.setText("Select a Booking from the list!");
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
         jLabel8.setVisible(false);
 
-        jLabel7.setForeground(new java.awt.Color(0, 102, 0));
         jLabel7.setText("Selected booking rejected and deleted!");
+        jLabel7.setForeground(new java.awt.Color(0, 102, 0));
         jLabel7.setVisible(false);
 
-        jLabel6.setForeground(new java.awt.Color(0, 102, 0));
         jLabel6.setText("Selected Booking Accepted!");
+        jLabel6.setForeground(new java.awt.Color(0, 102, 0));
         jLabel6.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -157,7 +157,7 @@ public class BookingRequests extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(129, 129, 129)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(106, 106, 106)
                         .addComponent(jLabel4)
                         .addGap(134, 134, 134)
                         .addComponent(jLabel5)))
@@ -173,7 +173,7 @@ public class BookingRequests extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rejectButton)

@@ -19,8 +19,8 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        BL bl = new BL();
-        bl.addCustomer(new Customer("Asad", "03330432959", "ERS-22", "35202", "asadbk", "123456"));
+//        BL bl = new BL();
+//        bl.addCustomer(new Customer("Asad", "03330432959", "ERS-22", "35202", "asadbk", "123456"));
         
         
 //        AdminLogin admin = new AdminLogin();
