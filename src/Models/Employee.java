@@ -22,6 +22,13 @@ public class Employee extends Person{
         this.salary = salary;
         this.bonusPercentage = bonusPercentage;
     }
+    
+    public Employee(String name, String phone, String address, String cnic, String gender, int salary, int bonusPercentage) {
+        super(name, phone, address, cnic);
+        this.gender = gender;
+        this.salary = salary;
+        this.bonusPercentage = bonusPercentage;
+    }
 
     public String getGender() {
         return gender;

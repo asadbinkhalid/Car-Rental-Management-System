@@ -14,6 +14,9 @@ public class Economy extends Vehicle{
     public Economy(int id, String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, boolean available) {
         super(id, regNum, company, model, color, ratePerDay, mileage, avgFuelEco, available);
     }
+    public Economy(String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, boolean available) {
+        super(regNum, company, model, color, ratePerDay, mileage, avgFuelEco, available);
+    }
     
     
     

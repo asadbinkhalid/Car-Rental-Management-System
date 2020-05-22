@@ -15,6 +15,10 @@ public class VIP extends Vehicle{
         super(id, regNum, company, model, color, ratePerDay, mileage, avgFuelEco, available);
     }
     
+    public VIP(String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, boolean available) {
+        super(regNum, company, model, color, ratePerDay, mileage, avgFuelEco, available);
+    }
+    
     
     
 }

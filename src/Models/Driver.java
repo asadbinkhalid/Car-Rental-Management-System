@@ -19,6 +19,12 @@ public class Driver extends Employee{
         this.licenceType = licenceType;
         this.licenceNum = licenceNum;
     }
+    
+    public Driver(String name, String phone, String address, String cnic, String gender, int salary, int bonusPercentage, String licenceType, String licenceNum) {
+        super(name, phone, address, cnic, gender, salary, bonusPercentage);
+        this.licenceType = licenceType;
+        this.licenceNum = licenceNum;
+    }
 
     public String getLicenceType() {
         return licenceType;
