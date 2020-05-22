@@ -1,9 +1,15 @@
+create database car_rental_db
+
+use car_rental_db
+
 create table customer(
 	id int not null identity(1,1) primary key,
 	name varchar(60) not null,
 	phone varchar(20) not null,
 	[address] varchar(100) not null,
-	cnic varchar(13) not null
+	cnic varchar(13) not null,
+	username varchar(50) not null unique,
+	[password] varchar(50) not null
 )
 
 create table manager(
@@ -15,7 +21,7 @@ create table manager(
 	gender varchar(10) not null,
 	salary int,
 	bonuspercentage int,
-	username varchar(50) not null,
+	username varchar(50) not null unique,
 	[password] varchar(50) not null
 )
 
@@ -29,7 +35,9 @@ create table driver(
 	salary int,
 	bonuspercentage int,
 	licencenum varchar(50) not null,
-	licencetype varchar(20)
+	licencetype varchar(20),
+	driverstatus varchar(20) not null,
+	check(driverstatus in('available', 'busy'))
 )
 
 create table vehicle(
@@ -43,27 +51,31 @@ create table vehicle(
 	avgfueleco float,
 	available int,
 	vehicletype varchar(10) not null,
-	check(vehicletype in('vip', 'economy'))
+	check(vehicletype in('vip', 'economy')),
+	vehiclestatus varchar(20),
+	check(vehiclestatus in('available','busy'))
 )
 
 create table rental(
 	id int not null identity(1,1) primary key,
-	vehicleid int foreign key references vehicle(id) on delete no action on update cascade,
-	driverid int foreign key references driver(id) on delete no action on update cascade,
-	managerid int foreign key references manager(id) on delete no action on update cascade,
-	customerid int foreign key references customer(id) on delete no action on update cascade,
+	vehicleid int foreign key references vehicle(id) on delete set null on update cascade,
+	driverid int foreign key references driver(id) on delete set null on update cascade,
+	managerid int foreign key references manager(id) on delete set null on update cascade,
+	customerid int foreign key references customer(id) on delete set null on update cascade,
 	usagedetails varchar(200),
 	datein date not null,
 	dateout date not null,
 	discountpercentage int,
 	tolltaxes int,
 	kmused int,
-	extracharges int
+	extracharges int,
+	rentalstatus varchar(20) not null,
+	check(rentalstatus in('pending', 'upcoming', 'fulfilled'))
 )
 
 create table booking(
 	id int not null identity(1,1) primary key,
 	rentalid int foreign key references rental(id) on delete no action on update cascade,
-	fulfilled int not null
+	totalfare int /*	NULL if rentalstaus is pending/upcoming	*/
 )
 

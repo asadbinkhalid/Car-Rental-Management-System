@@ -19,6 +19,12 @@ public class Manager extends Employee{
         this.username = username;
         this.password = password;
     }
+    
+    public Manager(String name, String phone, String address, String cnic, String gender, int salary, int bonusPercentage, String username, String password) {
+        super(name, phone, address, cnic, gender, salary, bonusPercentage);
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;

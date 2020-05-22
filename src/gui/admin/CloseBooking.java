@@ -10,10 +10,12 @@ package gui.admin;
  * @author ehtis
  */
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +24,16 @@ public class CloseBooking extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    
-    
+    DatePickerSettings dateSettings, dateSettings2;
+    /**
+     * Creates new form Home
+     */
     public CloseBooking() {
+        dateSettings = new com.github.lgooddatepicker.components.DatePickerSettings();
+        
         initComponents();
         
+        dateSettings.setDateRangeLimits(LocalDate.now(), null);
     }
     
     /**
@@ -50,7 +57,7 @@ public class CloseBooking extends javax.swing.JFrame {
         extraTextField = new javax.swing.JTextField();
         usedTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        datePicker1 = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,7 +98,7 @@ public class CloseBooking extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -191,7 +198,7 @@ public class CloseBooking extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

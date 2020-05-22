@@ -32,6 +32,18 @@ public class Vehicle {
         this.avgFuelEco = avgFuelEco;
         this.available = available;
     }
+    
+    public Vehicle(String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, boolean available) {
+        
+        this.regNum = regNum;
+        this.company = company;
+        this.model = model;
+        this.color = color;
+        this.ratePerDay = ratePerDay;
+        this.mileage = mileage;
+        this.avgFuelEco = avgFuelEco;
+        this.available = available;
+    }
 
     public int getId() {
         return id;

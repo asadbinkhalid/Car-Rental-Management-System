@@ -20,6 +20,12 @@ public class Customer extends Person{
         this.password = password;
     }
     
+    public Customer(String name, String phone, String address, String cnic, String username, String password) {
+        super(name, phone, address, cnic);
+        this.username = username;
+        this.password = password;
+    }
+    
     public String getUsername() {
         return username;
     }

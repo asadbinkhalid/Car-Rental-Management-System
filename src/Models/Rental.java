@@ -25,6 +25,7 @@ public class Rental {
     int tollTaxes;
     int kmUsed;
     int extraCharges;
+    String rentalstatus;
 
     public Rental(int id, Vehicle vehicle, Driver driver, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges) {
         this.id = id;
@@ -39,6 +40,7 @@ public class Rental {
         this.tollTaxes = tollTaxes;
         this.kmUsed = kmUsed;
         this.extraCharges = extraCharges;
+        this.rentalstatus = "pending";
     }
 
     public int getId() {
@@ -136,6 +138,15 @@ public class Rental {
     public void setExtraCharges(int extraCharges) {
         this.extraCharges = extraCharges;
     }
+
+    public String getRentalstatus() {
+        return rentalstatus;
+    }
+
+    public void setRentalstatus(String rentalstatus) {
+        this.rentalstatus = rentalstatus;
+    }
+    
     
 
     

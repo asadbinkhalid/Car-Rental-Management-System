@@ -15,16 +15,18 @@ import java.util.List;
 public class Company {
     private static Company instance = null;
     
-    private List<Employee> employeesList;
+    private List<Manager> managersList;
     private List<Customer> customersList;
     private List<Booking> bookingsList;
     private List<Vehicle> vehiclesList;
+    private List<Driver> driversList;
         
     private Company() {
-        this.employeesList = new ArrayList<>();
+        this.managersList = new ArrayList<>();
         this.customersList = new ArrayList<>();
         this.bookingsList = new ArrayList<>();
         this.vehiclesList = new ArrayList<>();
+        this.driversList = new ArrayList<>();
     }
     
     public static Company getInstance(){
@@ -34,12 +36,12 @@ public class Company {
         return instance;
     }
 
-    public List<Employee> getEmployeesList() {
-        return employeesList;
+    public List<Manager> getManagersList() {
+        return managersList;
     }
 
-    public void setEmployeesList(List<Employee> employeesList) {
-        this.employeesList = employeesList;
+    public void setManagersList(List<Manager> managersList) {
+        this.managersList = managersList;
     }
 
     public List<Customer> getCustomersList() {
@@ -65,9 +67,12 @@ public class Company {
     public void setVehiclesList(List<Vehicle> vehiclesList) {
         this.vehiclesList = vehiclesList;
     }
-    
-    
-    
-    
-    
+
+    public List<Driver> getDriversList() {
+        return driversList;
+    }
+
+    public void setDriversList(List<Driver> driversList) {
+        this.driversList = driversList;
+    }    
 }

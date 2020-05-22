@@ -107,48 +107,48 @@ public class AdminHome extends javax.swing.JFrame {
         menuPanel.setBackground(new java.awt.Color(177, 190, 224));
         menuPanel.setPreferredSize(new java.awt.Dimension(0, 280));
 
-        menuLabel.setText("Menu");
         menuLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        menuLabel.setText("Menu");
 
-        driversButton.setText("Drivers");
         driversButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         driversButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        driversButton.setText("Drivers");
         driversButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 driversButtonMouseClicked(evt);
             }
         });
 
-        vehiclesButton.setText("Vehicles");
         vehiclesButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         vehiclesButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        vehiclesButton.setText("Vehicles");
         vehiclesButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 vehiclesButtonMouseClicked(evt);
             }
         });
 
-        bookingsButton.setText("Bookings");
         bookingsButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         bookingsButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bookingsButton.setText("Bookings");
         bookingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 bookingsButtonMouseClicked(evt);
             }
         });
 
-        cutomersButton.setText("Customers");
         cutomersButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         cutomersButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cutomersButton.setText("Customers");
         cutomersButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cutomersButtonMouseClicked(evt);
             }
         });
 
-        receiptsButton.setText("Receipts");
         receiptsButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         receiptsButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        receiptsButton.setText("Receipts");
         receiptsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 receiptsButtonMouseClicked(evt);
@@ -191,73 +191,73 @@ public class AdminHome extends javax.swing.JFrame {
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vehiclesButton)
                     .addComponent(cutomersButton))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         profilePanel.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel5.setText("Profile");
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setText("Profile");
 
-        jLabel4.setText("Username:");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Username:");
 
-        jLabel6.setText("asadbinkhalid");
         jLabel6.setText("asadbinkhalid");
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("asadbinkhalid");
 
-        jLabel16.setText("Salaray: Rs.");
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setText("Salaray: Rs.");
 
-        jLabel17.setText("Bonus %:");
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setText("Bonus %:");
 
-        jLabel14.setText("CNIC:");
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setText("CNIC:");
 
-        jLabel11.setText("Phone:");
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setText("Phone:");
 
-        jLabel9.setText("Address:");
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setText("Address:");
 
-        jLabel7.setText("Name:");
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setText("Name:");
 
-        jLabel8.setText("Asad Bin Khalid");
         jLabel8.setText("Asad Bin Khalid");
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setText("Asad Bin Khalid");
 
         jLabel10.setText("123 Street, 321 Colony, Lahore");
-        jLabel10.setText("1-A, Milaad Street, Faisal Town, Lahore");
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setText("1-A, Milaad Street, Faisal Town, Lahore");
 
-        jLabel12.setText("0333-1234567");
         jLabel12.setText("0333-1234567");
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setText("0333-1234567");
 
         jLabel15.setText("35202-xxxxxxxxxxx-x");
-        jLabel15.setText("35202-2154783-9");
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setText("35202-2154783-9");
 
-        jLabel18.setText("Gender:");
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel18.setText("Gender:");
 
-        jLabel19.setText("Male");
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setText("Male");
         jLabel19.setText("Male");
 
         jLabel20.setText("55,000");
-        jLabel20.setText("55000");
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setText("55000");
 
         jLabel21.setText("10%");
-        jLabel21.setText("10");
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setText("10");
 
-        jButton3.setText("Edit Profile");
         jButton3.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton3.setText("Edit Profile");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
@@ -294,7 +294,7 @@ public class AdminHome extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel16)
@@ -312,7 +312,7 @@ public class AdminHome extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
-                        .addGap(444, 444, 444)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addGap(87, 87, 87))
         );
@@ -343,7 +343,7 @@ public class AdminHome extends javax.swing.JFrame {
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15)

@@ -24,6 +24,14 @@ public class Person {
         this.address = address;
         this.cnic = cnic;
     }
+    
+    public Person(String name, String phone, String address, String cnic) {
+        
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.cnic = cnic;
+    }
 
     public int getId() {
         return id;
