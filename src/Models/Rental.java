@@ -27,8 +27,27 @@ public class Rental {
     int extraCharges;
     String rentalstatus;
 
-    public Rental(int id, Vehicle vehicle, Driver driver, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges) {
+    public Rental(){
+        
+    }
+    
+    public Rental(int id, Vehicle vehicle, Driver driver, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges, String rentalStatus) {
         this.id = id;
+        this.vehicle = vehicle;
+        this.driver = driver;
+        this.manager = manager;
+        this.customer = customer;
+        this.usageDetails = usageDetails;
+        this.dateIn = dateIn;
+        this.dateOut = dateOut;
+        this.discountPercentage = discountPercentage;
+        this.tollTaxes = tollTaxes;
+        this.kmUsed = kmUsed;
+        this.extraCharges = extraCharges;
+        this.rentalstatus = rentalStatus;
+    }
+    
+    public Rental(Vehicle vehicle, Driver driver, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges) {
         this.vehicle = vehicle;
         this.driver = driver;
         this.manager = manager;
@@ -42,6 +61,21 @@ public class Rental {
         this.extraCharges = extraCharges;
         this.rentalstatus = "pending";
     }
+
+    public Rental(int id, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges, String rentalstatus) {
+        this.id = id;
+        this.usageDetails = usageDetails;
+        this.dateIn = dateIn;
+        this.dateOut = dateOut;
+        this.discountPercentage = discountPercentage;
+        this.tollTaxes = tollTaxes;
+        this.kmUsed = kmUsed;
+        this.extraCharges = extraCharges;
+        this.rentalstatus = rentalstatus;
+    }
+    
+    
+    
 
     public int getId() {
         return id;
@@ -146,8 +180,11 @@ public class Rental {
     public void setRentalstatus(String rentalstatus) {
         this.rentalstatus = rentalstatus;
     }
-    
-    
 
+    @Override
+    public String toString() {
+        return "Rental{" + "id=" + id + ", vehicle=" + vehicle + ", driver=" + driver + ", manager=" + manager + ", customer=" + customer + ", usageDetails=" + usageDetails + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", discountPercentage=" + discountPercentage + ", tollTaxes=" + tollTaxes + ", kmUsed=" + kmUsed + ", extraCharges=" + extraCharges + ", rentalstatus=" + rentalstatus + '}';
+    }
+    
     
 }

@@ -11,11 +11,11 @@ package Models;
  */
 public class Person {
     
-    private int id;
-    private String name;
-    private String phone;
-    private String address;
-    private String cnic;
+    int id;
+    String name;
+    String phone;
+    String address;
+    String cnic;
 
     public Person(int id, String name, String phone, String address, String cnic) {
         this.id = id;
@@ -71,6 +71,11 @@ public class Person {
 
     public void setCnic(String cnic) {
         this.cnic = cnic;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" + "id=" + id + ", name=" + name + ", phone=" + phone + ", address=" + address + ", cnic=" + cnic + '}';
     }
     
     

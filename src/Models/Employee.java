@@ -53,6 +53,11 @@ public class Employee extends Person{
     public void setBonusPercentage(int bonusPercentage) {
         this.bonusPercentage = bonusPercentage;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "gender=" + gender + ", salary=" + salary + ", bonusPercentage=" + bonusPercentage + '}';
+    }
     
     
     

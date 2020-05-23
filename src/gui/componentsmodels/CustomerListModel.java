@@ -12,11 +12,13 @@ import Models.Customer;
  * @author asadb
  */
 public class CustomerListModel {
+    int id;
     String username;
     String name;
     String phone;
 
     public CustomerListModel(Customer customer) {
+        this.id = customer.getId();
         this.username = customer.getUsername();
         this.name = customer.getName();
         this.phone = customer.getPhone();
@@ -48,7 +50,16 @@ public class CustomerListModel {
 
     @Override
     public String toString() {
-        return username + "\t\t\t\t" + name + "\t\t\t\t" + phone;
+        return username + "                                                                                                 " + name +
+                "                                                                                                             " + phone;
+    } 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

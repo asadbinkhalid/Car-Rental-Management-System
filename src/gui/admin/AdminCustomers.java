@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import Models.Customer;
+import gui.componentsmodels.CustomerListModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +19,17 @@ public class AdminCustomers extends javax.swing.JFrame {
     /**
      * Creates new form AdminCustomers
      */
+    DefaultListModel<CustomerListModel> model;
+
     public AdminCustomers() {
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        CustomerListModel customer = null;
+        for (int i = 0; i < bl.getCompany().getCustomersList().size(); i++) {
+            customer = new CustomerListModel(bl.getCompany().getCustomersList().get(i));
+            model.addElement(customer);
+        }
+
         initComponents();
     }
 
@@ -36,7 +51,7 @@ public class AdminCustomers extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        customersList = new javax.swing.JList<>();
+        customersList = new javax.swing.JList<>(model);
         addButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -99,11 +114,6 @@ public class AdminCustomers extends javax.swing.JFrame {
 
         customersList.setBackground(new java.awt.Color(177, 190, 224));
         customersList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        customersList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         customersList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         customersList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(customersList);
@@ -164,7 +174,7 @@ public class AdminCustomers extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addGap(375, 375, 375)
+                        .addGap(364, 364, 364)
                         .addComponent(jLabel4))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(addButton)
@@ -190,7 +200,7 @@ public class AdminCustomers extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(deleteButton)
@@ -242,7 +252,8 @@ public class AdminCustomers extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        AdminHome page = new AdminHome();
+        BL bl = BL.getBllInstance();
+        AdminHome page = new AdminHome(bl.getCompany().getSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -256,11 +267,17 @@ public class AdminCustomers extends javax.swing.JFrame {
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
         // TODO add your handling code here:
-        if(customersList.getSelectedIndex() >= 0) {
+        if (customersList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
+
+            BL bl = BL.getBllInstance();
+            bl.deleteCustomerById(customersList.getSelectedValue().getId());
+            model.removeElementAt(customersList.getSelectedIndex());
+
+            this.revalidate();
+            this.repaint();
             jLabel9.setVisible(true);
-        }
-        else{
+        } else {
             jLabel5.setVisible(true);
             jLabel9.setVisible(false);
         }
@@ -268,26 +285,41 @@ public class AdminCustomers extends javax.swing.JFrame {
 
     private void detailsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsButtonMouseClicked
         // TODO add your handling code here:
-        if(customersList.getSelectedIndex() >= 0) {
+        if (customersList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
-            CustomerDetails page = new CustomerDetails();
+
+            BL bl = BL.getBllInstance();
+            Customer customer = null;
+            for (int i = 0; i < bl.getCompany().getCustomersList().size(); i++) {
+                if (customersList.getSelectedValue().getId() == bl.getCompany().getCustomersList().get(i).getId()) {
+                    customer = bl.getCompany().getCustomersList().get(i);
+                }
+            }
+            CustomerDetails page = new CustomerDetails(customer);
             page.start();
             this.setVisible(false);
-        }
-        else{
+        } else {
             jLabel5.setVisible(true);
         }
     }//GEN-LAST:event_detailsButtonMouseClicked
 
     private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
         // TODO add your handling code here:
-        if(customersList.getSelectedIndex() >= 0) {
+        if (customersList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
-            EditCustomers page = new EditCustomers();
+
+            BL bl = BL.getBllInstance();
+            Customer customer = null;
+            for (int i = 0; i < bl.getCompany().getCustomersList().size(); i++) {
+                if (customersList.getSelectedValue().getId() == bl.getCompany().getCustomersList().get(i).getId()) {
+                    customer = bl.getCompany().getCustomersList().get(i);
+                }
+            }
+
+            EditCustomers page = new EditCustomers(customer);
             page.start();
             this.setVisible(false);
-        }
-        else{
+        } else {
             jLabel5.setVisible(true);
         }
     }//GEN-LAST:event_editButtonMouseClicked
@@ -330,7 +362,7 @@ public class AdminCustomers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton backButton2;
-    private javax.swing.JList<String> customersList;
+    private javax.swing.JList<CustomerListModel> customersList;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton detailsButton;
     private javax.swing.JButton editButton;

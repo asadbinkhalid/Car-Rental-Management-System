@@ -5,6 +5,8 @@
  */
 package gui.admin;
 
+import Main.BL;
+
 /**
  *
  * @author gng
@@ -47,9 +49,9 @@ public class AddNewDriver extends javax.swing.JFrame {
         cnicTextField = new javax.swing.JTextField();
         licenceTextField = new javax.swing.JTextField();
         genderComboBox = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        licenseComboBox = new javax.swing.JComboBox<>();
         salaryTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
         nameError = new javax.swing.JLabel();
         phoneError = new javax.swing.JLabel();
         addressError = new javax.swing.JLabel();
@@ -58,6 +60,7 @@ public class AddNewDriver extends javax.swing.JFrame {
         salaryError = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         bonusTextField = new javax.swing.JTextField();
+        addError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,17 +89,17 @@ public class AddNewDriver extends javax.swing.JFrame {
                 .addComponent(backButton2)
                 .addGap(243, 243, 243)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(324, 324, 324))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addComponent(backButton2))
                 .addContainerGap(13, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(backButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
@@ -129,16 +132,16 @@ public class AddNewDriver extends javax.swing.JFrame {
         addressTextArea.setRows(5);
         jScrollPane1.setViewportView(addressTextArea);
 
-        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Not Specified" }));
+        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female", "not specified" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "National", "International" }));
+        licenseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "National", "International" }));
 
-        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Add");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        addButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        addButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addButton.setText("Add");
+        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                addButtonMouseClicked(evt);
             }
         });
 
@@ -168,6 +171,10 @@ public class AddNewDriver extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Bonus %:");
+
+        addError.setForeground(new java.awt.Color(255, 0, 0));
+        addError.setText("New Driver could not be created (CNIC must be unique)");
+        addError.setVisible(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -202,13 +209,13 @@ public class AddNewDriver extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(phoneTextField)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                        .addGap(195, 195, 195)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(licenceError)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(licenseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(salaryError)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel5Layout.createSequentialGroup()
@@ -224,8 +231,10 @@ public class AddNewDriver extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(licenceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(addError)
+                        .addGap(18, 18, 18)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(98, 98, 98))
         );
         jPanel5Layout.setVerticalGroup(
@@ -246,7 +255,7 @@ public class AddNewDriver extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel8)
                     .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(licenseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(phoneError)
                 .addGap(11, 11, 11)
@@ -264,19 +273,22 @@ public class AddNewDriver extends javax.swing.JFrame {
                             .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(addressError)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cnicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cnicError)
-                .addGap(11, 11, 11)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(addressError)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cnicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cnicError)
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addError, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(60, 60, 60))
         );
 
@@ -326,43 +338,52 @@ public class AddNewDriver extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
-        if(!nameTextField.getText().equals("")){
+
+        if (!nameTextField.getText().equals("")) {
             nameError.setVisible(false);
-            if(!phoneTextField.getText().equals("")){
+            if (!phoneTextField.getText().equals("")) {
                 phoneError.setVisible(false);
-                if(!addressTextArea.getText().equals("")){
+                if (!addressTextArea.getText().equals("")) {
                     addressError.setVisible(false);
-                    if(!cnicTextField.getText().equals("")){
+                    if (!cnicTextField.getText().equals("")) {
                         cnicError.setVisible(false);
-                        if(!licenceTextField.getText().equals("")){
+                        if (!licenceTextField.getText().equals("")) {
                             licenceError.setVisible(false);
-                            if(!salaryTextField.getText().equals("")){
+                            if (!salaryTextField.getText().equals("")) {
                                 salaryError.setVisible(false);
-                                
-                                AdminDrivers page = new AdminDrivers();
-                                page.start();
-                                this.setVisible(false);
-                            }
-                            else
+                                BL bl = BL.getBllInstance();
+                                if (bl.addDriver(nameTextField.getText(), phoneTextField.getText(), addressTextArea.getText(), cnicTextField.getText(),
+                                        String.valueOf(genderComboBox.getSelectedItem()), Integer.parseInt(salaryTextField.getText()), Integer.parseInt(bonusTextField.getText()),
+                                        licenceTextField.getText(), String.valueOf(licenseComboBox.getSelectedItem()))) {
+                                    addError.setVisible(false);
+                                    AdminDrivers page = new AdminDrivers();
+                                    page.start();
+                                    this.setVisible(false);
+
+                                } else {
+                                    addError.setVisible(true);
+                                }
+
+                            } else {
                                 salaryError.setVisible(true);
-                        }
-                        else
+                            }
+                        } else {
                             licenceError.setVisible(true);
-                    }
-                    else
+                        }
+                    } else {
                         cnicError.setVisible(true);
-                }
-                else
+                    }
+                } else {
                     addressError.setVisible(true);
-            }
-            else
+                }
+            } else {
                 phoneError.setVisible(true);
-        }
-        else
+            }
+        } else
             nameError.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_addButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -400,6 +421,8 @@ public class AddNewDriver extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JLabel addError;
     private javax.swing.JLabel addressError;
     private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton2;
@@ -407,8 +430,6 @@ public class AddNewDriver extends javax.swing.JFrame {
     private javax.swing.JLabel cnicError;
     private javax.swing.JTextField cnicTextField;
     private javax.swing.JComboBox<String> genderComboBox;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -425,6 +446,7 @@ public class AddNewDriver extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel licenceError;
     private javax.swing.JTextField licenceTextField;
+    private javax.swing.JComboBox<String> licenseComboBox;
     private javax.swing.JLabel nameError;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JLabel phoneError;

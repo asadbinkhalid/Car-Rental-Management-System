@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import Models.Vehicle;
+import gui.componentsmodels.VehicleBookingsListModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +19,24 @@ public class VehicleDetails extends javax.swing.JFrame {
     /**
      * Creates new form VehicleDetails
      */
-    public VehicleDetails() {
+    DefaultListModel<VehicleBookingsListModel> model;
+    Vehicle vehicle;
+    public VehicleDetails(Vehicle vehicle) {
+        this.vehicle = vehicle;
+        
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        VehicleBookingsListModel booking = null;
+        System.out.println(bl.getCompany().getBookingsList().size());
+        for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+
+            if (this.vehicle.getId() == bl.getCompany().getBookingsList().get(i).getRental().getVehicle().getId()) {
+
+                booking = new VehicleBookingsListModel(bl.getCompany().getBookingsList().get(i));
+                model.addElement(booking);
+            }
+        }
+        
         initComponents();
     }
 
@@ -51,7 +73,7 @@ public class VehicleDetails extends javax.swing.JFrame {
         avgLabel = new javax.swing.JLabel();
         mileageLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        vehicleBookingsList = new javax.swing.JList<>();
+        vehicleBookingsList = new javax.swing.JList<>(model);
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -85,17 +107,17 @@ public class VehicleDetails extends javax.swing.JFrame {
                 .addComponent(backButton2)
                 .addGap(256, 256, 256)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(320, 320, 320))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
@@ -127,30 +149,25 @@ public class VehicleDetails extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("ID:");
 
-        idLabel.setText("5");
+        idLabel.setText(Integer.toString(vehicle.getId()));
 
-        companyLabel.setText("Toyota");
+        companyLabel.setText(vehicle.getCompany());
 
-        modelLabel.setText("Corolla 2011");
+        modelLabel.setText(vehicle.getModel());
 
-        regLabel.setText("LEH-12-1234");
+        regLabel.setText(vehicle.getRegNum());
 
-        categoryLabel.setText("Economy");
+        categoryLabel.setText(vehicle.getVehicleType());
 
-        colorLabel.setText("White");
+        colorLabel.setText(vehicle.getColor());
 
-        rateLabel.setText("1400");
+        rateLabel.setText(Integer.toString(vehicle.getRatePerDay()));
 
-        avgLabel.setText("12");
+        avgLabel.setText(Float.toString(vehicle.getAvgFuelEco()));
 
-        mileageLabel.setText("64000");
+        mileageLabel.setText(Long.toString(vehicle.getMileage()));
 
         vehicleBookingsList.setBackground(new java.awt.Color(177, 190, 224));
-        vehicleBookingsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         vehicleBookingsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(vehicleBookingsList);
 
@@ -210,7 +227,7 @@ public class VehicleDetails extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(modelLabel)))
-                        .addGap(166, 166, 166)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
@@ -221,7 +238,7 @@ public class VehicleDetails extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel14))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(33, Short.MAX_VALUE))
+                        .addGap(18, 18, 18))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,7 +299,7 @@ public class VehicleDetails extends javax.swing.JFrame {
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGap(166, 166, 166))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -361,7 +378,7 @@ public class VehicleDetails extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VehicleDetails().setVisible(true);
+                new VehicleDetails(vehicle).setVisible(true);
             }
         });
     }
@@ -396,6 +413,6 @@ public class VehicleDetails extends javax.swing.JFrame {
     private javax.swing.JLabel modelLabel;
     private javax.swing.JLabel rateLabel;
     private javax.swing.JLabel regLabel;
-    private javax.swing.JList<String> vehicleBookingsList;
+    private javax.swing.JList<VehicleBookingsListModel> vehicleBookingsList;
     // End of variables declaration//GEN-END:variables
 }

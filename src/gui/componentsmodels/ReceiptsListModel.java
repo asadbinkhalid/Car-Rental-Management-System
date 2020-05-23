@@ -12,6 +12,7 @@ import Models.Booking;
  * @author asadb
  */
 public class ReceiptsListModel {
+    
     String manager;
     String customer;
     int vehicle;
@@ -22,7 +23,7 @@ public class ReceiptsListModel {
         this.manager = booking.getRental().getManager().getUsername();
         this.customer = booking.getRental().getCustomer().getUsername();
         this.vehicle = booking.getRental().getVehicle().getId();
-        this.fare = booking.calculateFare();
+        this.fare = booking.getTotalFare();
         if(booking.getRental().getDriver() != null)
             this.driver = booking.getRental().getDriver().getId();
         else
@@ -71,15 +72,14 @@ public class ReceiptsListModel {
 
     @Override
     public String toString() {
-        String str = manager + "\t\t" + customer + "\t\t" + vehicle + "\t\t" + driver + "\t\t" + fare;
+        String str = manager + "                                            " + customer + "                                                         " + vehicle +
+                "                                                     ";
         if(driver != -1)
             str = str + driver;
         else
             str = str + "-";
-        str = str + "\t\t" + fare;
+        str = str + "                                                          " + fare;
         return str;
     }
-    
-    
     
 }

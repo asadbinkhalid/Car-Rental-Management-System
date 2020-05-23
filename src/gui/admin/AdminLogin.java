@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package gui.admin;
+import Main.BL;
+import Models.Manager;
 
 /**
  *
@@ -35,9 +37,11 @@ public class AdminLogin extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         name = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        userNotFoundError = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
+        passNotMatchedError = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -57,9 +61,13 @@ public class AdminLogin extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "USER NAME", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
         jPanel8.setPreferredSize(new java.awt.Dimension(348, 101));
 
-        jLabel3.setText("username is required");
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Username is required");
         jLabel3.setVisible(false);
+
+        userNotFoundError.setForeground(new java.awt.Color(255, 0, 0));
+        userNotFoundError.setText("Username does not exist");
+        userNotFoundError.setVisible(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -68,8 +76,11 @@ public class AdminLogin extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(userNotFoundError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                    .addComponent(name))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -78,7 +89,9 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(userNotFoundError))
                 .addContainerGap())
         );
 
@@ -86,9 +99,13 @@ public class AdminLogin extends javax.swing.JFrame {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PASSWORD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
         jPanel10.setPreferredSize(new java.awt.Dimension(348, 101));
 
-        jLabel4.setText("password is required");
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel4.setText("password is required");
         jLabel4.setVisible(false);
+
+        passNotMatchedError.setForeground(new java.awt.Color(255, 0, 0));
+        passNotMatchedError.setText("Password does not match");
+        passNotMatchedError.setVisible(false);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -98,7 +115,10 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pass, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(passNotMatchedError)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -107,21 +127,23 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(passNotMatchedError))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        loginButton.setText("LOGIN");
         loginButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         loginButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        loginButton.setText("LOGIN");
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginButtonMouseClicked(evt);
             }
         });
 
-        jLabel1.setText("LOGIN");
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setText("LOGIN");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -173,8 +195,8 @@ public class AdminLogin extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel2.setText("Car Rental Management System");
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setText("Car Rental Management System");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,7 +251,8 @@ public class AdminLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-      
+        BL bl = BL.getBllInstance();
+        
         String fname = this.name.getText();
         String pass = this.pass.getText();
         if(!fname.equals(""))
@@ -237,13 +260,27 @@ public class AdminLogin extends javax.swing.JFrame {
             jLabel3.setVisible(false);
             if(!pass.equals("")){
                 jLabel4.setVisible(false);
-                this.setVisible(false);
-                AdminHome h = new AdminHome();
-                h.start();
                 
+                if(bl.verifyManagerUsername(fname)){
+                    userNotFoundError.setVisible(false);
+                    if(bl.verifyManagerPassword(fname, pass)) {
+                        passNotMatchedError.setVisible(false);
+                        bl.getCompany().setSession(bl.getManager(fname));
+                        
+                        this.setVisible(false);
+                        AdminHome h = new AdminHome(bl.getManager(fname));
+                        h.start();
+                    
+                    }
+                    else{
+                        passNotMatchedError.setVisible(true);
+                    }
+                }
+                else{
+                    userNotFoundError.setVisible(true);
+                }
             }
-            else
-            {
+            else{
                 jLabel4.setVisible(true);
             }
         }
@@ -302,6 +339,8 @@ public class AdminLogin extends javax.swing.JFrame {
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField name;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JLabel passNotMatchedError;
+    private javax.swing.JLabel userNotFoundError;
     // End of variables declaration//GEN-END:variables
 
     void main(String start) {

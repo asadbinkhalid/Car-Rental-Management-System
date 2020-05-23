@@ -13,23 +13,23 @@ import java.util.Date;
  * @author asadb
  */
 public class DriverCustomerBookingsListModel {
-    int vehicle;
+    String vehicle;
     String status;
     Date dateOut;
     Date dateIn;
 
     public DriverCustomerBookingsListModel(Booking booking) {
-        this.vehicle = booking.getRental().getVehicle().getId();
+        this.vehicle = booking.getRental().getVehicle().getRegNum();
         this.status = booking.getRental().getRentalstatus();
         this.dateOut = booking.getRental().getDateOut();
         this.dateIn = booking.getRental().getDateIn();
     }
 
-    public int getVehicle() {
+    public String getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(int vehicle) {
+    public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -59,7 +59,7 @@ public class DriverCustomerBookingsListModel {
 
     @Override
     public String toString() {
-        return vehicle + "" + dateOut + "" + dateIn + "" + status;
+        return vehicle + "         " + dateOut + "              " + dateIn + "               " + status;
     }
     
     

@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import Models.Vehicle;
+import gui.componentsmodels.VehicleListModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +19,17 @@ public class AdminVehicles extends javax.swing.JFrame {
     /**
      * Creates new form AdminVehicles
      */
+    DefaultListModel<VehicleListModel> model;
+    
     public AdminVehicles() {
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        VehicleListModel vehicle = null;
+        for(int i = 0; i < bl.getCompany().getVehiclesList().size(); i++) {
+            vehicle = new VehicleListModel(bl.getCompany().getVehiclesList().get(i));
+            model.addElement(vehicle);
+        }
+        
         initComponents();
     }
 
@@ -37,7 +52,7 @@ public class AdminVehicles extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        vehiclesList = new javax.swing.JList<>();
+        vehiclesList = new javax.swing.JList<>(model);
         addButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -45,7 +60,7 @@ public class AdminVehicles extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         editButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        detailsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,10 +96,10 @@ public class AdminVehicles extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
@@ -105,11 +120,6 @@ public class AdminVehicles extends javax.swing.JFrame {
 
         vehiclesList.setBackground(new java.awt.Color(177, 190, 224));
         vehiclesList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        vehiclesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         vehiclesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         vehiclesList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(vehiclesList);
@@ -156,12 +166,12 @@ public class AdminVehicles extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("See Details");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        detailsButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        detailsButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        detailsButton.setText("See Details");
+        detailsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                detailsButtonMouseClicked(evt);
             }
         });
 
@@ -189,7 +199,7 @@ public class AdminVehicles extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(editButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(detailsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,7 +222,7 @@ public class AdminVehicles extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(deleteButton)
@@ -220,7 +230,7 @@ public class AdminVehicles extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jLabel13)
                     .addComponent(editButton)
-                    .addComponent(jButton1))
+                    .addComponent(detailsButton))
                 .addGap(27, 27, 27))
         );
 
@@ -265,7 +275,8 @@ public class AdminVehicles extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        AdminHome page = new AdminHome();
+        BL bl = BL.getBllInstance();
+        AdminHome page = new AdminHome(bl.getCompany().getSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -281,6 +292,13 @@ public class AdminVehicles extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(vehiclesList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
+            
+            BL bl = BL.getBllInstance();
+            bl.deleteVehicleById(vehiclesList.getSelectedValue().getId());
+            model.removeElementAt(vehiclesList.getSelectedIndex());
+            
+            this.revalidate();
+            this.repaint();
             jLabel9.setVisible(true);
         }
         else{
@@ -293,7 +311,15 @@ public class AdminVehicles extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(vehiclesList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
-            EditVehicle page = new EditVehicle();
+            
+            BL bl = BL.getBllInstance();
+            Vehicle vehicle = null;
+            for(int i=0; i < bl.getCompany().getVehiclesList().size(); i++){
+                if(vehiclesList.getSelectedValue().getId() == bl.getCompany().getVehiclesList().get(i).getId()){
+                    vehicle = bl.getCompany().getVehiclesList().get(i);
+                }
+            }
+            EditVehicle page = new EditVehicle(vehicle);
             page.start();
             this.setVisible(false);
         }
@@ -304,11 +330,22 @@ public class AdminVehicles extends javax.swing.JFrame {
         
     }//GEN-LAST:event_editButtonMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void detailsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsButtonMouseClicked
         // TODO add your handling code here:
         if(vehiclesList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
-            VehicleDetails page = new VehicleDetails();
+            
+            BL bl = BL.getBllInstance();
+            Vehicle vehicle = null;
+            
+            for(int i=0; i < bl.getCompany().getVehiclesList().size(); i++){
+                
+                if(vehiclesList.getSelectedValue().getId() == bl.getCompany().getVehiclesList().get(i).getId()){
+                    vehicle = bl.getCompany().getVehiclesList().get(i);
+                }
+            }
+            
+            VehicleDetails page = new VehicleDetails(vehicle);
             page.start();
             this.setVisible(false);
         }
@@ -316,7 +353,7 @@ public class AdminVehicles extends javax.swing.JFrame {
             jLabel5.setVisible(true);
             
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_detailsButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -357,8 +394,8 @@ public class AdminVehicles extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JButton backButton2;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton detailsButton;
     private javax.swing.JButton editButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -372,6 +409,6 @@ public class AdminVehicles extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> vehiclesList;
+    private javax.swing.JList<VehicleListModel> vehiclesList;
     // End of variables declaration//GEN-END:variables
 }

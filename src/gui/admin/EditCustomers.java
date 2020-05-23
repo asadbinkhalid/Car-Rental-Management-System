@@ -5,6 +5,8 @@
  */
 package gui.admin;
 
+import Models.Customer;
+
 /**
  *
  * @author gng
@@ -14,7 +16,9 @@ public class EditCustomers extends javax.swing.JFrame {
     /**
      * Creates new form EditCustomers
      */
-    public EditCustomers() {
+    Customer customer;
+    public EditCustomers(Customer customer) {
+        this.customer = customer;
         initComponents();
     }
 
@@ -108,17 +112,17 @@ public class EditCustomers extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("CNIC:");
 
-        nameTextField.setText("Ehtisham Ahmed");
+        nameTextField.setText(customer.getName());
 
-        phoneTextField.setText("0312-1234567");
+        phoneTextField.setText(customer.getPhone());
 
         addressTextArea.setColumns(20);
         addressTextArea.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         addressTextArea.setRows(5);
-        addressTextArea.setText("Milad Street, Faisal Town, Lahore");
+        addressTextArea.setText(customer.getAddress());
         jScrollPane1.setViewportView(addressTextArea);
 
-        cnicTextField.setText("35201-2574895-3");
+        cnicTextField.setText(customer.getCnic());
 
         doneButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         doneButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -142,7 +146,7 @@ public class EditCustomers extends javax.swing.JFrame {
         addressError.setVisible(false);
 
         cnicError.setForeground(new java.awt.Color(255, 0, 0));
-        cnicError.setText("CNIc number is required");
+        cnicError.setText("CNIC number is required");
         cnicError.setVisible(false);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -151,9 +155,9 @@ public class EditCustomers extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Password:");
 
-        usernameTextField.setText("ehtisham123");
+        usernameTextField.setText(customer.getUsername());
 
-        jPasswordField.setText("123455");
+        jPasswordField.setText(customer.getPassword());
 
         usernameError.setForeground(new java.awt.Color(255, 0, 0));
         usernameError.setText("Username is required");
@@ -317,6 +321,11 @@ public class EditCustomers extends javax.swing.JFrame {
                             addressError.setVisible(false);
                             if (!cnicTextField.getText().equals("")) {
                                 cnicError.setVisible(false);
+                                
+                                
+                                
+                                
+                                
                                 AdminCustomers page = new AdminCustomers();
                                 page.start();
                                 this.setVisible(false);
@@ -370,7 +379,7 @@ public class EditCustomers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditCustomers().setVisible(true);
+                new EditCustomers(customer).setVisible(true);
             }
         });
     }

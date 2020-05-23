@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package gui.admin;
+import Main.BL;
+import Models.Driver;
+import gui.componentsmodels.DriverListModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 /**
  *
@@ -16,12 +20,18 @@ public class AdminDrivers extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+    DefaultListModel<DriverListModel> model;
     
     public AdminDrivers() {
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        DriverListModel driver = null;
+        for(int i = 0; i < bl.getCompany().getDriversList().size(); i++) {
+            driver = new DriverListModel(bl.getCompany().getDriversList().get(i));
+            model.addElement(driver);
+        }      
+        
         initComponents();
-        
-        
-        
     }
      
 
@@ -47,13 +57,13 @@ public class AdminDrivers extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        driversList = new javax.swing.JList<>();
+        driversList = new JList<>(model);
         addButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         detailsButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,19 +101,19 @@ public class AdminDrivers extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
-                .addGap(280, 280, 280)
+                .addGap(288, 288, 288)
                 .addComponent(jLabel1)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addGap(376, 376, 376))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
@@ -126,15 +136,8 @@ public class AdminDrivers extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Salary");
 
-        jScrollPane1.setBorder(null);
-
         driversList.setBackground(new java.awt.Color(177, 190, 224));
         driversList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        driversList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         driversList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         driversList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(driversList);
@@ -174,12 +177,12 @@ public class AdminDrivers extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Edit Details");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        editButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        editButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        editButton.setText("Edit Details");
+        editButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                editButtonMouseClicked(evt);
             }
         });
 
@@ -195,7 +198,7 @@ public class AdminDrivers extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(91, 91, 91)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(136, 136, 136)
                         .addComponent(jLabel4)
                         .addGap(102, 102, 102)
                         .addComponent(jLabel6)
@@ -206,7 +209,7 @@ public class AdminDrivers extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(addButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(editButton)
                         .addGap(18, 18, 18)
                         .addComponent(detailsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,14 +233,14 @@ public class AdminDrivers extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(deleteButton)
                     .addComponent(jLabel5)
                     .addComponent(jLabel9)
                     .addComponent(detailsButton)
-                    .addComponent(jButton1))
+                    .addComponent(editButton))
                 .addGap(27, 27, 27))
         );
 
@@ -282,7 +285,8 @@ public class AdminDrivers extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        AdminHome page = new AdminHome();
+        BL bl = BL.getBllInstance();
+        AdminHome page = new AdminHome(bl.getCompany().getSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -291,6 +295,13 @@ public class AdminDrivers extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(driversList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
+            
+            BL bl = BL.getBllInstance();
+            bl.deleteDriverById(driversList.getSelectedValue().getId());
+            model.removeElementAt(driversList.getSelectedIndex());
+            
+            this.revalidate();
+            this.repaint();
             jLabel9.setVisible(true);
         }
         else{
@@ -310,7 +321,16 @@ public class AdminDrivers extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(driversList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
-            DriverDetails page = new DriverDetails();
+            
+            BL bl = BL.getBllInstance();
+            Driver driver = null;
+            for(int i=0; i < bl.getCompany().getDriversList().size(); i++){
+                if(driversList.getSelectedValue().getId() == bl.getCompany().getDriversList().get(i).getId()){
+                    driver = bl.getCompany().getDriversList().get(i);
+                }
+            }
+            
+            DriverDetails page = new DriverDetails(driver);
             page.start();
             this.setVisible(false);
         }
@@ -319,18 +339,27 @@ public class AdminDrivers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_detailsButtonMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
         // TODO add your handling code here:
         if(driversList.getSelectedIndex() >= 0) {
             jLabel5.setVisible(false);
-            EditDriver page = new EditDriver();
+            
+            BL bl = BL.getBllInstance();
+            Driver driver = null;
+            for(int i=0; i < bl.getCompany().getDriversList().size(); i++){
+                if(driversList.getSelectedValue().getId() == bl.getCompany().getDriversList().get(i).getId()){
+                    driver = bl.getCompany().getDriversList().get(i);
+                }
+            }
+            
+            EditDriver page = new EditDriver(driver);
             page.start();
             this.setVisible(false);
         }
         else{
             jLabel5.setVisible(true);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_editButtonMouseClicked
 
     
    
@@ -380,8 +409,8 @@ public class AdminDrivers extends javax.swing.JFrame {
     private javax.swing.JButton backButton2;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton detailsButton;
-    private javax.swing.JList<String> driversList;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JList<DriverListModel> driversList;
+    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -5,6 +5,7 @@
  */
 package gui.admin;
 
+import Models.Manager;
 import java.util.List;
 
 /**
@@ -16,12 +17,13 @@ public class AdminHome extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-  
+    Manager manager;
    
-    public AdminHome() {
+    public AdminHome(Manager manager) {
+        this.manager = manager;
         
         initComponents();
-        
+
     }
    
     /**
@@ -47,21 +49,21 @@ public class AdminHome extends javax.swing.JFrame {
         profilePanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel(manager.getUsername());
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        AddressLabel = new javax.swing.JLabel();
+        phoneLabel = new javax.swing.JLabel();
+        cnicLabel = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        genderLabel = new javax.swing.JLabel();
+        salaryLabel = new javax.swing.JLabel();
+        bonusLabel = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,7 +94,7 @@ public class AdminHome extends javax.swing.JFrame {
                 .addComponent(logoutButton)
                 .addGap(273, 273, 273)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(374, 374, 374))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +177,7 @@ public class AdminHome extends javax.swing.JFrame {
                             .addComponent(cutomersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(127, 127, 127)
                         .addComponent(receiptsButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(149, 149, 149))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +193,7 @@ public class AdminHome extends javax.swing.JFrame {
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vehiclesButton)
                     .addComponent(cutomersButton))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
 
         profilePanel.setBackground(new java.awt.Color(177, 190, 224));
@@ -202,12 +204,11 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Username:");
 
-        jLabel6.setText("asadbinkhalid");
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("asadbinkhalid");
+        usernameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        usernameLabel.setText(manager.getUsername());
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel16.setText("Salaray: Rs.");
+        jLabel16.setText("Salary: Rs.");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("Bonus %:");
@@ -224,36 +225,29 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Name:");
 
-        jLabel8.setText("Asad Bin Khalid");
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Asad Bin Khalid");
+        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nameLabel.setText(manager.getName());
 
-        jLabel10.setText("123 Street, 321 Colony, Lahore");
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("1-A, Milaad Street, Faisal Town, Lahore");
+        AddressLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AddressLabel.setText(manager.getAddress());
 
-        jLabel12.setText("0333-1234567");
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("0333-1234567");
+        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phoneLabel.setText(manager.getPhone());
 
-        jLabel15.setText("35202-xxxxxxxxxxx-x");
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel15.setText("35202-2154783-9");
+        cnicLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cnicLabel.setText(manager.getCnic());
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setText("Gender:");
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel19.setText("Male");
-        jLabel19.setText("Male");
+        genderLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        genderLabel.setText(manager.getGender());
 
-        jLabel20.setText("55,000");
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel20.setText("55000");
+        salaryLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        salaryLabel.setText(Integer.toString(manager.getSalary()));
 
-        jLabel21.setText("10%");
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel21.setText("10");
+        bonusLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bonusLabel.setText(Integer.toString(manager.getBonusPercentage()));
 
         jButton3.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -271,47 +265,47 @@ public class AdminHome extends javax.swing.JFrame {
             .addGroup(profilePanelLayout.createSequentialGroup()
                 .addGap(363, 363, 363)
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(381, 381, 381))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12)
+                        .addComponent(phoneLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10))
+                                .addComponent(AddressLabel))
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))
+                                .addComponent(nameLabel))
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
+                                .addComponent(usernameLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel20))
+                                .addComponent(salaryLabel))
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel19))
+                                .addComponent(genderLabel))
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel21))))
+                                .addComponent(bonusLabel))))
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15)
+                        .addComponent(cnicLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addGap(87, 87, 87))
@@ -324,29 +318,29 @@ public class AdminHome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel19)
+                    .addComponent(usernameLabel)
+                    .addComponent(genderLabel)
                     .addComponent(jLabel18))
                 .addGap(30, 30, 30)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8)
+                    .addComponent(nameLabel)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel20))
+                    .addComponent(salaryLabel))
                 .addGap(30, 30, 30)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel21)
+                    .addComponent(AddressLabel)
+                    .addComponent(bonusLabel)
                     .addComponent(jLabel17))
                 .addGap(30, 30, 30)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addComponent(phoneLabel))
+                .addGap(20, 20, 20)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15)
+                    .addComponent(cnicLabel)
                     .addComponent(jButton3))
                 .addGap(20, 20, 20))
         );
@@ -412,7 +406,7 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-        EditManager page = new EditManager();
+        EditManager page = new EditManager(manager);
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_jButton3MouseClicked
@@ -467,7 +461,7 @@ public class AdminHome extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminHome().setVisible(true);
+                new AdminHome(manager).setVisible(true);
                 
             }
            
@@ -483,35 +477,35 @@ public class AdminHome extends javax.swing.JFrame {
          
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AddressLabel;
+    private javax.swing.JLabel bonusLabel;
     private javax.swing.JButton bookingsButton;
+    private javax.swing.JLabel cnicLabel;
     private javax.swing.JButton cutomersButton;
     private javax.swing.JButton driversButton;
+    private javax.swing.JLabel genderLabel;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel phoneLabel;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JButton receiptsButton;
+    private javax.swing.JLabel salaryLabel;
+    private javax.swing.JLabel usernameLabel;
     private javax.swing.JButton vehiclesButton;
     // End of variables declaration//GEN-END:variables
 }

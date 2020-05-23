@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import Models.Customer;
+import gui.componentsmodels.DriverCustomerBookingsListModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +19,24 @@ public class CustomerDetails extends javax.swing.JFrame {
     /**
      * Creates new form CustomerDetails
      */
-    public CustomerDetails() {
+    DefaultListModel<DriverCustomerBookingsListModel> model;
+    Customer customer;
+    
+    public CustomerDetails(Customer customer) {
+        this.customer = customer;
+        
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        DriverCustomerBookingsListModel booking = null;
+        for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+
+            if (this.customer.getId() == bl.getCompany().getBookingsList().get(i).getRental().getCustomer().getId()) {
+
+                booking = new DriverCustomerBookingsListModel(bl.getCompany().getBookingsList().get(i));
+                model.addElement(booking);
+            }
+        }
+        
         initComponents();
     }
 
@@ -41,17 +63,17 @@ public class CustomerDetails extends javax.swing.JFrame {
         nameLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
         cnicLabel = new javax.swing.JLabel();
+        jLabelID = new javax.swing.JLabel();
         idLabel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        adddressTextArea = new javax.swing.JTextArea();
+        addressTextArea = new javax.swing.JTextArea();
         jLabel15 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        vehicleBookingsList = new javax.swing.JList<>();
+        vehicleBookingsList = new javax.swing.JList<>(model);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,27 +132,27 @@ public class CustomerDetails extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Username:");
 
-        usernameLabel.setText("ehtisham123");
+        usernameLabel.setText(customer.getUsername());
 
-        nameLabel.setText("Ehtisham Ahmed");
+        nameLabel.setText(customer.getName());
 
-        phoneLabel.setText("0316-1234657");
+        phoneLabel.setText(customer.getPhone());
 
-        cnicLabel.setText("32500-1234567-2");
+        cnicLabel.setText(customer.getCnic());
 
-        idLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        idLabel.setText("ID:");
+        jLabelID.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelID.setText("ID:");
 
-        jLabel6.setText("19");
+        idLabel.setText(Integer.toString(customer.getId()));
 
-        adddressTextArea.setEditable(false);
-        adddressTextArea.setBackground(new java.awt.Color(177, 190, 224));
-        adddressTextArea.setColumns(20);
-        adddressTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        adddressTextArea.setRows(5);
-        adddressTextArea.setText("852-B,  Milaad Street, Faisal Town, lahore");
-        adddressTextArea.setBorder(null);
-        jScrollPane1.setViewportView(adddressTextArea);
+        addressTextArea.setEditable(false);
+        addressTextArea.setBackground(new java.awt.Color(177, 190, 224));
+        addressTextArea.setColumns(20);
+        addressTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        addressTextArea.setRows(5);
+        addressTextArea.setText(customer.getAddress());
+        addressTextArea.setBorder(null);
+        jScrollPane1.setViewportView(addressTextArea);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel15.setText("Bookings");
@@ -148,11 +170,6 @@ public class CustomerDetails extends javax.swing.JFrame {
         jLabel14.setText("Status");
 
         vehicleBookingsList.setBackground(new java.awt.Color(177, 190, 224));
-        vehicleBookingsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         vehicleBookingsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(vehicleBookingsList);
 
@@ -181,11 +198,11 @@ public class CustomerDetails extends javax.swing.JFrame {
                         .addComponent(usernameLabel))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(idLabel)
+                        .addComponent(jLabelID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
+                        .addComponent(idLabel))
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addGap(157, 157, 157)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel5Layout.createSequentialGroup()
@@ -200,7 +217,7 @@ public class CustomerDetails extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(jLabel15)))
-                .addGap(54, 54, 54))
+                .addGap(33, 33, 33))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,8 +236,8 @@ public class CustomerDetails extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(idLabel)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabelID)
+                            .addComponent(idLabel))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -241,7 +258,7 @@ public class CustomerDetails extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(cnicLabel))))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addGap(159, 159, 159))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -320,13 +337,13 @@ public class CustomerDetails extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerDetails().setVisible(true);
+                new CustomerDetails(customer).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea adddressTextArea;
+    private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton2;
     private javax.swing.JLabel cnicLabel;
     private javax.swing.JLabel idLabel;
@@ -341,7 +358,7 @@ public class CustomerDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelID;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -350,6 +367,6 @@ public class CustomerDetails extends javax.swing.JFrame {
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel usernameLabel;
-    private javax.swing.JList<String> vehicleBookingsList;
+    private javax.swing.JList<DriverCustomerBookingsListModel> vehicleBookingsList;
     // End of variables declaration//GEN-END:variables
 }
