@@ -7,20 +7,22 @@ package gui.componentsmodels;
 
 import Models.Booking;
 import java.util.Date;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author asadb
  */
+
 public class BookingListModel {
     String customer;
-    int vehicle;
+    String vehicle;
     Date dateOut;
     Date dateIn;
 
     public BookingListModel(Booking booking) {
         this.customer = booking.getRental().getCustomer().getUsername();
-        this.vehicle = booking.getRental().getVehicle().getId();
+        this.vehicle = booking.getRental().getVehicle().getRegNum();
         this.dateOut = booking.getRental().getDateOut();
         this.dateIn = booking.getRental().getDateIn();
     }
@@ -33,11 +35,11 @@ public class BookingListModel {
         this.customer = customer;
     }
 
-    public int getVehicle() {
+    public String getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(int vehicle) {
+    public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -59,9 +61,6 @@ public class BookingListModel {
 
     @Override
     public String toString() {
-        return customer + "\t" + vehicle + "\t\t" + dateOut + "\t" + dateIn;
+        return customer + "                                 " + vehicle + "                                   " + dateOut + "                             " + dateIn;
     }
-    
-    
-    
 }

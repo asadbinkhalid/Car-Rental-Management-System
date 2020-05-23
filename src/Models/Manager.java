@@ -41,6 +41,13 @@ public class Manager extends Employee{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "Manager{" + "username=" + getUsername() + ", password=" + getPassword() + '}';
+    }
+
+    
     
     
     

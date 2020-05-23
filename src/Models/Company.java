@@ -15,11 +15,14 @@ import java.util.List;
 public class Company {
     private static Company instance = null;
     
-    private List<Manager> managersList;
-    private List<Customer> customersList;
-    private List<Booking> bookingsList;
-    private List<Vehicle> vehiclesList;
-    private List<Driver> driversList;
+    List<Manager> managersList;
+    List<Customer> customersList;
+    List<Booking> bookingsList;
+    List<Vehicle> vehiclesList;
+    List<Driver> driversList;
+    
+    Manager session;
+    
         
     private Company() {
         this.managersList = new ArrayList<>();
@@ -27,6 +30,7 @@ public class Company {
         this.bookingsList = new ArrayList<>();
         this.vehiclesList = new ArrayList<>();
         this.driversList = new ArrayList<>();
+        session = null;
     }
     
     public static Company getInstance(){
@@ -74,5 +78,24 @@ public class Company {
 
     public void setDriversList(List<Driver> driversList) {
         this.driversList = driversList;
-    }    
+    }
+
+    public Manager getSession() {
+        return session;
+    }
+
+    public void setSession(Manager session) {
+        this.session = session;
+    }
+    
+    
+    public Manager getManager(String username) {
+        for(int i=0; i < getManagersList().size(); i++){
+            if(username.equals(getManagersList().get(i).getUsername())){
+                //System.out.println(getManagersList().get(i).toString());
+                return getManagersList().get(i);
+            }
+        }
+        return null;
+    }
 }

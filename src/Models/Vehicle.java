@@ -19,9 +19,10 @@ public class Vehicle {
     int ratePerDay;
     long mileage;
     float avgFuelEco;
-    boolean available;
+    String vehicleType;
+    String vehicleStatus;
 
-    public Vehicle(int id, String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, boolean available) {
+    public Vehicle(int id, String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, String vehicleType, String vehicleStatus) {
         this.id = id;
         this.regNum = regNum;
         this.company = company;
@@ -30,10 +31,11 @@ public class Vehicle {
         this.ratePerDay = ratePerDay;
         this.mileage = mileage;
         this.avgFuelEco = avgFuelEco;
-        this.available = available;
+        this.vehicleType = vehicleType;
+        this.vehicleStatus = vehicleStatus;
     }
     
-    public Vehicle(String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, boolean available) {
+    public Vehicle(String regNum, String company, String model, String color, int ratePerDay, long mileage, float avgFuelEco, String vehicleType) {
         
         this.regNum = regNum;
         this.company = company;
@@ -42,7 +44,8 @@ public class Vehicle {
         this.ratePerDay = ratePerDay;
         this.mileage = mileage;
         this.avgFuelEco = avgFuelEco;
-        this.available = available;
+        this.vehicleType = vehicleType;
+        this.vehicleStatus = "available";
     }
 
     public int getId() {
@@ -109,13 +112,28 @@ public class Vehicle {
         this.avgFuelEco = avgFuelEco;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public String getVehicleStatus() {
+        return vehicleStatus;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setVehicleStatus(String vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
     }
+
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" + "id=" + id + ", regNum=" + regNum + ", company=" + company + ", model=" + model + ", color=" + color + ", ratePerDay=" + ratePerDay + ", mileage=" + mileage + ", avgFuelEco=" + avgFuelEco + ", vehicleType=" + vehicleType + ", vehicleStatus=" + vehicleStatus + '}';
+    }
+
+    
     
     
     

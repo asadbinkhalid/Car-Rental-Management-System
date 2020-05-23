@@ -5,6 +5,8 @@
  */
 package gui.admin;
 
+import Main.BL;
+
 /**
  *
  * @author gng
@@ -44,7 +46,7 @@ public class AddNewVehicle extends javax.swing.JFrame {
         colorTextField = new javax.swing.JTextField();
         avgTextField = new javax.swing.JTextField();
         mileageTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
         companyError = new javax.swing.JLabel();
         modelError = new javax.swing.JLabel();
         regError = new javax.swing.JLabel();
@@ -55,6 +57,7 @@ public class AddNewVehicle extends javax.swing.JFrame {
         rateTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         categoryComboBox = new javax.swing.JComboBox<>();
+        addError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,12 +122,12 @@ public class AddNewVehicle extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Mileage (km):");
 
-        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Add");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        addButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        addButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addButton.setText("Add");
+        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                addButtonMouseClicked(evt);
             }
         });
 
@@ -157,6 +160,10 @@ public class AddNewVehicle extends javax.swing.JFrame {
 
         categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economy", "VIP" }));
 
+        addError.setForeground(new java.awt.Color(255, 0, 0));
+        addError.setText("New Vehicle could not be created (Registration # must be unique)");
+        addError.setVisible(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -165,7 +172,9 @@ public class AddNewVehicle extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addError)
+                        .addGap(18, 18, 18)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -245,21 +254,26 @@ public class AddNewVehicle extends javax.swing.JFrame {
                     .addComponent(mileageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(regTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mileageError)
-                    .addComponent(regError))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(colorError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mileageError)
+                            .addComponent(regError))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(colorError)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addError)))
                 .addGap(60, 60, 60))
         );
 
@@ -309,42 +323,49 @@ public class AddNewVehicle extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
-        if(!companyTextField.getText().equals("")){
+        if (!companyTextField.getText().equals("")) {
             companyError.setVisible(false);
-            if(!modelTextField.getText().equals("")){
+            if (!modelTextField.getText().equals("")) {
                 modelError.setVisible(false);
-                if(!regTextField.getText().equals("")){
+                if (!regTextField.getText().equals("")) {
                     regError.setVisible(false);
-                    if(!colorTextField.getText().equals("")){
+                    if (!colorTextField.getText().equals("")) {
                         colorError.setVisible(false);
-                        if(!rateTextField.getText().equals("")){
+                        if (!rateTextField.getText().equals("")) {
                             rateError.setVisible(false);
-                            if(!mileageTextField.getText().equals("")){
+                            if (!mileageTextField.getText().equals("")) {
                                 mileageError.setVisible(false);
-                                AdminVehicles page = new AdminVehicles();
-                                page.start();
-                                this.setVisible(false);
-                            }
-                            else
+                                BL bl = BL.getBllInstance();
+                                if (bl.addVehicle(regTextField.getText(), companyTextField.getText(), modelTextField.getText(), colorTextField.getText(), Integer.parseInt(rateTextField.getText()),
+                                        Long.parseLong(mileageTextField.getText()), Float.parseFloat(avgTextField.getText()), String.valueOf(categoryComboBox.getSelectedItem()))) {
+                                    addError.setVisible(false);
+                                    AdminVehicles page = new AdminVehicles();
+                                    page.start();
+                                    this.setVisible(false);
+
+                                } else {
+                                    addError.setVisible(true);
+                                }
+                            } else {
                                 mileageError.setVisible(true);
-                        }
-                        else
+                            }
+                        } else {
                             rateError.setVisible(true);
-                    }
-                    else
+                        }
+                    } else {
                         colorError.setVisible(true);
-                }
-                else
+                    }
+                } else {
                     regError.setVisible(true);
-            }
-            else
+                }
+            } else {
                 modelError.setVisible(true);
-        }
-        else
-            companyError.setVisible(true);    
-    }//GEN-LAST:event_jButton1MouseClicked
+            }
+        } else
+            companyError.setVisible(true);
+    }//GEN-LAST:event_addButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -382,6 +403,8 @@ public class AddNewVehicle extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JLabel addError;
     private javax.swing.JTextField avgTextField;
     private javax.swing.JButton backButton2;
     private javax.swing.JComboBox<String> categoryComboBox;
@@ -389,7 +412,6 @@ public class AddNewVehicle extends javax.swing.JFrame {
     private javax.swing.JTextField colorTextField;
     private javax.swing.JLabel companyError;
     private javax.swing.JTextField companyTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

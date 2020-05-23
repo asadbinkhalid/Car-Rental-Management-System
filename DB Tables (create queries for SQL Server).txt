@@ -30,7 +30,7 @@ create table driver(
 	name varchar(60) not null,
 	phone varchar(20) not null,
 	[address] varchar(100) not null,
-	cnic varchar(13) not null,
+	cnic varchar(13) not null unique,
 	gender varchar(10) not null,
 	salary int,
 	bonuspercentage int,
@@ -42,14 +42,13 @@ create table driver(
 
 create table vehicle(
 	id int not null identity(1,1) primary key,
-	regnum varchar(50) not null,
+	regnum varchar(50) not null unique,
 	company varchar(50) not null,
 	model varchar(50) not null,
 	color varchar(50),
 	rateperday int not null,
 	mileage bigint,
 	avgfueleco float,
-	available int,
 	vehicletype varchar(10) not null,
 	check(vehicletype in('vip', 'economy')),
 	vehiclestatus varchar(20),
@@ -76,6 +75,6 @@ create table rental(
 create table booking(
 	id int not null identity(1,1) primary key,
 	rentalid int foreign key references rental(id) on delete no action on update cascade,
-	totalfare int /*	NULL if rentalstaus is pending/upcoming	*/
+	totalfare int /*	0 if rentalstaus is pending/upcoming	*/
 )
 

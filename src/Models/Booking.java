@@ -13,14 +13,24 @@ public class Booking implements Billing{
     
     int id;
     Rental rental;
-    boolean fulfilled;
+    int totalFare;
 
-    public Booking(int id, Rental rental, boolean fulfilled) {
+    public Booking(int id, Rental rental, int totalFare) {
         this.id = id;
         this.rental = rental;
-        this.fulfilled = fulfilled;
+        this.totalFare = totalFare;
+    }
+    
+    public Booking(Rental rental) {
+        this.rental = rental;
+        this.totalFare = 0;
     }
 
+    public Booking(int id, int totalFare) {
+        this.id = id;
+        this.totalFare = totalFare;
+    }
+    
     public int getId() {
         return id;
     }
@@ -37,12 +47,12 @@ public class Booking implements Billing{
         this.rental = rental;
     }
 
-    public boolean isFulfilled() {
-        return fulfilled;
+    public int getTotalFare() {
+        return totalFare;
     }
 
-    public void setFulfilled(boolean fulfilled) {
-        this.fulfilled = fulfilled;
+    public void setTotalFare(int totalFare) {
+        this.totalFare = totalFare;
     }
 
     @Override
@@ -51,7 +61,10 @@ public class Booking implements Billing{
     }
 
     @Override
-    public void changeFulfilledStatus() {   }
+    public String toString() {
+        return "Booking{" + "id=" + id + ", rental=" + rental + ", totalFare=" + totalFare + '}';
+    }
+
     
     
     

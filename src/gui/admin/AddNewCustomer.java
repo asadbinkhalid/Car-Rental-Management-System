@@ -5,6 +5,8 @@
  */
 package gui.admin;
 
+import Main.BL;
+
 /**
  *
  * @author gng
@@ -53,6 +55,7 @@ public class AddNewCustomer extends javax.swing.JFrame {
         usernameError = new javax.swing.JLabel();
         // Code adding the component to the
         passwordError = new javax.swing.JLabel();
+        addError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,6 +154,10 @@ public class AddNewCustomer extends javax.swing.JFrame {
         passwordError.setText("Password is required");
         passwordError.setVisible(false);
 
+        addError.setForeground(new java.awt.Color(255, 0, 0));
+        addError.setText("New Customer not created (username must be unique)");
+        addError.setVisible(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -159,6 +166,8 @@ public class AddNewCustomer extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addError)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
@@ -216,7 +225,9 @@ public class AddNewCustomer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cnicError)
                         .addGap(138, 138, 138)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addError))
                         .addGap(66, 66, 66))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -305,9 +316,18 @@ public class AddNewCustomer extends javax.swing.JFrame {
                             addressError.setVisible(false);
                             if (!cnicTextField.getText().equals("")) {
                                 cnicError.setVisible(false);
-                                AdminCustomers page = new AdminCustomers();
-                                page.start();
-                                this.setVisible(false);
+
+                                BL bl = BL.getBllInstance();
+                                if (bl.addCustomer(nameTextField.getText(), phoneTextField.getText(), addressTextArea.getText(), cnicTextField.getText(),
+                                        usernameTextField.getText(), jPasswordField.getText())) {
+                                    addError.setVisible(false);
+
+                                    AdminCustomers page = new AdminCustomers();
+                                    page.start();
+                                    this.setVisible(false);
+                                } else {
+                                    addError.setVisible(true);
+                                }
                             } else {
                                 cnicError.setVisible(true);
                             }
@@ -364,6 +384,7 @@ public class AddNewCustomer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addError;
     private javax.swing.JLabel addressError;
     private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton2;

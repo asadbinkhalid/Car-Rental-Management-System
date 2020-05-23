@@ -59,7 +59,7 @@ public class VehicleBookingsListModel {
 
     @Override
     public String toString() {
-        return customer + "\t\t" + dateOut + "\t\t" + dateIn + "\t\t" + status;
+        return customer + "                   " + dateOut + "               " + dateIn + "           " + status;
     }
     
 }

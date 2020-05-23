@@ -5,6 +5,8 @@
  */
 package gui.admin;
 
+import Models.Manager;
+
 /**
  *
  * @author gng
@@ -14,8 +16,15 @@ public class EditManager extends javax.swing.JFrame {
     /**
      * Creates new form EditManager
      */
-    public EditManager() {
+    Manager manager;
+    public EditManager(Manager manager) {
+        
+        this.manager = manager;
         initComponents();
+        
+        
+        
+        
     }
 
     /**
@@ -41,19 +50,19 @@ public class EditManager extends javax.swing.JFrame {
         doneButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
         cnicTextField = new javax.swing.JTextField();
         salaryTextField = new javax.swing.JTextField();
-        bonuisTextField = new javax.swing.JTextField();
+        bonusTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         addressTextArea = new javax.swing.JTextArea();
         genderComboBox = new javax.swing.JComboBox<>();
-        jPasswordField = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         nameLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        phoneTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,25 +139,25 @@ public class EditManager extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Gender:");
 
-        jLabel14.setText("3");
+        idLabel.setText(Integer.toString(manager.getId()));
 
-        usernameTextField.setText("asadbinkhalid");
+        usernameTextField.setText(manager.getUsername());
 
-        cnicTextField.setText("35202-1234567-8");
+        cnicTextField.setText(manager.getCnic());
 
-        salaryTextField.setText("65000");
+        salaryTextField.setText(Integer.toString(manager.getSalary()));
 
-        bonuisTextField.setText("10");
+        bonusTextField.setText(Integer.toString(manager.getBonusPercentage()));
 
         addressTextArea.setColumns(20);
         addressTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         addressTextArea.setRows(5);
-        addressTextArea.setText("852-B Milaad St, Block B Faisal Town, Lahore");
+        addressTextArea.setText(manager.getAddress());
         jScrollPane1.setViewportView(addressTextArea);
 
         genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Not Specified" }));
 
-        jPasswordField.setText("password");
+        passwordField.setText(manager.getPassword());
 
         nameLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nameLabel.setText("Name:");
@@ -156,9 +165,9 @@ public class EditManager extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Phone:");
 
-        nameTextField.setText("Asad Bin Khalid");
+        nameTextField.setText(manager.getName());
 
-        jTextField1.setText("0333-7654321");
+        phoneTextField.setText(manager.getPhone());
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -185,12 +194,12 @@ public class EditManager extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14))
+                                .addComponent(idLabel))
                             .addComponent(jLabel7)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPasswordField))
+                                .addComponent(passwordField))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,7 +216,7 @@ public class EditManager extends javax.swing.JFrame {
                                     .addGroup(jPanel8Layout.createSequentialGroup()
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1)))
+                                        .addComponent(phoneTextField)))
                                 .addGap(85, 85, 85))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -218,7 +227,7 @@ public class EditManager extends javax.swing.JFrame {
                                     .addGroup(jPanel8Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bonuisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel8Layout.setVerticalGroup(
@@ -227,7 +236,7 @@ public class EditManager extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel14))
+                    .addComponent(idLabel))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -237,9 +246,9 @@ public class EditManager extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
@@ -253,8 +262,8 @@ public class EditManager extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(bonuisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                            .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(cnicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -307,14 +316,19 @@ public class EditManager extends javax.swing.JFrame {
 
     private void backButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton4MouseClicked
         // TODO add your handling code here:
-        AdminHome page = new AdminHome();
+        AdminHome page = new AdminHome(manager);
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton4MouseClicked
 
     private void doneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseClicked
         // TODO add your handling code here:
-        AdminHome page = new AdminHome();
+        
+        
+        
+        
+        
+        AdminHome page = new AdminHome(manager);
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_doneButtonMouseClicked
@@ -349,7 +363,7 @@ public class EditManager extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditManager().setVisible(true);
+                new EditManager(manager).setVisible(true);
             }
         });
     }
@@ -357,14 +371,14 @@ public class EditManager extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton4;
-    private javax.swing.JTextField bonuisTextField;
+    private javax.swing.JTextField bonusTextField;
     private javax.swing.JTextField cnicTextField;
     private javax.swing.JButton doneButton;
     private javax.swing.JComboBox<String> genderComboBox;
+    private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -375,11 +389,11 @@ public class EditManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField phoneTextField;
     private javax.swing.JTextField salaryTextField;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables

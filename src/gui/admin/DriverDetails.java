@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import Models.Driver;
+import gui.componentsmodels.DriverCustomerBookingsListModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +19,23 @@ public class DriverDetails extends javax.swing.JFrame {
     /**
      * Creates new form DriverDetails
      */
-    public DriverDetails() {
+    DefaultListModel<DriverCustomerBookingsListModel> model;
+    Driver driver;
+
+    public DriverDetails(Driver driver) {
+        this.driver = driver;
+
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        DriverCustomerBookingsListModel booking = null;
+        for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+
+            if (this.driver.getId() == bl.getCompany().getBookingsList().get(i).getRental().getDriver().getId()) {
+
+                booking = new DriverCustomerBookingsListModel(bl.getCompany().getBookingsList().get(i));
+                model.addElement(booking);
+            }
+        }
         initComponents();
     }
 
@@ -50,7 +71,7 @@ public class DriverDetails extends javax.swing.JFrame {
         bonusLabel = new javax.swing.JLabel();
         licenceTypeLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        vehicleBookingsList = new javax.swing.JList<>();
+        bookingsList = new javax.swing.JList<>(model);
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -130,30 +151,25 @@ public class DriverDetails extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("ID:");
 
-        idLabel.setText("5");
+        idLabel.setText(Integer.toString(driver.getId()));
 
-        nameLabel.setText("Muhammad Zain");
+        nameLabel.setText(driver.getName());
 
-        phoneLabel.setText("0333-4321123");
+        phoneLabel.setText(driver.getPhone());
 
-        cnicLabel.setText("35202-1234567-8");
+        cnicLabel.setText(driver.getCnic());
 
-        genderLabel.setText("Male");
+        genderLabel.setText(driver.getGender());
 
-        salaryLabel.setText("20000");
+        salaryLabel.setText(Integer.toString(driver.getSalary()));
 
-        bonusLabel.setText("6");
+        bonusLabel.setText(Integer.toString(driver.getBonusPercentage()));
 
-        licenceTypeLabel.setText("National");
+        licenceTypeLabel.setText(driver.getLicenceType());
 
-        vehicleBookingsList.setBackground(new java.awt.Color(177, 190, 224));
-        vehicleBookingsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        vehicleBookingsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(vehicleBookingsList);
+        bookingsList.setBackground(new java.awt.Color(177, 190, 224));
+        bookingsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(bookingsList);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Vehicle");
@@ -177,12 +193,13 @@ public class DriverDetails extends javax.swing.JFrame {
         addressTextArea.setColumns(20);
         addressTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         addressTextArea.setRows(5);
+        addressTextArea.setText(driver.getAddress());
         jScrollPane2.setViewportView(addressTextArea);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setText("Licence #");
 
-        licenceNumLabel.setText("123456321654");
+        licenceNumLabel.setText(driver.getLicenceNum());
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -239,7 +256,7 @@ public class DriverDetails extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel14))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(33, Short.MAX_VALUE))
+                        .addGap(33, 33, 33))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -383,7 +400,7 @@ public class DriverDetails extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DriverDetails().setVisible(true);
+                new DriverDetails(driver).setVisible(true);
             }
         });
     }
@@ -392,6 +409,7 @@ public class DriverDetails extends javax.swing.JFrame {
     private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton2;
     private javax.swing.JLabel bonusLabel;
+    private javax.swing.JList<DriverCustomerBookingsListModel> bookingsList;
     private javax.swing.JLabel cnicLabel;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel idLabel;
@@ -421,6 +439,5 @@ public class DriverDetails extends javax.swing.JFrame {
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel salaryLabel;
-    private javax.swing.JList<String> vehicleBookingsList;
     // End of variables declaration//GEN-END:variables
 }

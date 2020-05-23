@@ -12,6 +12,5 @@ package Models;
 public interface Billing {
     
     int calculateFare();
-    void changeFulfilledStatus();
-    
+   
 }

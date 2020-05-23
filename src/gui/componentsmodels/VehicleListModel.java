@@ -12,6 +12,7 @@ import Models.Vehicle;
  * @author asadb
  */
 public class VehicleListModel {
+    int id;
     String company;
     String model;
     String regNum;
@@ -19,6 +20,7 @@ public class VehicleListModel {
     String color;
 
     public VehicleListModel(Vehicle vehicle) {
+        this.id = vehicle.getId();
         this.company = vehicle.getCompany();
         this.model = vehicle.getModel();
         this.regNum = vehicle.getRegNum();
@@ -26,6 +28,14 @@ public class VehicleListModel {
         this.color = vehicle.getColor();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getCompany() {
         return company;
     }
@@ -68,7 +78,8 @@ public class VehicleListModel {
 
     @Override
     public String toString() {
-        return company + "\t\t" + model + "\t\t" + regNum + "\t\t" + rate + "\t\t" + color;
+        return company + "                                " + model + "                                         " + regNum +
+                "                                                     " + rate + "                                                       " + color;
     }
     
     

@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import gui.componentsmodels.ReceiptsListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 /**
  *
  * @author gng
@@ -14,7 +19,15 @@ public class AdminReceipts extends javax.swing.JFrame {
     /**
      * Creates new form AdminReceipts
      */
+    DefaultListModel<ReceiptsListModel> model;
     public AdminReceipts() {
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        ReceiptsListModel receipt = null;
+        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            receipt = new ReceiptsListModel(bl.getCompany().getBookingsList().get(i));
+            model.addElement(receipt);
+        }
         initComponents();
     }
 
@@ -33,7 +46,7 @@ public class AdminReceipts extends javax.swing.JFrame {
         backButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        receiptsList = new javax.swing.JList<>();
+        receiptsList = new JList<>(model);
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,11 +60,11 @@ public class AdminReceipts extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel1.setText("Receipts");
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setText("Receipts");
 
-        backButton2.setText("Back");
         backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        backButton2.setText("Back");
         backButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButton2MouseClicked(evt);
@@ -82,29 +95,24 @@ public class AdminReceipts extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
 
         receiptsList.setBackground(new java.awt.Color(197, 210, 244));
-        receiptsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         receiptsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         receiptsList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(receiptsList);
 
-        jLabel2.setText("Manager");
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Manager");
 
-        jLabel3.setText("Customer");
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Customer");
 
-        jLabel4.setText("Vehicle");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Vehicle");
 
-        jLabel5.setText("Total Fare");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Total Fare");
 
-        jLabel6.setText("Driver");
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Driver");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -178,7 +186,8 @@ public class AdminReceipts extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        AdminHome page = new AdminHome();
+        BL bl = BL.getBllInstance();
+        AdminHome page = new AdminHome(bl.getCompany().getSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -230,6 +239,6 @@ public class AdminReceipts extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> receiptsList;
+    private javax.swing.JList<ReceiptsListModel> receiptsList;
     // End of variables declaration//GEN-END:variables
 }

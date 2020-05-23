@@ -78,7 +78,7 @@ public class DriverListModel {
 
     @Override
     public String toString() {
-        return id + "\t\t" + name + "\t\t" + phone + "\t\t" + license + "\t\t" + type + "\t\t" + salary;
+        return id + "                             " + name + "                                " + phone + "                              " + license + "                                     " + type + "                                  " + salary;
     }
     
 }
