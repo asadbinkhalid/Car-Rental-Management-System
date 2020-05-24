@@ -5,6 +5,8 @@
  */
 package gui.client;
 
+import Models.Customer;
+
 /**
  *
  * @author gng
@@ -14,7 +16,9 @@ public class EditCustomerProfile extends javax.swing.JFrame {
     /**
      * Creates new form EditCustomerProfile
      */
-    public EditCustomerProfile() {
+    Customer customer;
+    public EditCustomerProfile(Customer customer) {
+        this.customer = customer;
         initComponents();
     }
 
@@ -96,71 +100,71 @@ public class EditCustomerProfile extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel2.setText("Name:");
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Name:");
 
-        jLabel3.setText("Phone:");
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Phone:");
 
-        jLabel4.setText("Address:");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Address:");
 
-        jLabel5.setText("CNIC:");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText("CNIC:");
 
-        nameTextField.setText("Ehtisham Ahmed");
+        nameTextField.setText(customer.getName());
 
-        phoneTextField.setText("0312-1234567");
+        phoneTextField.setText(customer.getPhone());
 
         addressTextArea.setColumns(20);
         addressTextArea.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         addressTextArea.setRows(5);
-        addressTextArea.setText("Milad Street, Faisal Town, Lahore");
+        addressTextArea.setText(customer.getAddress());
         jScrollPane1.setViewportView(addressTextArea);
 
-        cnicTextField.setText("35201-2574895-3");
+        cnicTextField.setText(customer.getCnic());
 
-        doneButton.setText("Done");
         doneButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         doneButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        doneButton.setText("Done");
         doneButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 doneButtonMouseClicked(evt);
             }
         });
 
-        nameError.setText("Name is required");
         nameError.setForeground(new java.awt.Color(255, 0, 0));
+        nameError.setText("Name is required");
         nameError.setVisible(false);
 
-        phoneError.setText("Phone number is required");
         phoneError.setForeground(new java.awt.Color(255, 0, 0));
+        phoneError.setText("Phone number is required");
         phoneError.setVisible(false);
 
-        addressError.setText("Address is required");
         addressError.setForeground(new java.awt.Color(255, 0, 0));
+        addressError.setText("Address is required");
         addressError.setVisible(false);
 
-        cnicError.setText("CNIc number is required");
         cnicError.setForeground(new java.awt.Color(255, 0, 0));
+        cnicError.setText("CNIc number is required");
         cnicError.setVisible(false);
 
-        jLabel10.setText("Username:");
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("Username:");
 
-        jLabel11.setText("Password:");
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setText("Password:");
 
-        usernameTextField.setText("ehti123");
+        usernameTextField.setText(customer.getUsername());
 
-        jPasswordField.setText("123455");
+        jPasswordField.setText(customer.getPassword());
 
-        usernameError.setText("Username is required");
         usernameError.setForeground(new java.awt.Color(255, 0, 0));
+        usernameError.setText("Username is required");
         usernameError.setVisible(false);
 
-        passwordError.setText("Password is required");
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
+        passwordError.setText("Password is required");
         passwordError.setVisible(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -298,7 +302,7 @@ public class EditCustomerProfile extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        ClientHome page = new ClientHome();
+        ClientHome page = new ClientHome(customer);
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -317,7 +321,14 @@ public class EditCustomerProfile extends javax.swing.JFrame {
                             addressError.setVisible(false);
                             if (!cnicTextField.getText().equals("")) {
                                 cnicError.setVisible(false);
-                                ClientHome page = new ClientHome();
+                                
+                                
+                                
+                                // update customer in DB function call here
+                                
+                                
+                                
+                                ClientHome page = new ClientHome(customer);
                                 page.start();
                                 this.setVisible(false);
                             } else {
@@ -370,7 +381,7 @@ public class EditCustomerProfile extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditCustomerProfile().setVisible(true);
+                new EditCustomerProfile(customer).setVisible(true);
             }
         });
     }

@@ -9,16 +9,20 @@ package gui.admin;
  *
  * @author ehtis
  */
-
+import Main.BL;
+import Models.Booking;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class CloseBooking extends javax.swing.JFrame {
 
     /**
@@ -28,14 +32,18 @@ public class CloseBooking extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    public CloseBooking() {
+    Booking booking;
+    DateFormat dateFormat;
+
+    public CloseBooking(Booking booking) {
+        this.booking = booking;
         dateSettings = new com.github.lgooddatepicker.components.DatePickerSettings();
-        
+
         initComponents();
-        
+        dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         dateSettings.setDateRangeLimits(LocalDate.now(), null);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +66,7 @@ public class CloseBooking extends javax.swing.JFrame {
         usedTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
-        jButton1 = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(485, 560));
@@ -98,7 +106,7 @@ public class CloseBooking extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -118,13 +126,13 @@ public class CloseBooking extends javax.swing.JFrame {
         jLabel5.setText("Date In:");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jButton1.setText("Close");
-        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setToolTipText("Close the booking and generate Bill.");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        closeButton.setText("Done");
+        closeButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        closeButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        closeButton.setToolTipText("Close the booking and generate Bill.");
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                closeButtonMouseClicked(evt);
             }
         });
 
@@ -155,7 +163,7 @@ public class CloseBooking extends javax.swing.JFrame {
                                 .addComponent(extraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(206, 206, 206)
-                        .addComponent(jButton1)))
+                        .addComponent(closeButton)))
                 .addContainerGap(139, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -178,7 +186,7 @@ public class CloseBooking extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(usedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
-                .addComponent(jButton1)
+                .addComponent(closeButton)
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
@@ -198,7 +206,7 @@ public class CloseBooking extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -224,14 +232,33 @@ public class CloseBooking extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
         // TODO add your handling code here:
+
+        BL bl = BL.getBllInstance();
+
+        LocalDate in = datePicker1.getDate();
+        Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        booking.getRental().setDateIn(dateIn);
+        booking.getRental().setTollTaxes(Integer.parseInt(taxTextField.getText()));
+        booking.getRental().setExtraCharges(Integer.parseInt(extraTextField.getText()));
+        booking.getRental().setKmUsed(Integer.parseInt(usedTextField.getText()));
+        booking.setTotalFare(booking.calculateFare());
+        booking.getRental().setRentalstatus("fulfilled");
+        booking.getRental().getVehicle().setVehicleStatus("available");
+        booking.getRental().getDriver().setDriverStatus("available");
+        
+        //update rental in db function call here
+        //update booking in db function call here
+        //update vehicle in db function call here
+        //update driver in db function call here
+        
         AdminBookings page = new AdminBookings();
         page.start();
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_closeButtonMouseClicked
 
-   
     public void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -259,22 +286,21 @@ public class CloseBooking extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-     
-       
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CloseBooking().setVisible(true);
-                
+                new CloseBooking(booking).setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton2;
+    private javax.swing.JButton closeButton;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JTextField extraTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

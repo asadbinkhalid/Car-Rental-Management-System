@@ -5,6 +5,9 @@
  */
 package gui.client;
 
+import Main.BL;
+import Models.Customer;
+
 /**
  *
  * @author gng
@@ -41,7 +44,7 @@ public class AddNewCustomer extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         addressTextArea = new javax.swing.JTextArea();
         cnicTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        createButton = new javax.swing.JButton();
         nameError = new javax.swing.JLabel();
         phoneError = new javax.swing.JLabel();
         addressError = new javax.swing.JLabel();
@@ -53,6 +56,7 @@ public class AddNewCustomer extends javax.swing.JFrame {
         usernameError = new javax.swing.JLabel();
         // Code adding the component to the
         passwordError = new javax.swing.JLabel();
+        addError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,12 +116,12 @@ public class AddNewCustomer extends javax.swing.JFrame {
         addressTextArea.setRows(5);
         jScrollPane1.setViewportView(addressTextArea);
 
-        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Create and Login");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+        createButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        createButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        createButton.setText("Create and Login");
+        createButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                createButtonMousePressed(evt);
             }
         });
 
@@ -151,6 +155,10 @@ public class AddNewCustomer extends javax.swing.JFrame {
         passwordError.setText("Password is required");
         passwordError.setVisible(false);
 
+        addError.setForeground(new java.awt.Color(255, 0, 0));
+        addError.setText("New Customer not created (username must be unique)");
+        addError.setVisible(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -159,7 +167,9 @@ public class AddNewCustomer extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(addError)
+                        .addGap(18, 18, 18)
+                        .addComponent(createButton))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +226,9 @@ public class AddNewCustomer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cnicError)
                         .addGap(138, 138, 138)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addError))
                         .addGap(66, 66, 66))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -291,7 +303,7 @@ public class AddNewCustomer extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void createButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createButtonMousePressed
         // TODO add your handling code here:
         if (!usernameTextField.getText().equals("")) {
             usernameError.setVisible(false);
@@ -305,9 +317,19 @@ public class AddNewCustomer extends javax.swing.JFrame {
                             addressError.setVisible(false);
                             if (!cnicTextField.getText().equals("")) {
                                 cnicError.setVisible(false);
-                                ClientHome page = new ClientHome();
-                                page.start();
-                                this.setVisible(false);
+
+                                BL bl = BL.getBllInstance();
+                                if (bl.addCustomer(nameTextField.getText(), phoneTextField.getText(), addressTextArea.getText(), cnicTextField.getText(),
+                                        usernameTextField.getText(), jPasswordField.getText())) {
+                                    addError.setVisible(false);
+
+                                    bl.getCompany().setcSession(bl.getCustomer(usernameTextField.getText()));
+                                    ClientHome page = new ClientHome(bl.getCompany().getcSession());
+                                    page.start();
+                                    this.setVisible(false);
+                                } else {
+                                    addError.setVisible(true);
+                                }
                             } else {
                                 cnicError.setVisible(true);
                             }
@@ -326,7 +348,8 @@ public class AddNewCustomer extends javax.swing.JFrame {
         } else {
             usernameError.setVisible(true);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+
+    }//GEN-LAST:event_createButtonMousePressed
 
     /**
      * @param args the command line arguments
@@ -364,12 +387,13 @@ public class AddNewCustomer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addError;
     private javax.swing.JLabel addressError;
     private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton2;
     private javax.swing.JLabel cnicError;
     private javax.swing.JTextField cnicTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton createButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

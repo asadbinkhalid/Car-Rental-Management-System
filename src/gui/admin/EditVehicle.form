@@ -256,7 +256,7 @@
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="statusLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                      <EmptySpace pref="73" max="32767" attributes="0"/>
                       <Component id="doneButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                   </Group>
@@ -424,14 +424,11 @@
             <Component class="javax.swing.JComboBox" name="categoryComboBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Economy"/>
-                    <StringItem index="1" value="VIP"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Object a = vehicle.getVehicleType();&#xa;categoryComboBox.setSelectedItem(a);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(vehicle.getVehicleType().equalsIgnoreCase(&quot;economy&quot;)){&#xa;    categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Economy&quot;, &quot;VIP&quot; }));&#xa;}&#xa;else{&#xa;    categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;VIP&quot;, &quot;Economy&quot; }));&#xa;}&#xa;&#xa;Object a = vehicle.getVehicleType();&#xa;categoryComboBox.setSelectedItem(a);"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>

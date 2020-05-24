@@ -155,7 +155,15 @@ public class EditManager extends javax.swing.JFrame {
         addressTextArea.setText(manager.getAddress());
         jScrollPane1.setViewportView(addressTextArea);
 
-        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Not Specified" }));
+        if(manager.getGender().equalsIgnoreCase("male")){
+            genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female" }));
+        }
+        else{
+            genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "female", "male" }));
+        }
+
+        Object a = manager.getGender();
+        genderComboBox.setSelectedItem(a);
 
         passwordField.setText(manager.getPassword());
 
@@ -325,7 +333,7 @@ public class EditManager extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         
-        
+        //update manager in DB function call here
         
         
         AdminHome page = new AdminHome(manager);

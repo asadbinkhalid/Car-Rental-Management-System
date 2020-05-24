@@ -5,6 +5,11 @@
  */
 package gui.admin;
 
+import Main.BL;
+import gui.componentsmodels.BookingRequestListModel;
+import java.util.List;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +19,20 @@ public class BookingRequests extends javax.swing.JFrame {
     /**
      * Creates new form BookingRequests
      */
+    DefaultListModel<BookingRequestListModel> model;
+    
     public BookingRequests() {
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        BookingRequestListModel pending = null;
+        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if(bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("pending")){
+                pending = new BookingRequestListModel(bl.getCompany().getBookingsList().get(i));
+                model.addElement(pending);
+            }
+        }
+        
+        
         initComponents();
     }
 
@@ -37,12 +55,12 @@ public class BookingRequests extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        requestsList = new javax.swing.JList<>();
+        requestsList = new javax.swing.JList<>(model);
         rejectButton = new javax.swing.JButton();
         acceptButton = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        selectError = new javax.swing.JLabel();
+        rejectMsg = new javax.swing.JLabel();
+        acceptedMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,12 +69,12 @@ public class BookingRequests extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel1.setText("Booking Requests");
         jLabel1.setBackground(new java.awt.Color(105, 132, 207));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setText("Booking Requests");
 
-        backButton2.setText("Back");
         backButton2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        backButton2.setText("Back");
         backButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButton2MouseClicked(evt);
@@ -86,54 +104,49 @@ public class BookingRequests extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel2.setText("Customer");
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Customer");
 
-        jLabel3.setText("Date Out");
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Date Out");
 
-        jLabel4.setText("Vehicle Required");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Vehicle Required");
 
-        jLabel5.setText("Driver");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText("Driver");
 
         requestsList.setBackground(new java.awt.Color(177, 190, 224));
-        requestsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "DUmmy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         requestsList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(requestsList);
 
-        rejectButton.setText("Reject");
         rejectButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rejectButton.setText("Reject");
         rejectButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 rejectButtonMouseClicked(evt);
             }
         });
 
-        acceptButton.setText("Accept");
         acceptButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        acceptButton.setText("Accept");
         acceptButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 acceptButtonMouseClicked(evt);
             }
         });
 
-        jLabel8.setText("Select a Booking from the list!");
-        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel8.setVisible(false);
+        selectError.setForeground(new java.awt.Color(255, 0, 0));
+        selectError.setText("Select a Booking from the list!");
+        selectError.setVisible(false);
 
-        jLabel7.setText("Selected booking rejected and deleted!");
-        jLabel7.setForeground(new java.awt.Color(0, 102, 0));
-        jLabel7.setVisible(false);
+        rejectMsg.setForeground(new java.awt.Color(0, 102, 0));
+        rejectMsg.setText("Selected booking rejected and deleted!");
+        rejectMsg.setVisible(false);
 
-        jLabel6.setText("Selected Booking Accepted!");
-        jLabel6.setForeground(new java.awt.Color(0, 102, 0));
-        jLabel6.setVisible(false);
+        acceptedMsg.setForeground(new java.awt.Color(0, 102, 0));
+        acceptedMsg.setText("Selected Booking Accepted!");
+        acceptedMsg.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,11 +158,11 @@ public class BookingRequests extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(acceptButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addComponent(acceptedMsg)
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel8)
+                        .addComponent(selectError)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
+                        .addComponent(rejectMsg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rejectButton))
                     .addComponent(jScrollPane1)
@@ -173,14 +186,14 @@ public class BookingRequests extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rejectButton)
                     .addComponent(acceptButton)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                    .addComponent(selectError)
+                    .addComponent(rejectMsg)
+                    .addComponent(acceptedMsg))
                 .addGap(29, 29, 29))
         );
 
@@ -233,28 +246,57 @@ public class BookingRequests extends javax.swing.JFrame {
     private void acceptButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptButtonMouseClicked
         // TODO add your handling code here:
         if ((requestsList.getSelectedIndex() >= 0)){
-            jLabel6.setVisible(true);
-            jLabel8.setVisible(false);
-            jLabel7.setVisible(false);
+            acceptedMsg.setVisible(true);
+            selectError.setVisible(false);
+            rejectMsg.setVisible(false);
+            BL bl = BL.getBllInstance();
+            //List<BookingRequestListModel> selectedRequestsList = requestsList.getSelectedValuesList();
+            for(int i=0; i < requestsList.getSelectedValuesList().size(); i++){
+                for(int j = 0; j < bl.getCompany().getBookingsList().size(); j++){
+                    if(requestsList.getSelectedValuesList().get(i).getId() == bl.getCompany().getBookingsList().get(j).getId()){
+                        bl.getCompany().getBookingsList().get(j).getRental().setRentalstatus("upcoming");
+                        
+                        //update booking in DB function call here
+                        
+                        
+                    }
+                }
+            }
+            for(int i=0; i < requestsList.getSelectedIndices().length; i++){
+                model.removeElementAt(requestsList.getSelectedIndices()[i]);
+            }
         }
         else{
-            jLabel8.setVisible(true);
-            jLabel6.setVisible(false);
-            jLabel7.setVisible(false);
+            selectError.setVisible(true);
+            acceptedMsg.setVisible(false);
+            rejectMsg.setVisible(false);
         }
     }//GEN-LAST:event_acceptButtonMouseClicked
 
     private void rejectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectButtonMouseClicked
         // TODO add your handling code here:
         if ((requestsList.getSelectedIndex() >= 0)){
-            jLabel7.setVisible(true);
-            jLabel8.setVisible(false);
-            jLabel6.setVisible(false);
+            rejectMsg.setVisible(true);
+            selectError.setVisible(false);
+            acceptedMsg.setVisible(false);
+            
+            BL bl = BL.getBllInstance();
+            
+            
+            for(int i=0; i < requestsList.getSelectedValuesList().size(); i++){
+                bl.deleteBookingById(requestsList.getSelectedValuesList().get(i).getId());
+            }
+            for(int i=0; i < requestsList.getSelectedIndices().length; i++){
+                model.removeElementAt(requestsList.getSelectedIndices()[i]);
+            }
+            
+            this.revalidate();
+            this.repaint();
         }
         else{
-            jLabel8.setVisible(true);
-            jLabel7.setVisible(false);
-            jLabel6.setVisible(false);
+            selectError.setVisible(true);
+            rejectMsg.setVisible(false);
+            acceptedMsg.setVisible(false);
         }
     }//GEN-LAST:event_rejectButtonMouseClicked
 
@@ -295,20 +337,20 @@ public class BookingRequests extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acceptButton;
+    private javax.swing.JLabel acceptedMsg;
     private javax.swing.JButton backButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton rejectButton;
-    private javax.swing.JList<String> requestsList;
+    private javax.swing.JLabel rejectMsg;
+    private javax.swing.JList<BookingRequestListModel> requestsList;
+    private javax.swing.JLabel selectError;
     // End of variables declaration//GEN-END:variables
 }

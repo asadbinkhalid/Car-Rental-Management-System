@@ -30,10 +30,12 @@ public class DriverDetails extends javax.swing.JFrame {
         DriverCustomerBookingsListModel booking = null;
         for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
 
-            if (this.driver.getId() == bl.getCompany().getBookingsList().get(i).getRental().getDriver().getId()) {
+            if (bl.getCompany().getBookingsList().get(i).getRental().getDriver() != null) {
+                if (this.driver.getId() == bl.getCompany().getBookingsList().get(i).getRental().getDriver().getId()) {
 
-                booking = new DriverCustomerBookingsListModel(bl.getCompany().getBookingsList().get(i));
-                model.addElement(booking);
+                    booking = new DriverCustomerBookingsListModel(bl.getCompany().getBookingsList().get(i));
+                    model.addElement(booking);
+                }
             }
         }
         initComponents();

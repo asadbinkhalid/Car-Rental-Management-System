@@ -164,13 +164,27 @@ public class EditDriver extends javax.swing.JFrame {
         addressTextArea.setText(driver.getAddress());
         jScrollPane1.setViewportView(addressTextArea);
 
-        typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "National", "International" }));
+        if(driver.getLicenceType().equalsIgnoreCase("national")){
+            typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "National", "International" }));
+        }
+        else{
+            typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "International", "National" }));
+        }
+
         Object a = driver.getLicenceType();
         typeComboBox.setSelectedItem(a);
 
         licenseTextField.setText(driver.getLicenceNum());
 
-        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female", "not specified" }));
+        if(driver.getGender().equalsIgnoreCase("male")){
+            genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female" }));
+        }
+        else{
+            genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "female", "male" }));
+        }
+
+        Object b = driver.getGender();
+        genderComboBox.setSelectedItem(b);
 
         cnicError.setForeground(new java.awt.Color(255, 0, 0));
         cnicError.setText("CNIC number is required");
@@ -372,7 +386,7 @@ public class EditDriver extends javax.swing.JFrame {
                         cnicError.setVisible(false);
 
                         
-                        
+                        // update driver in DB function call here
                         
                         
                         AdminDrivers page = new AdminDrivers();

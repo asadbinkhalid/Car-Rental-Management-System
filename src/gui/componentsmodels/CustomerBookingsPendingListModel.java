@@ -6,6 +6,8 @@
 package gui.componentsmodels;
 
 import Models.Booking;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,22 +15,40 @@ import java.util.Date;
  * @author asadb
  */
 public class CustomerBookingsPendingListModel {
-    int vehicle;
+    int id;
+    String vehicle;
     Date dateOut;
     Date dateIn;
 
     public CustomerBookingsPendingListModel(Booking booking) {
-        
-        this.vehicle = booking.getRental().getVehicle().getId();
+        this.id = booking.getId();
+        this.vehicle = booking.getRental().getVehicle().getRegNum();
         this.dateOut = booking.getRental().getDateOut();
         this.dateIn = booking.getRental().getDateIn();
     }
 
-    public int getVehicle() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDateIn() {
+        return dateIn;
+    }
+
+    public void setDateIn(Date dateIn) {
+        this.dateIn = dateIn;
+    }
+    
+
+    public String getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(int vehicle) {
+    public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -50,6 +70,10 @@ public class CustomerBookingsPendingListModel {
 
     @Override
     public String toString() {
-        return vehicle + "\t\t\t\t" + dateOut + "\t\t\t" + dateIn;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        String strDateOut = dateFormat.format(dateOut);
+        String strDateIn = dateFormat.format(dateIn);
+        return vehicle + "                                                                                                   " + strDateOut +
+                "                                                                                             " + strDateIn;
     }
 }

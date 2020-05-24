@@ -20,13 +20,16 @@ public class AdminReceipts extends javax.swing.JFrame {
      * Creates new form AdminReceipts
      */
     DefaultListModel<ReceiptsListModel> model;
+
     public AdminReceipts() {
         BL bl = BL.getBllInstance();
         model = new DefaultListModel<>();
         ReceiptsListModel receipt = null;
-        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
-            receipt = new ReceiptsListModel(bl.getCompany().getBookingsList().get(i));
-            model.addElement(receipt);
+        for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if (bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("fulfilled")) {
+                receipt = new ReceiptsListModel(bl.getCompany().getBookingsList().get(i));
+                model.addElement(receipt);
+            }
         }
         initComponents();
     }

@@ -5,6 +5,8 @@
  */
 package gui.client;
 
+import Models.Customer;
+
 /**
  *
  * @author gng
@@ -14,7 +16,9 @@ public class ClientHome extends javax.swing.JFrame {
     /**
      * Creates new form ClientHome
      */
-    public ClientHome() {
+    Customer customer;
+    public ClientHome(Customer customer) {
+        this.customer = customer;
         initComponents();
     }
 
@@ -38,15 +42,15 @@ public class ClientHome extends javax.swing.JFrame {
         profilePanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        nameLabel = new javax.swing.JLabel();
+        phoneLabel = new javax.swing.JLabel();
+        cnicLabel = new javax.swing.JLabel();
+        editButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         addressTextArea = new javax.swing.JTextArea();
 
@@ -149,9 +153,8 @@ public class ClientHome extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Username:");
 
-        jLabel6.setText("asadbinkhalid");
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("ehti123");
+        usernameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        usernameLabel.setText(customer.getUsername());
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("CNIC:");
@@ -165,24 +168,22 @@ public class ClientHome extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Name:");
 
-        jLabel8.setText("Asad Bin Khalid");
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Ehtisham Ahmad");
+        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nameLabel.setText(customer.getName());
 
-        jLabel12.setText("0333-1234567");
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("0333-1234567");
+        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phoneLabel.setText(customer.getPhone());
 
-        jLabel15.setText("35202-xxxxxxxxxxx-x");
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel15.setText("35202-2154783-9");
+        cnicLabel.setText("35202-xxxxxxxxxxx-x");
+        cnicLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cnicLabel.setText("35202-2154783-9");
 
-        jButton3.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton3.setText("Edit Profile");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        editButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        editButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        editButton.setText("Edit Profile");
+        editButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                editButtonMouseClicked(evt);
             }
         });
 
@@ -191,7 +192,7 @@ public class ClientHome extends javax.swing.JFrame {
         addressTextArea.setColumns(20);
         addressTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         addressTextArea.setRows(5);
-        addressTextArea.setText("1-A, Milaad Street, Faisal Town, Lahore\n");
+        addressTextArea.setText(customer.getAddress());
         addressTextArea.setBorder(null);
         jScrollPane1.setViewportView(addressTextArea);
 
@@ -211,28 +212,28 @@ public class ClientHome extends javax.swing.JFrame {
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
+                                .addComponent(usernameLabel))
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)))
+                                .addComponent(nameLabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12)
+                                .addComponent(phoneLabel)
                                 .addGap(11, 11, 11))
                             .addGroup(profilePanelLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel15))))
+                                .addComponent(cnicLabel))))
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addComponent(editButton)))
                 .addGap(105, 105, 105))
         );
         profilePanelLayout.setVerticalGroup(
@@ -245,22 +246,22 @@ public class ClientHome extends javax.swing.JFrame {
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel12))
+                            .addComponent(phoneLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
+                        .addComponent(editButton))
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6))
+                            .addComponent(usernameLabel))
                         .addGap(52, 52, 52)
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel14)
-                                .addComponent(jLabel15))
+                                .addComponent(cnicLabel))
                             .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel7)
-                                .addComponent(jLabel8)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                                .addComponent(nameLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -308,23 +309,23 @@ public class ClientHome extends javax.swing.JFrame {
     private void bookingsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingsButtonMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        ClientBookings h = new ClientBookings();
+        ClientBookings h = new ClientBookings(customer);
         h.start();
     }//GEN-LAST:event_bookingsButtonMouseClicked
 
     private void receiptsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receiptsButtonMouseClicked
         // TODO add your handling code here:
-        ClientReceipts page = new ClientReceipts();
+        ClientReceipts page = new ClientReceipts(customer);
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_receiptsButtonMouseClicked
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonMouseClicked
         // TODO add your handling code here:
-        EditCustomerProfile page = new EditCustomerProfile();
+        EditCustomerProfile page = new EditCustomerProfile(customer);
         page.start();
         this.setVisible(false);
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_editButtonMouseClicked
 
     private void logoutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseClicked
         // TODO add your handling code here:
@@ -363,27 +364,22 @@ public class ClientHome extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientHome().setVisible(true);
+                new ClientHome(customer).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressTextArea;
-    private javax.swing.JButton backButton2;
-    private javax.swing.JButton backButton3;
     private javax.swing.JButton bookingsButton;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel cnicLabel;
+    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -391,7 +387,10 @@ public class ClientHome extends javax.swing.JFrame {
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel phoneLabel;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JButton receiptsButton;
+    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

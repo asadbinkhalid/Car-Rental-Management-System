@@ -415,14 +415,11 @@
             <Component class="javax.swing.JComboBox" name="genderComboBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Male"/>
-                    <StringItem index="1" value="Female"/>
-                    <StringItem index="2" value="Not Specified"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(manager.getGender().equalsIgnoreCase(&quot;male&quot;)){&#xa;    genderComboBox.setModel(new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;male&quot;, &quot;female&quot; }));&#xa;}&#xa;else{&#xa;    genderComboBox.setModel(new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;female&quot;, &quot;male&quot; }));&#xa;}&#xa;&#xa;Object a = manager.getGender();&#xa;genderComboBox.setSelectedItem(a);"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>

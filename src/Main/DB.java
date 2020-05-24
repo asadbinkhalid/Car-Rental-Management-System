@@ -17,8 +17,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 /**
  *
@@ -72,6 +75,11 @@ public class DB {
         }
     }
 
+    //
+    //
+    //          READ COMPLETE TABLES
+    //
+    //
     List<Customer> readCustomersList() {
         List<Customer> list = new ArrayList<>();
         try {
@@ -89,67 +97,69 @@ public class DB {
         }
         return list;
     }
-    
+
     List<Rental> readRentalList(Company company) {
         List<Rental> list = new ArrayList<>();
-        try{
+        try {
             Rental rental = null;
-            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
             ResultSet rs = stmt.executeQuery("SELECT * FROM rental");
-            while(rs.next()) {
-                rental = new Rental(rs.getInt(1), rs.getString(6), rs.getDate(7), rs.getDate(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getString(13));
-                
-                for(int i=0; i<company.getCustomersList().size(); i++) { //get customer from customersList
-                    if(company.getCustomersList().get(i).getId() == rs.getInt(5)){
+            while (rs.next()) {
+                java.sql.Date sqlDateIn  = rs.getDate(7);
+                java.sql.Date sqlDateOut  = rs.getDate(8);
+                Date dateIn = new Date(sqlDateIn.getTime());
+                Date dateOut = new Date(sqlDateOut.getTime());
+                rental = new Rental(rs.getInt(1), rs.getString(6), dateIn, dateOut, rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getString(13));
+
+                for (int i = 0; i < company.getCustomersList().size(); i++) { //get customer from customersList
+                    if (company.getCustomersList().get(i).getId() == rs.getInt(5)) {
                         rental.setCustomer(company.getCustomersList().get(i));
                     }
                 }
-                for(int i=0; i<company.getVehiclesList().size(); i++) { //get Vehicle from vehiclesList
-                    if(company.getVehiclesList().get(i).getId() == rs.getInt(2)){
+                for (int i = 0; i < company.getVehiclesList().size(); i++) { //get Vehicle from vehiclesList
+                    if (company.getVehiclesList().get(i).getId() == rs.getInt(2)) {
                         rental.setVehicle(company.getVehiclesList().get(i));
                     }
                 }
-                for(int i=0; i<company.getDriversList().size(); i++) { //get driver from driversList
-                    if(company.getDriversList().get(i).getId() == rs.getInt(3)){
+                for (int i = 0; i < company.getDriversList().size(); i++) { //get driver from driversList
+                    if (company.getDriversList().get(i).getId() == rs.getInt(3)) {
                         rental.setDriver(company.getDriversList().get(i));
                     }
                 }
-                for(int i=0; i<company.getManagersList().size(); i++) { //get manager from managersList
-                    if(company.getManagersList().get(i).getId() == rs.getInt(5)){
+                for (int i = 0; i < company.getManagersList().size(); i++) { //get manager from managersList
+                    if (company.getManagersList().get(i).getId() == rs.getInt(5)) {
                         rental.setManager(company.getManagersList().get(i));
                     }
                 }
-                
+
                 list.add(rental);
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("\nSql Exception: " + e);
         }
         return list;
     }
-    
+
     List<Booking> readBookingList(List<Rental> rentalList) {
         List<Booking> list = new ArrayList<>();
-        try{
+        try {
             Booking booking = null;
             ResultSet rs = stmt.executeQuery("SELECT * FROM booking");
-            while(rs.next()){
+            while (rs.next()) {
                 booking = new Booking(rs.getInt(1), rs.getInt(3));
-                
-                for(int i=0; i < rentalList.size(); i++) {
-                    if(rentalList.get(i).getId() == rs.getInt(2)) {
+
+                for (int i = 0; i < rentalList.size(); i++) {
+                    if (rentalList.get(i).getId() == rs.getInt(2)) {
                         booking.setRental(rentalList.get(i));
                     }
                 }
                 list.add(booking);
             }
-            
-            
-            
+
         } catch (SQLException e) {
             System.out.println("\nSql Exception: " + e);
         }
-        
+
         return list;
     }
 
@@ -204,6 +214,11 @@ public class DB {
         return list;
     }
 
+    //
+    //
+    //          READ BY ID
+    //
+    //
     Customer readCustomerById(int id) {
         Customer cc = null;
         try {
@@ -257,6 +272,11 @@ public class DB {
         return vv;
     }
 
+    //
+    //
+    //          INSERT 1 ROW
+    //
+    //
     Manager insertManager(Manager manager) {
         try {
             //id auto increment in table
@@ -276,8 +296,8 @@ public class DB {
     Customer insertCustomer(Customer customer) {
         try {
             //id auto increment in table
-            int rs = stmt.executeUpdate("Insert into Customer values ('" + customer.getName() + "','" + customer.getPhone() + "','" +
-                    customer.getAddress() + "','" + customer.getCnic() + "','" + customer.getUsername() + "','" + customer.getPassword() + "')");
+            int rs = stmt.executeUpdate("Insert into Customer values ('" + customer.getName() + "','" + customer.getPhone() + "','"
+                    + customer.getAddress() + "','" + customer.getCnic() + "','" + customer.getUsername() + "','" + customer.getPassword() + "')");
             System.out.println("\nInserted into Customer: rows affected + " + rs);
 
             ResultSet rs2 = stmt.executeQuery("select id from customer where username = '" + customer.getUsername() + "'");
@@ -311,9 +331,9 @@ public class DB {
     Vehicle insertVehicle(Vehicle vehicle) {
         try {
             //id auto increment in table
-            int rs = stmt.executeUpdate("INSERT INTO vehicle VALUES ('" + vehicle.getRegNum() + "','" + vehicle.getCompany() + "','" +
-                    vehicle.getModel() + "','" + vehicle.getColor() + "'," + vehicle.getRatePerDay() + "," + vehicle.getMileage() + "," +
-                    vehicle.getAvgFuelEco() + ",'" + vehicle.getVehicleType() + "','" + vehicle.getVehicleStatus() + "')");
+            int rs = stmt.executeUpdate("INSERT INTO vehicle VALUES ('" + vehicle.getRegNum() + "','" + vehicle.getCompany() + "','"
+                    + vehicle.getModel() + "','" + vehicle.getColor() + "'," + vehicle.getRatePerDay() + "," + vehicle.getMileage() + ","
+                    + vehicle.getAvgFuelEco() + ",'" + vehicle.getVehicleType() + "','" + vehicle.getVehicleStatus() + "')");
             System.out.println("\nInserted into Vehicle: rows affected + " + rs);
 
             ResultSet rs2 = stmt.executeQuery("select id from vehicle where regnum = '" + vehicle.getRegNum() + "' ");
@@ -327,67 +347,86 @@ public class DB {
             return null;
         }
     }
-    
+
     Rental insertRental(Rental rental) {
-        try{
-            //id auto increment in table
-            int rs = stmt.executeUpdate("INSERT INTO rental VALUES (" + rental.getVehicle().getId() + "," + rental.getDriver().getId() + "," +
-                    rental.getManager().getId() + "," + rental.getCustomer().getId() + ",'" + rental.getUsageDetails() + "','" + rental.getDateIn() +
-                    "','" + rental.getDateOut() + "'," + rental.getDiscountPercentage() + "," + rental.getTollTaxes() + "," + rental.getKmUsed() + "," +
-                    rental.getExtraCharges() + ",'" + rental.getRentalstatus() + "')");
-            System.out.println("\nInserted into Rental: rows affected + " + rs);
+        try {
+            DateFormat utilToSql = new SimpleDateFormat("");
+            Date dateOut = new java.sql.Date(rental.getDateOut().getTime());
+            Date dateIn = new java.sql.Date(rental.getDateIn().getTime());
             
+            
+            //id auto increment in table
+            int rs = 0;
+            if (rental.getDriver() == null) {
+                int x = -1;
+                rs = stmt.executeUpdate("INSERT INTO rental VALUES (" + rental.getVehicle().getId() + "," + x + ","
+                        + rental.getManager().getId() + "," + rental.getCustomer().getId() + ",'" + rental.getUsageDetails() + "','" + dateIn
+                        + "','" + dateOut + "'," + rental.getDiscountPercentage() + "," + rental.getTollTaxes() + "," + rental.getKmUsed() + ","
+                        + rental.getExtraCharges() + ",'" + rental.getRentalstatus() + "')");
+            } else {
+                rs = stmt.executeUpdate("INSERT INTO rental VALUES (" + rental.getVehicle().getId() + "," + rental.getDriver().getId() + ","
+                        + rental.getManager().getId() + "," + rental.getCustomer().getId() + ",'" + rental.getUsageDetails() + "','" + dateIn
+                        + "','" + dateOut + "'," + rental.getDiscountPercentage() + "," + rental.getTollTaxes() + "," + rental.getKmUsed() + ","
+                        + rental.getExtraCharges() + ",'" + rental.getRentalstatus() + "')");
+            }
+            System.out.println("\nInserted into Rental: rows affected + " + rs);
+
             ResultSet rs2 = stmt.executeQuery("select MAX(id) from rental");
-            while(rs2.next()) {
+            while (rs2.next()) {
                 rental.setId(rs2.getInt(1));
             }
             return rental;
-            
+
         } catch (SQLException e) {
             System.out.println("\nSql Exception Insert Rental: " + e);
             return null;
         }
     }
-    
+
     Booking insertBooking(Booking booking) {
-        try{
+        try {
             //id auto increment in table
-            
-            int rs = stmt.executeUpdate("INSERT INTO booking VALUES (" + booking.getRental().getId() + ")");
+
+            int rs = stmt.executeUpdate("INSERT INTO booking VALUES (" + booking.getRental().getId() + ", " + booking.getTotalFare() + ")");
             System.out.println("\nInserted into Booking: rows affected + " + rs);
-            
+
             ResultSet rs2 = stmt.executeQuery("select MAX(id) from booking");
-            while(rs2.next()) {
+            while (rs2.next()) {
                 booking.setId(rs2.getInt(1));
             }
             return booking;
-            
+
         } catch (SQLException e) {
             System.out.println("\nSql Exception Insert Booking: " + e);
             return null;
         }
     }
-    
-    void deleteDriverById(int id){
-        try{
+
+    //
+    //
+    //          DELETE BY ID
+    //
+    //
+    void deleteDriverById(int id) {
+        try {
             int rs = stmt.executeUpdate("Delete from driver where id = " + id);
-            System.out.println("\nDeleted driver with id=" + id +":\nRows Affected:\t" + rs);
-        } catch(SQLException e){
+            System.out.println("\nDeleted driver with id=" + id + ":\nRows Affected:\t" + rs);
+        } catch (SQLException e) {
             System.out.println("\nSql Exception Delete Driver: " + e);
         }
-        
+
     }
-    
-    void deleteCustomerById(int id){
-        try{
+
+    void deleteCustomerById(int id) {
+        try {
             int rs = stmt.executeUpdate("Delete from customer where id = " + id);
-            System.out.println("\nDeleted Customer with id=" + id +":\nRows Affected:\t" + rs);
-        } catch(SQLException e){
+            System.out.println("\nDeleted Customer with id=" + id + ":\nRows Affected:\t" + rs);
+        } catch (SQLException e) {
             System.out.println("\nSql Exception Delete Customer: " + e);
         }
-        
+
     }
-    
+
 //    void deleteManagerById(int id){
 //        try{
 //            int rs = stmt.executeUpdate("Delete from manager where id = " + id);
@@ -397,18 +436,43 @@ public class DB {
 //        }
 //        
 //    }
-    
-    void deleteVehicleById(int id){
-        try{
+    void deleteVehicleById(int id) {
+        try {
             int rs = stmt.executeUpdate("Delete from vehicle where id = " + id);
-            System.out.println("\nDeleted Vehicle with id=" + id +":\nRows Affected:\t" + rs);
-        } catch(SQLException e){
+            System.out.println("\nDeleted Vehicle with id=" + id + ":\nRows Affected:\t" + rs);
+        } catch (SQLException e) {
             System.out.println("\nSql Exception Delete Vehicle: " + e);
         }
-        
+
     }
-    
-    
+
+    void deleteBookingById(int id) {
+        int rentalId = 0;
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT rentalid FROM booking where id = " + id);
+            while (rs.next()) {
+                rentalId = rs.getInt(1);
+            }
+
+            int rs1 = stmt.executeUpdate("Delete from booking where id = " + id);
+            System.out.println("\nDeleted Booking with id=" + id + ":\nRows Affected:\t" + rs1);
+        } catch (SQLException e) {
+            System.out.println("Sql Exception Delete Booking: " + e);
+        }
+
+        try {
+            int rs = stmt.executeUpdate("Delete from rental where id = " + rentalId);
+            System.out.println("Deleted Rental with id=" + rentalId + ":\nRows Affected:\t" + rs);
+        } catch (SQLException e) {
+            System.out.println("\nSql Exception Delete Rental: " + e);
+        }
+    }
+
+    //
+    //
+    //          UPDATE
+    //
+    //
 //    boolean updateManager(Manager manager) {
 //        try{
 //            
@@ -420,5 +484,4 @@ public class DB {
 //            return false;
 //        }
 //    }
-
 }

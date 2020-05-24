@@ -5,7 +5,9 @@
  */
 package gui.client;
 
+import Main.BL;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -35,12 +37,14 @@ public class ClientLogin extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         name = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        userNotFoundError = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
+        passNotMatchedError = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        newCustomerLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -59,9 +63,19 @@ public class ClientLogin extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "USER NAME", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
         jPanel8.setPreferredSize(new java.awt.Dimension(348, 101));
 
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nameKeyPressed(evt);
+            }
+        });
+
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("username is required");
         jLabel3.setVisible(false);
+
+        userNotFoundError.setForeground(new java.awt.Color(255, 0, 0));
+        userNotFoundError.setText("Username does not exist");
+        userNotFoundError.setVisible(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -70,8 +84,12 @@ public class ClientLogin extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+                    .addComponent(name)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(userNotFoundError)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -80,7 +98,9 @@ public class ClientLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(userNotFoundError))
                 .addContainerGap())
         );
 
@@ -92,6 +112,16 @@ public class ClientLogin extends javax.swing.JFrame {
         jLabel4.setText("password is required");
         jLabel4.setVisible(false);
 
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passKeyPressed(evt);
+            }
+        });
+
+        passNotMatchedError.setForeground(new java.awt.Color(255, 0, 0));
+        passNotMatchedError.setText("Password does not match");
+        passNotMatchedError.setVisible(false);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -99,8 +129,11 @@ public class ClientLogin extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pass, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+                    .addComponent(pass)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(passNotMatchedError)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -109,7 +142,9 @@ public class ClientLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(passNotMatchedError))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -125,18 +160,18 @@ public class ClientLogin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("LOGIN");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel5.setText("New User? Click here to create a user account.");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        newCustomerLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        newCustomerLabel.setForeground(new java.awt.Color(51, 51, 255));
+        newCustomerLabel.setText("New User? Click here to create a user account.");
+        newCustomerLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                newCustomerLabelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
+                newCustomerLabelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
+                newCustomerLabelMouseExited(evt);
             }
         });
 
@@ -145,24 +180,22 @@ public class ClientLogin extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(loginButton))))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(loginButton)))
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(newCustomerLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLabel1)
+                .addGap(175, 175, 175))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +208,7 @@ public class ClientLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jLabel5)
+                .addComponent(newCustomerLabel)
                 .addContainerGap())
         );
 
@@ -205,17 +238,17 @@ public class ClientLogin extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addGap(32, 32, 32))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -223,7 +256,7 @@ public class ClientLogin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(227, Short.MAX_VALUE)
+                .addContainerGap(188, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -257,52 +290,137 @@ public class ClientLogin extends javax.swing.JFrame {
 
         String fname = this.name.getText();
         String pass = this.pass.getText();
-        if(!fname.equals(""))
-        {
+        if (!fname.equals("")) {
             jLabel3.setVisible(false);
-            if(!pass.equals("")){
+            if (!pass.equals("")) {
                 jLabel4.setVisible(false);
-                this.setVisible(false);
-                ClientHome h = new ClientHome();
-                h.start();
+                BL bl = BL.getBllInstance();
+                if (bl.verifyCustomerUsername(fname)) {
+                    userNotFoundError.setVisible(false);
+                    if (bl.verifyCustomerPassword(fname, pass)) {
+                        passNotMatchedError.setVisible(false);
+                        bl.getCompany().setcSession(bl.getCustomer(fname));
 
-            }
-            else
-            {
+                        this.setVisible(false);
+                        ClientHome h = new ClientHome(bl.getCustomer(fname));
+                        h.start();
+
+                    } else {
+                        passNotMatchedError.setVisible(true);
+                    }
+                } else {
+                    userNotFoundError.setVisible(true);
+                }
+
+            } else {
                 jLabel4.setVisible(true);
             }
-        }
-        else{
+        } else {
             jLabel3.setVisible(true);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_loginButtonMouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void newCustomerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newCustomerLabelMouseClicked
         // TODO add your handling code here:
         AddNewCustomer page = new AddNewCustomer();
         page.start();
         this.setVisible(false);
-    }//GEN-LAST:event_jLabel5MouseClicked
+    }//GEN-LAST:event_newCustomerLabelMouseClicked
 
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+    private void newCustomerLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newCustomerLabelMouseEntered
         // TODO add your handling code here:
-        
-        jLabel5.setFont(jLabel5.getFont().deriveFont(Font.BOLD, 12));
-        
-    }//GEN-LAST:event_jLabel5MouseEntered
 
-    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
+        newCustomerLabel.setFont(newCustomerLabel.getFont().deriveFont(Font.BOLD, 12));
+
+    }//GEN-LAST:event_newCustomerLabelMouseEntered
+
+    private void newCustomerLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newCustomerLabelMouseExited
         // TODO add your handling code here:
-        jLabel5.setFont(jLabel5.getFont().deriveFont(Font.PLAIN, 12));
-        
-        
-        
-    }//GEN-LAST:event_jLabel5MouseExited
+        newCustomerLabel.setFont(newCustomerLabel.getFont().deriveFont(Font.PLAIN, 12));
 
-    /**
-     * @param args the command line arguments
-     */
+
+    }//GEN-LAST:event_newCustomerLabelMouseExited
+
+    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
+        // TODO add your handling code here:
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            String fname = this.name.getText();
+            String pass = this.pass.getText();
+            if (!fname.equals("")) {
+                jLabel3.setVisible(false);
+                if (!pass.equals("")) {
+                    jLabel4.setVisible(false);
+                    BL bl = BL.getBllInstance();
+                    if (bl.verifyCustomerUsername(fname)) {
+                        userNotFoundError.setVisible(false);
+                        if (bl.verifyCustomerPassword(fname, pass)) {
+                            passNotMatchedError.setVisible(false);
+                            bl.getCompany().setcSession(bl.getCustomer(fname));
+
+                            this.setVisible(false);
+                            ClientHome h = new ClientHome(bl.getCustomer(fname));
+                            h.start();
+
+                        } else {
+                            passNotMatchedError.setVisible(true);
+                        }
+                    } else {
+                        userNotFoundError.setVisible(true);
+                    }
+
+                } else {
+                    jLabel4.setVisible(true);
+                }
+            } else {
+                jLabel3.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_nameKeyPressed
+
+    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+        // TODO add your handling code here:
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            String fname = this.name.getText();
+            String pass = this.pass.getText();
+            if (!fname.equals("")) {
+                jLabel3.setVisible(false);
+                if (!pass.equals("")) {
+                    jLabel4.setVisible(false);
+                    BL bl = BL.getBllInstance();
+                    if (bl.verifyCustomerUsername(fname)) {
+                        userNotFoundError.setVisible(false);
+                        if (bl.verifyCustomerPassword(fname, pass)) {
+                            passNotMatchedError.setVisible(false);
+                            bl.getCompany().setcSession(bl.getCustomer(fname));
+
+                            this.setVisible(false);
+                            ClientHome h = new ClientHome(bl.getCustomer(fname));
+                            h.start();
+
+                        } else {
+                            passNotMatchedError.setVisible(true);
+                        }
+                    } else {
+                        userNotFoundError.setVisible(true);
+                    }
+
+                } else {
+                    jLabel4.setVisible(true);
+                }
+            } else {
+                jLabel3.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_passKeyPressed
+    
+    
+    
+    
+    
+    
     public void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -340,7 +458,6 @@ public class ClientLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -349,6 +466,9 @@ public class ClientLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField name;
+    private javax.swing.JLabel newCustomerLabel;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JLabel passNotMatchedError;
+    private javax.swing.JLabel userNotFoundError;
     // End of variables declaration//GEN-END:variables
 }

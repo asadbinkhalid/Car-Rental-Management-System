@@ -22,6 +22,7 @@ public class Company {
     List<Driver> driversList;
     
     Manager session;
+    Customer cSession;
     
         
     private Company() {
@@ -31,6 +32,7 @@ public class Company {
         this.vehiclesList = new ArrayList<>();
         this.driversList = new ArrayList<>();
         session = null;
+        cSession = null;
     }
     
     public static Company getInstance(){
@@ -87,13 +89,53 @@ public class Company {
     public void setSession(Manager session) {
         this.session = session;
     }
+
+    public Customer getcSession() {
+        return cSession;
+    }
+
+    public void setcSession(Customer cSession) {
+        this.cSession = cSession;
+    }
+    
+    
     
     
     public Manager getManager(String username) {
         for(int i=0; i < getManagersList().size(); i++){
             if(username.equals(getManagersList().get(i).getUsername())){
-                //System.out.println(getManagersList().get(i).toString());
+                
                 return getManagersList().get(i);
+            }
+        }
+        return null;
+    }
+
+    public Driver getDriver(int id) {
+        for(int i=0; i < getDriversList().size(); i++){
+            if(id == getDriversList().get(i).getId()){
+                
+                return getDriversList().get(i);
+            }
+        }
+        return null;
+    }
+    
+    public Vehicle getVehicle(int id) {
+        for(int i=0; i < getVehiclesList().size(); i++){
+            if(id == getVehiclesList().get(i).getId()){
+                
+                return getVehiclesList().get(i);
+            }
+        }
+        return null;
+    }
+    
+    public Customer getCustomer(String username) {
+        for(int i=0; i < getCustomersList().size(); i++){
+            if(username.equals(getCustomersList().get(i).getUsername())){
+                
+                return getCustomersList().get(i);
             }
         }
         return null;

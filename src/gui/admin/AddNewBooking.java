@@ -5,8 +5,20 @@
  */
 package gui.admin;
 
+import Main.BL;
+import Models.Customer;
+import Models.Driver;
+import Models.Manager;
+import Models.Vehicle;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import gui.componentsmodels.NewBookingDriverListModel;
+import gui.componentsmodels.NewBookingVehicleListModel;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+import javax.swing.DefaultListModel;
+import java.text.DateFormat;
+import java.time.ZoneId;
 
 /**
  *
@@ -18,12 +30,38 @@ public class AddNewBooking extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+
+    DefaultListModel<NewBookingVehicleListModel> model1;
+    DefaultListModel<NewBookingDriverListModel> model2;
+    DateFormat dateFormat;
+
     public AddNewBooking() {
         dateSettings = new com.github.lgooddatepicker.components.DatePickerSettings();
         dateSettings2 = new com.github.lgooddatepicker.components.DatePickerSettings();
+
+        BL bl = BL.getBllInstance();
+        model1 = new DefaultListModel<>();
+        NewBookingVehicleListModel vehicle = null;
+        for (int i = 0; i < bl.getCompany().getVehiclesList().size(); i++) {
+            if (bl.getCompany().getVehiclesList().get(i).getVehicleStatus().equalsIgnoreCase("available")) {
+                vehicle = new NewBookingVehicleListModel(bl.getCompany().getVehiclesList().get(i));
+                model1.addElement(vehicle);
+            }
+        }
+
+        model2 = new DefaultListModel<>();
+        NewBookingDriverListModel driver = null;
+        for (int i = 0; i < bl.getCompany().getDriversList().size(); i++) {
+            if (bl.getCompany().getDriversList().get(i).getDriverStatus().equalsIgnoreCase("available")) {
+                driver = new NewBookingDriverListModel(bl.getCompany().getDriversList().get(i));
+                model2.addElement(driver);
+            }
+        }
         
+        dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+
         initComponents();
-        
+
         dateSettings.setDateRangeLimits(LocalDate.now(), null);
         dateSettings2.setDateRangeLimits(LocalDate.now(), null);
     }
@@ -50,10 +88,10 @@ public class AddNewBooking extends javax.swing.JFrame {
         customerUsernameTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        usageTextArea = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        vehiclesList = new javax.swing.JList<>();
+        vehiclesList = new javax.swing.JList<>(model1);
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -70,8 +108,8 @@ public class AddNewBooking extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        driversList = new javax.swing.JList<>();
-        jLabel14 = new javax.swing.JLabel();
+        driversList = new javax.swing.JList<>(model2);
+        driverError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,14 +139,14 @@ public class AddNewBooking extends javax.swing.JFrame {
                 .addComponent(backButton)
                 .addGap(243, 243, 243)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(294, 294, 294))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -128,19 +166,14 @@ public class AddNewBooking extends javax.swing.JFrame {
         jLabel5.setText("Usage Details:");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        usageTextArea.setColumns(20);
+        usageTextArea.setRows(5);
+        usageTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jScrollPane1.setViewportView(usageTextArea);
 
         jLabel6.setText("Select from available vehicles:");
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        vehiclesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         vehiclesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         vehiclesList.setBackground(new java.awt.Color(177, 190, 224));
         vehiclesList.setFixedCellHeight(17);
@@ -184,9 +217,9 @@ public class AddNewBooking extends javax.swing.JFrame {
         vehicleError.setForeground(new java.awt.Color(255, 0, 0));
         vehicleError.setVisible(false);
 
+        driverCheckBox.setText("Need a Driver?");
         driverCheckBox.setBackground(new java.awt.Color(177, 190, 224));
         driverCheckBox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        driverCheckBox.setText("Need a Driver?");
         driverCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 driverCheckBoxActionPerformed(evt);
@@ -195,31 +228,26 @@ public class AddNewBooking extends javax.swing.JFrame {
 
         driverPanel.setBackground(new java.awt.Color(177, 190, 224));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Select from available Drivers:");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Name");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Phone #");
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Gender");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        driversList.setBackground(new java.awt.Color(177, 190, 224));
-        driversList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         driversList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        driversList.setBackground(new java.awt.Color(177, 190, 224));
         driversList.setFixedCellHeight(17);
         jScrollPane3.setViewportView(driversList);
 
-        jLabel14.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel14.setText("Driver must be selected");
-        jLabel14.setVisible(false);
+        driverError.setText("Driver must be selected");
+        driverError.setForeground(new java.awt.Color(255, 0, 0));
+        driverError.setVisible(false);
 
         javax.swing.GroupLayout driverPanelLayout = new javax.swing.GroupLayout(driverPanel);
         driverPanel.setLayout(driverPanelLayout);
@@ -235,7 +263,7 @@ public class AddNewBooking extends javax.swing.JFrame {
             .addGroup(driverPanelLayout.createSequentialGroup()
                 .addGroup(driverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel14))
+                    .addComponent(driverError))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         driverPanelLayout.setVerticalGroup(
@@ -250,7 +278,7 @@ public class AddNewBooking extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel14)
+                .addComponent(driverError)
                 .addContainerGap())
         );
 
@@ -262,46 +290,42 @@ public class AddNewBooking extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(driverCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(customerUsernameTextField))
-                                    .addComponent(jLabel5)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(invalidUsernameError))
-                            .addComponent(dateOutError)
-                            .addComponent(dateInError)
-                            .addComponent(usernameError))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(vehicleError, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(65, 65, 65)
-                                    .addComponent(jLabel8)
-                                    .addGap(48, 48, 48)
-                                    .addComponent(jLabel9))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(driverPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(46, 46, 46))
+                                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(customerUsernameTextField))
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(invalidUsernameError))
+                    .addComponent(dateOutError)
+                    .addComponent(dateInError)
+                    .addComponent(usernameError)
+                    .addComponent(driverCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(vehicleError, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(65, 65, 65)
+                            .addComponent(jLabel8)
+                            .addGap(48, 48, 48)
+                            .addComponent(jLabel9))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(driverPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,9 +368,9 @@ public class AddNewBooking extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(vehicleError)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(driverPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -360,7 +384,7 @@ public class AddNewBooking extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(128, 128, 128))
         );
@@ -370,7 +394,7 @@ public class AddNewBooking extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -390,45 +414,6 @@ public class AddNewBooking extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        if (datePicker1.getDate() != null) {
-            dateOutError.setVisible(false);
-            if(datePicker2.getDate() != null) {
-                dateInError.setVisible(false);
-                if(!customerUsernameTextField.getText().equals("")) {
-                    customerUsernameTextField.setVisible(false);
-                    if(vehiclesList.getSelectedIndex() >= 0) {
-                        vehicleError.setVisible(false);
-                        if(driverCheckBox.isSelected()){
-                            if(driversList.getSelectedIndex() >= 0) {
-                                jLabel14.setVisible(false);
-                                this.setVisible(false);
-                                AdminBookings page = new AdminBookings();
-                                page.start();
-                            }
-                            else
-                                jLabel14.setVisible(true);
-                        }
-                        else {
-                            this.setVisible(false);
-                            AdminBookings page = new AdminBookings();
-                            page.start();
-                        }
-                    }
-                    else
-                        vehicleError.setVisible(true);
-                }
-                else
-                    usernameError.setVisible(true);
-            }
-            else
-                dateInError.setVisible(true);
-        }
-        else
-            dateOutError.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
-
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
         AdminBookings page = new AdminBookings();
@@ -438,13 +423,78 @@ public class AddNewBooking extends javax.swing.JFrame {
 
     private void driverCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_driverCheckBoxActionPerformed
         // TODO add your handling code here:
-        if(driverCheckBox.isSelected()){
+        if (driverCheckBox.isSelected()) {
             driverPanel.setVisible(true);
         }
-        if(!driverCheckBox.isSelected()){
+        if (!driverCheckBox.isSelected()) {
             driverPanel.setVisible(false);
         }
     }//GEN-LAST:event_driverCheckBoxActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        if (datePicker1.getDate() != null) {
+            dateOutError.setVisible(false);
+            if (datePicker2.getDate() != null) {
+                dateInError.setVisible(false);
+                if (!customerUsernameTextField.getText().equals("")) {
+                    customerUsernameTextField.setVisible(false);
+                    if (vehiclesList.getSelectedIndex() >= 0) {
+                        vehicleError.setVisible(false);
+                        if (driverCheckBox.isSelected()) {
+                            if (driversList.getSelectedIndex() >= 0) {
+                                driverError.setVisible(false);
+
+                                BL bl = BL.getBllInstance();
+                                Manager manager = bl.getCompany().getSession();
+                                Driver driver = bl.getDriver(driversList.getSelectedValue().getId());
+                                Vehicle vehicle = bl.getVehicle(vehiclesList.getSelectedValue().getId());
+                                Customer customer = bl.getCustomer(customerUsernameTextField.getText());
+
+                                LocalDate out = datePicker1.getDate();
+                                Date dateOut = Date.from(out.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                                LocalDate in = datePicker2.getDate();
+                                Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                                bl.addBooking(vehicle, driver, manager, customer, usageTextArea.getText(), dateOut, dateIn, 0, 0, 0, 0);
+
+                                AdminBookings page = new AdminBookings();
+                                page.start();
+                                this.setVisible(false);
+
+                            } else {
+                                driverError.setVisible(true);
+                            }
+                        } else {
+
+                            BL bl = BL.getBllInstance();
+                            Manager manager = bl.getCompany().getSession();
+                            Vehicle vehicle = bl.getVehicle(vehiclesList.getSelectedValue().getId());
+                            Customer customer = bl.getCustomer(customerUsernameTextField.getText());
+
+                            LocalDate out = datePicker1.getDate();
+                            Date dateOut = Date.from(out.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            LocalDate in = datePicker2.getDate();
+                            Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                            bl.addBooking(vehicle, manager, customer, usageTextArea.getText(), dateOut, dateIn, 0, 0, 0, 0);
+
+                            this.setVisible(false);
+                            AdminBookings page = new AdminBookings();
+                            page.start();
+                        }
+                    } else {
+                        vehicleError.setVisible(true);
+                    }
+                } else {
+                    usernameError.setVisible(true);
+                }
+            } else {
+                dateInError.setVisible(true);
+            }
+        } else
+        dateOutError.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     public void start() {
         /* Set the Nimbus look and feel */
@@ -493,8 +543,9 @@ public class AddNewBooking extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private com.github.lgooddatepicker.components.DatePicker datePicker2;
     private javax.swing.JCheckBox driverCheckBox;
+    private javax.swing.JLabel driverError;
     private javax.swing.JPanel driverPanel;
-    private javax.swing.JList<String> driversList;
+    private javax.swing.JList<NewBookingDriverListModel> driversList;
     private javax.swing.JLabel invalidUsernameError;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -502,7 +553,6 @@ public class AddNewBooking extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -517,9 +567,9 @@ public class AddNewBooking extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea usageTextArea;
     private javax.swing.JLabel usernameError;
     private javax.swing.JLabel vehicleError;
-    private javax.swing.JList<String> vehiclesList;
+    private javax.swing.JList<NewBookingVehicleListModel> vehiclesList;
     // End of variables declaration//GEN-END:variables
 }

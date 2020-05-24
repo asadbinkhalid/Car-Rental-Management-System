@@ -5,6 +5,10 @@
  */
 package gui.admin;
 
+import Models.Booking;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author gng
@@ -14,7 +18,14 @@ public class BookingDetails extends javax.swing.JFrame {
     /**
      * Creates new form BookingDetails
      */
-    public BookingDetails() {
+    Booking booking;
+    DateFormat dateFormat;
+
+    public BookingDetails(Booking booking) {
+        this.booking = booking;
+        
+        dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        
         initComponents();
     }
 
@@ -55,8 +66,8 @@ public class BookingDetails extends javax.swing.JFrame {
         discountLabel = new javax.swing.JLabel();
         taxLabel = new javax.swing.JLabel();
         extraLabel = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        dateOutLabel = new javax.swing.JLabel();
+        dateInLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,7 +96,7 @@ public class BookingDetails extends javax.swing.JFrame {
                 .addComponent(backButton)
                 .addGap(243, 243, 243)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(320, 320, 320))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +118,7 @@ public class BookingDetails extends javax.swing.JFrame {
         jLabel3.setText("Managed by:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Vehicle ID:");
+        jLabel4.setText("Vehicle:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Driver ID:");
@@ -126,15 +137,21 @@ public class BookingDetails extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Toll taxes:");
-        jLabel10.setVisible(false);
+        if(!booking.getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
+            jLabel10.setVisible(false);
+        }
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Extra Charges:");
-        jLabel11.setVisible(false);
+        if(!booking.getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
+            jLabel11.setVisible(false);
+        }
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Vehicle used (km):");
-        jLabel12.setVisible(false);
+        if(!booking.getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
+            jLabel12.setVisible(false);
+        }
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Usage Details:");
@@ -142,41 +159,47 @@ public class BookingDetails extends javax.swing.JFrame {
         usageTextArea.setBackground(new java.awt.Color(177, 190, 224));
         usageTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         usageTextArea.setRows(5);
+        usageTextArea.setText(booking.getRental().getUsageDetails());
         usageTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         usageTextArea.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         usageTextArea.setEditable(false);
         jScrollPane1.setViewportView(usageTextArea);
 
-        idLabel.setText("2");
+        idLabel.setText(Integer.toString(booking.getId()));
 
-        managerLabel.setText("asadbinkhalid");
+        managerLabel.setText(booking.getRental().getManager().getUsername());
 
-        vehicleLabel.setText("5");
+        vehicleLabel.setText(booking.getRental().getVehicle().getRegNum());
 
-        driverLabel.setText("3");
+        if(booking.getRental().getDriver() != null){
+            driverLabel.setText(Integer.toString(booking.getRental().getDriver().getId()));
+        }
+        else{
+            driverLabel.setText("No Driver");
+        }
 
-        customerLabel.setText("ahmed321");
+        customerLabel.setText(booking.getRental().getCustomer().getUsername());
 
-        usedLabel.setText("24");
-        usedLabel.setVisible(false);
+        usedLabel.setText(Integer.toString(booking.getRental().getKmUsed()));
+        if(!booking.getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
+            usedLabel.setVisible(false);
+        }
 
-        discountLabel.setText("6");
+        discountLabel.setText(Integer.toString(booking.getRental().getDiscountPercentage()));
 
-        taxLabel.setText("0");
-        taxLabel.setVisible(false);
+        taxLabel.setText(Integer.toString(booking.getRental().getTollTaxes()));
+        if(!booking.getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
+            taxLabel.setVisible(false);
+        }
 
-        extraLabel.setText("0");
-        extraLabel.setVisible(false);
+        extraLabel.setText(Integer.toString(booking.getRental().getExtraCharges()));
+        if(!booking.getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
+            extraLabel.setVisible(false);
+        }
 
-        jFormattedTextField1.setBackground(new java.awt.Color(177, 190, 224));
-        jFormattedTextField1.setBorder(null);
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jFormattedTextField1.setText("May 14, 2020");
+        dateOutLabel.setText(dateFormat.format(booking.getRental().getDateOut()));
 
-        jFormattedTextField2.setBackground(new java.awt.Color(177, 190, 224));
-        jFormattedTextField2.setBorder(null);
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jFormattedTextField2.setText("May 14, 2020");
+        dateInLabel.setText(dateFormat.format(booking.getRental().getDateIn()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -195,12 +218,12 @@ public class BookingDetails extends javax.swing.JFrame {
                         .addComponent(usedLabel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateInLabel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateOutLabel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -217,7 +240,7 @@ public class BookingDetails extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(idLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -281,16 +304,16 @@ public class BookingDetails extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dateOutLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
-                                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dateInLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel12)
                                     .addComponent(usedLabel))))))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addGap(168, 168, 168))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -369,7 +392,7 @@ public class BookingDetails extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookingDetails().setVisible(true);
+                new BookingDetails(booking).setVisible(true);
             }
         });
     }
@@ -377,12 +400,12 @@ public class BookingDetails extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel customerLabel;
+    private javax.swing.JLabel dateInLabel;
+    private javax.swing.JLabel dateOutLabel;
     private javax.swing.JLabel discountLabel;
     private javax.swing.JLabel driverLabel;
     private javax.swing.JLabel extraLabel;
     private javax.swing.JLabel idLabel;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

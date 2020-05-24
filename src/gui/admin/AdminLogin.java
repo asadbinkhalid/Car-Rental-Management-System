@@ -4,23 +4,25 @@
  * and open the template in the editor.
  */
 package gui.admin;
+
 import Main.BL;
 import Models.Manager;
+import java.awt.event.KeyEvent;
 
 /**
  *
  * @author ehtis
  */
 public class AdminLogin extends javax.swing.JFrame {
+
     /**
      * Creates new form LoginUI
      */
-    
+
     public AdminLogin() {
         initComponents();
-             
+
     }
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +62,12 @@ public class AdminLogin extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(177, 190, 224));
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "USER NAME", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
         jPanel8.setPreferredSize(new java.awt.Dimension(348, 101));
+
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nameKeyPressed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("Username is required");
@@ -102,6 +110,12 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setText("password is required");
         jLabel4.setVisible(false);
+
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passKeyPressed(evt);
+            }
+        });
 
         passNotMatchedError.setForeground(new java.awt.Color(255, 0, 0));
         passNotMatchedError.setText("Password does not match");
@@ -251,46 +265,114 @@ public class AdminLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-        BL bl = BL.getBllInstance();
-        
         String fname = this.name.getText();
         String pass = this.pass.getText();
-        if(!fname.equals(""))
-        {
+        if (!fname.equals("")) {
             jLabel3.setVisible(false);
-            if(!pass.equals("")){
+            if (!pass.equals("")) {
                 jLabel4.setVisible(false);
-                
-                if(bl.verifyManagerUsername(fname)){
+                BL bl = BL.getBllInstance();
+                if (bl.verifyManagerUsername(fname)) {
                     userNotFoundError.setVisible(false);
-                    if(bl.verifyManagerPassword(fname, pass)) {
+                    if (bl.verifyManagerPassword(fname, pass)) {
                         passNotMatchedError.setVisible(false);
                         bl.getCompany().setSession(bl.getManager(fname));
-                        
+
                         this.setVisible(false);
                         AdminHome h = new AdminHome(bl.getManager(fname));
                         h.start();
-                    
-                    }
-                    else{
+
+                    } else {
                         passNotMatchedError.setVisible(true);
                     }
-                }
-                else{
+                } else {
                     userNotFoundError.setVisible(true);
                 }
-            }
-            else{
+            } else {
                 jLabel4.setVisible(true);
             }
-        }
-        else{
+        } else {
             jLabel3.setVisible(true);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_loginButtonMouseClicked
 
-    
+    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
+        // TODO add your handling code here:
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            BL bl = BL.getBllInstance();
+
+            String fname = this.name.getText();
+            String pass = this.pass.getText();
+            if (!fname.equals("")) {
+                jLabel3.setVisible(false);
+                if (!pass.equals("")) {
+                    jLabel4.setVisible(false);
+
+                    if (bl.verifyManagerUsername(fname)) {
+                        userNotFoundError.setVisible(false);
+                        if (bl.verifyManagerPassword(fname, pass)) {
+                            passNotMatchedError.setVisible(false);
+                            bl.getCompany().setSession(bl.getManager(fname));
+
+                            this.setVisible(false);
+                            AdminHome h = new AdminHome(bl.getManager(fname));
+                            h.start();
+
+                        } else {
+                            passNotMatchedError.setVisible(true);
+                        }
+                    } else {
+                        userNotFoundError.setVisible(true);
+                    }
+                } else {
+                    jLabel4.setVisible(true);
+                }
+            } else {
+                jLabel3.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_nameKeyPressed
+
+    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+        // TODO add your handling code here:
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            BL bl = BL.getBllInstance();
+
+            String fname = this.name.getText();
+            String pass = this.pass.getText();
+            if (!fname.equals("")) {
+                jLabel3.setVisible(false);
+                if (!pass.equals("")) {
+                    jLabel4.setVisible(false);
+
+                    if (bl.verifyManagerUsername(fname)) {
+                        userNotFoundError.setVisible(false);
+                        if (bl.verifyManagerPassword(fname, pass)) {
+                            passNotMatchedError.setVisible(false);
+                            bl.getCompany().setSession(bl.getManager(fname));
+
+                            this.setVisible(false);
+                            AdminHome h = new AdminHome(bl.getManager(fname));
+                            h.start();
+
+                        } else {
+                            passNotMatchedError.setVisible(true);
+                        }
+                    } else {
+                        userNotFoundError.setVisible(true);
+                    }
+                } else {
+                    jLabel4.setVisible(true);
+                }
+            } else {
+                jLabel3.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_passKeyPressed
+
     public void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -315,9 +397,8 @@ public class AdminLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
-       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AdminLogin().setVisible(true);
