@@ -9,12 +9,14 @@ It provides 2 modules:
 ### Functionalities
 For admin module:
 - Add, edit, remove Drivers, Vehicles and Customers
+- Edit profile details
 - Create Bookings, Accept/Reject them
 - Close Bookings and Calculate Fare
 
 For customer module:
 - Request for Bookings
 - View Receipts
+- Edit  profile details
 
 
 #
