@@ -5,6 +5,12 @@
  */
 package gui.client;
 
+import Main.BL;
+import Models.Customer;
+import gui.componentsmodels.CustomerReceiptsListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 /**
  *
  * @author gng
@@ -14,7 +20,20 @@ public class ClientReceipts extends javax.swing.JFrame {
     /**
      * Creates new form ClientReceipts
      */
-    public ClientReceipts() {
+    DefaultListModel<CustomerReceiptsListModel> model;
+    Customer customer;
+    public ClientReceipts(Customer customer) {
+        this.customer = customer;
+        BL bl = BL.getBllInstance();
+        model = new DefaultListModel<>();
+        CustomerReceiptsListModel receipt = null;
+        for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if ((bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("fulfilled")) && (bl.getCompany().getBookingsList().get(i).getRental().getCustomer().getId() == customer.getId())) {
+                receipt = new CustomerReceiptsListModel(bl.getCompany().getBookingsList().get(i));
+                model.addElement(receipt);
+            }
+        }
+        
         initComponents();
     }
 
@@ -33,7 +52,7 @@ public class ClientReceipts extends javax.swing.JFrame {
         backButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        receiptsList = new javax.swing.JList<>();
+        receiptsList = new JList<>(model);
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -63,9 +82,9 @@ public class ClientReceipts extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
-                .addGap(277, 277, 277)
+                .addGap(284, 284, 284)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(362, 362, 362))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,11 +100,6 @@ public class ClientReceipts extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(177, 190, 224));
 
         receiptsList.setBackground(new java.awt.Color(197, 210, 244));
-        receiptsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         receiptsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         receiptsList.setFixedCellHeight(20);
         jScrollPane1.setViewportView(receiptsList);
@@ -118,7 +132,7 @@ public class ClientReceipts extends javax.swing.JFrame {
                         .addGap(175, 175, 175)
                         .addComponent(jLabel5))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +185,8 @@ public class ClientReceipts extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        ClientHome page = new ClientHome();
+        BL bl = BL.getBllInstance();
+        ClientHome page = new ClientHome(bl.getCompany().getcSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -206,7 +221,7 @@ public class ClientReceipts extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientReceipts().setVisible(true);
+                new ClientReceipts(customer).setVisible(true);
             }
         });
     }
@@ -222,6 +237,6 @@ public class ClientReceipts extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> receiptsList;
+    private javax.swing.JList<CustomerReceiptsListModel> receiptsList;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package Main;
 
+import Models.Booking;
 import Models.Company;
 import Models.Customer;
 import Models.Driver;
@@ -12,6 +13,7 @@ import Models.Manager;
 import Models.Rental;
 import Models.Vehicle;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,8 +78,38 @@ public class BL {
         return false;
     }
     
+    public boolean verifyCustomerUsername(String username) {
+        for(int i=0; i < company.getCustomersList().size(); i++) {
+            if(username.equals(company.getCustomersList().get(i).getUsername())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean verifyCustomerPassword(String username, String password) {
+        for(int i=0; i < company.getCustomersList().size(); i++) {
+            if(username.equals(company.getCustomersList().get(i).getUsername()) && password.equals(company.getCustomersList().get(i).getPassword())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Manager getManager(String username){
         return getCompany().getManager(username);
+    }
+    
+    public Driver getDriver(int id){
+        return company.getDriver(id);
+    }
+    
+    public Customer getCustomer(String username){
+        return company.getCustomer(username);
+    }
+    
+    public Vehicle getVehicle(int id){
+        return company.getVehicle(id);
     }
     
     
@@ -115,7 +147,6 @@ public class BL {
         }
         else
             return false;
-        
     }
     
     public boolean addCustomer(String name, String phone, String address, String cnic, String username, String password){
@@ -131,7 +162,28 @@ public class BL {
         }
         else
             return false;
-        
+    }
+    
+    public void addBooking(Vehicle vehicle, Driver driver, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discount, int tax, int kmUsed, int extra ){
+        Rental rental = db.insertRental(new Rental(vehicle, driver, manager, customer, usageDetails, dateIn, dateOut, discount, tax, kmUsed, extra));
+        Booking booking = null;
+        if(rental != null){
+            booking = db.insertBooking(new Booking(rental));
+        }
+        if(booking != null){
+            company.getBookingsList().add(booking);
+        }
+    }
+    
+    public void addBooking(Vehicle vehicle, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discount, int tax, int kmUsed, int extra ){
+        Rental rental = db.insertRental(new Rental(vehicle, manager, customer, usageDetails, dateIn, dateOut, discount, tax, kmUsed, extra));
+        Booking booking = null;
+        if(rental != null){
+            booking = db.insertBooking(new Booking(rental));
+        }
+        if(booking != null){
+            company.getBookingsList().add(booking);
+        }
     }
     
     
@@ -179,6 +231,15 @@ public class BL {
 //        }
 //        db.deleteManagerById(id);
 //    }
+    
+    public void deleteBookingById(int id){
+        for(int i=0; i<company.getBookingsList().size(); i++){
+            if(id == company.getBookingsList().get(i).getId()){
+                company.getBookingsList().remove(i);
+            }
+        }
+        db.deleteBookingById(id);
+    }
     
     //
     //

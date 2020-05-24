@@ -6,6 +6,7 @@
 package gui.admin;
 
 import Main.BL;
+import Models.Booking;
 import gui.componentsmodels.BookingListModel;
 import javax.swing.DefaultListModel;
 
@@ -37,7 +38,7 @@ public class AdminBookings extends javax.swing.JFrame {
         for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
             if(bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("fulfilled")){
                 previous = new BookingListModel(bl.getCompany().getBookingsList().get(i));
-                model1.addElement(previous);
+                model2.addElement(previous);
             }
         }
         
@@ -415,6 +416,13 @@ public class AdminBookings extends javax.swing.JFrame {
         // TODO add your handling code here:
         if ((upcomingBookingsjList.getSelectedIndex() >= 0)){
             jLabel7.setVisible(true);
+            
+            BL bl = BL.getBllInstance();
+            bl.deleteBookingById(upcomingBookingsjList.getSelectedValue().getId());
+            model1.removeElementAt(upcomingBookingsjList.getSelectedIndex());
+            
+            this.revalidate();
+            this.repaint();
             jLabel8.setVisible(false);
         }
         else{
@@ -433,7 +441,15 @@ public class AdminBookings extends javax.swing.JFrame {
     private void bookingDetailsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingDetailsButtonMouseClicked
         // TODO add your handling code here:
         if ((upcomingBookingsjList.getSelectedIndex() >= 0)){
-            BookingDetails page = new BookingDetails();
+            
+            BL bl = BL.getBllInstance();
+            Booking booking = null;
+            for(int i=0; i < bl.getCompany().getBookingsList().size(); i++){
+                if(upcomingBookingsjList.getSelectedValue().getId() == bl.getCompany().getBookingsList().get(i).getId()){
+                    booking = bl.getCompany().getBookingsList().get(i);
+                }
+            }
+            BookingDetails page = new BookingDetails(booking);
             this.setVisible(false);
             page.start();
         }
@@ -461,7 +477,14 @@ public class AdminBookings extends javax.swing.JFrame {
     private void bookingDetailsButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingDetailsButton1MouseClicked
         // TODO add your handling code here:
         if ((previousBookingsjList.getSelectedIndex() >= 0)){
-            BookingDetails page = new BookingDetails();
+            BL bl = BL.getBllInstance();
+            Booking booking = null;
+            for(int i=0; i < bl.getCompany().getBookingsList().size(); i++){
+                if(previousBookingsjList.getSelectedValue().getId() == bl.getCompany().getBookingsList().get(i).getId()){
+                    booking = bl.getCompany().getBookingsList().get(i);
+                }
+            }
+            BookingDetails page = new BookingDetails(booking);
             this.setVisible(false);
             page.start();
         }
@@ -472,7 +495,15 @@ public class AdminBookings extends javax.swing.JFrame {
     private void closeBookingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBookingButtonMouseClicked
         // TODO add your handling code here:
         if ((upcomingBookingsjList.getSelectedIndex() >= 0)){
-            CloseBooking page = new CloseBooking();
+            
+            BL bl = BL.getBllInstance();
+            Booking booking = null;
+            for(int i=0; i < bl.getCompany().getBookingsList().size(); i++){
+                if(upcomingBookingsjList.getSelectedValue().getId() == bl.getCompany().getBookingsList().get(i).getId()){
+                    booking = bl.getCompany().getBookingsList().get(i);
+                }
+            }
+            CloseBooking page = new CloseBooking(booking);
             this.setVisible(false);
             page.start();
         }

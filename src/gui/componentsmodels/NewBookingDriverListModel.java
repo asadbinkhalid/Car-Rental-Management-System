@@ -12,17 +12,25 @@ import Models.Driver;
  * @author asadb
  */
 public class NewBookingDriverListModel {
+    int id;
     String name;
     String gender;
     String phone;
 
     public NewBookingDriverListModel(Driver driver) {
+        this.id = driver.getId();
         this.name = driver.getName();
         this.gender = driver.getGender();
         this.phone = driver.getPhone();
     }
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -50,6 +58,6 @@ public class NewBookingDriverListModel {
 
     @Override
     public String toString() {
-        return name + "\t\t" + gender + "\t\t" + phone;
+        return name + "                           " + gender + "                               " + phone;
     }   
 }

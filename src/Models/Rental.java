@@ -61,8 +61,27 @@ public class Rental {
         this.extraCharges = extraCharges;
         this.rentalstatus = "pending";
     }
-
+    
+    public Rental(Vehicle vehicle, Manager manager, Customer customer, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges) {
+        this.vehicle = vehicle;
+        this.driver = null;
+        this.manager = manager;
+        this.customer = customer;
+        this.usageDetails = usageDetails;
+        this.dateIn = dateIn;
+        this.dateOut = dateOut;
+        this.discountPercentage = discountPercentage;
+        this.tollTaxes = tollTaxes;
+        this.kmUsed = kmUsed;
+        this.extraCharges = extraCharges;
+        this.rentalstatus = "pending";
+    }
+    
     public Rental(int id, String usageDetails, Date dateIn, Date dateOut, int discountPercentage, int tollTaxes, int kmUsed, int extraCharges, String rentalstatus) {
+        this.vehicle = null;
+        this.driver = null;
+        this.manager = null;
+        this.customer = null;
         this.id = id;
         this.usageDetails = usageDetails;
         this.dateIn = dateIn;

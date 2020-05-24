@@ -5,6 +5,12 @@
  */
 package gui.client;
 
+import Main.BL;
+import Models.Customer;
+import gui.componentsmodels.CustomerBookingsPendingListModel;
+import gui.componentsmodels.CustomerBookingsUpcomingPreviousListModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author gng
@@ -14,7 +20,48 @@ public class ClientBookings extends javax.swing.JFrame {
     /**
      * Creates new form ClientBooking
      */
-    public ClientBookings() {
+    DefaultListModel<CustomerBookingsUpcomingPreviousListModel> model1;
+    DefaultListModel<CustomerBookingsUpcomingPreviousListModel> model2;
+    DefaultListModel<CustomerBookingsPendingListModel> model3;
+    Customer customer;
+    public ClientBookings(Customer customer) {
+        this.customer = customer;
+        
+        BL bl = BL.getBllInstance();
+        model1 = new DefaultListModel<>();
+        CustomerBookingsUpcomingPreviousListModel upcoming = null;
+        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if((bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("upcoming"))
+                    &&  (bl.getCompany().getBookingsList().get(i).getRental().getCustomer().getId() == customer.getId())){
+                upcoming = new CustomerBookingsUpcomingPreviousListModel(bl.getCompany().getBookingsList().get(i));
+                model1.addElement(upcoming);
+            }
+        }
+        
+        model2 = new DefaultListModel<>();
+        CustomerBookingsUpcomingPreviousListModel previous = null;
+        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if((bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("fulfilled"))
+                    &&  (bl.getCompany().getBookingsList().get(i).getRental().getCustomer().getId() == customer.getId())){
+                previous = new CustomerBookingsUpcomingPreviousListModel(bl.getCompany().getBookingsList().get(i));
+                model2.addElement(previous);
+            }
+        }
+        
+        model3 = new DefaultListModel<>();
+        CustomerBookingsPendingListModel pending = null;
+        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if((bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("pending"))
+                    &&  (bl.getCompany().getBookingsList().get(i).getRental().getCustomer().getId() == customer.getId())){
+                pending = new CustomerBookingsPendingListModel(bl.getCompany().getBookingsList().get(i));
+                model3.addElement(pending);
+            }
+        }
+        
+        
+        
+        
+        
         initComponents();
     }
 
@@ -38,7 +85,7 @@ public class ClientBookings extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        upcomingBookingsjList = new javax.swing.JList<>();
+        upcomingBookingsjList = new javax.swing.JList<>(model1);
         bookingDetailsButton = new javax.swing.JButton();
         cancelBookingButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -49,7 +96,7 @@ public class ClientBookings extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        previousBookingsjList = new javax.swing.JList<>();
+        previousBookingsjList = new javax.swing.JList<>(model2);
         bookingDetailsButton1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         pendingPanel = new javax.swing.JPanel();
@@ -57,7 +104,7 @@ public class ClientBookings extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        pendingBookingsjList = new javax.swing.JList<>();
+        pendingBookingsjList = new javax.swing.JList<>(model3);
         requestDetailsButton = new javax.swing.JButton();
         cancelRequestButton = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
@@ -91,7 +138,7 @@ public class ClientBookings extends javax.swing.JFrame {
                 .addComponent(backButton2)
                 .addGap(280, 280, 280)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(355, 355, 355))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,11 +173,6 @@ public class ClientBookings extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         upcomingBookingsjList.setBackground(new java.awt.Color(177, 190, 224));
-        upcomingBookingsjList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         upcomingBookingsjList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         upcomingBookingsjList.setFixedCellHeight(20);
         jScrollPane2.setViewportView(upcomingBookingsjList);
@@ -172,13 +214,13 @@ public class ClientBookings extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(140, 140, 140)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(187, 187, 187)
                         .addComponent(jLabel5)
                         .addGap(132, 132, 132)
                         .addComponent(jLabel6))
                     .addGroup(upcomingPanelLayout.createSequentialGroup()
                         .addComponent(bookingDetailsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
@@ -189,7 +231,7 @@ public class ClientBookings extends javax.swing.JFrame {
         upcomingPanelLayout.setVerticalGroup(
             upcomingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(upcomingPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addGroup(upcomingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
@@ -226,11 +268,6 @@ public class ClientBookings extends javax.swing.JFrame {
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         previousBookingsjList.setBackground(new java.awt.Color(177, 190, 224));
-        previousBookingsjList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         previousBookingsjList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         previousBookingsjList.setFixedCellHeight(20);
         jScrollPane3.setViewportView(previousBookingsjList);
@@ -257,11 +294,11 @@ public class ClientBookings extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(previousPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addGap(130, 130, 130)
+                        .addGap(140, 140, 140)
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                        .addGap(187, 187, 187)
                         .addComponent(jLabel11)
-                        .addGap(158, 158, 158)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                         .addComponent(jLabel12))
                     .addGroup(previousPanelLayout.createSequentialGroup()
                         .addComponent(bookingDetailsButton1)
@@ -273,7 +310,7 @@ public class ClientBookings extends javax.swing.JFrame {
         previousPanelLayout.setVerticalGroup(
             previousPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(previousPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addGroup(previousPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
@@ -304,11 +341,6 @@ public class ClientBookings extends javax.swing.JFrame {
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pendingBookingsjList.setBackground(new java.awt.Color(177, 190, 224));
-        pendingBookingsjList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Dummy 1", "Dummy 2", "Dummy 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         pendingBookingsjList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         pendingBookingsjList.setFixedCellHeight(20);
         jScrollPane4.setViewportView(pendingBookingsjList);
@@ -365,7 +397,7 @@ public class ClientBookings extends javax.swing.JFrame {
         pendingPanelLayout.setVerticalGroup(
             pendingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pendingPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addGroup(pendingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16)
@@ -396,7 +428,7 @@ public class ClientBookings extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(332, Short.MAX_VALUE)
+                .addGap(332, 332, 332)
                 .addComponent(addButton)
                 .addGap(347, 347, 347))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -438,7 +470,8 @@ public class ClientBookings extends javax.swing.JFrame {
 
     private void backButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton2MouseClicked
         // TODO add your handling code here:
-        ClientHome page = new ClientHome();
+        BL bl = BL.getBllInstance();
+        ClientHome page = new ClientHome(bl.getCompany().getcSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButton2MouseClicked
@@ -462,7 +495,7 @@ public class ClientBookings extends javax.swing.JFrame {
             jLabel8.setVisible(false);
         }
         else{
-            jLabel8.setVisible(true);
+            jLabel7.setVisible(true);
             jLabel7.setVisible(false);
         }
     }//GEN-LAST:event_cancelBookingButtonMouseClicked
@@ -481,6 +514,11 @@ public class ClientBookings extends javax.swing.JFrame {
     private void requestDetailsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestDetailsButtonMouseClicked
         // TODO add your handling code here:
         if ((pendingBookingsjList.getSelectedIndex() >= 0)){
+            
+            
+            
+            
+            
             RequestDetails page = new RequestDetails();
             this.setVisible(false);
             page.start();
@@ -539,7 +577,7 @@ public class ClientBookings extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientBookings().setVisible(true);
+                new ClientBookings(customer).setVisible(true);
             }
         });
     }
@@ -574,12 +612,12 @@ public class ClientBookings extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane;
-    private javax.swing.JList<String> pendingBookingsjList;
+    private javax.swing.JList<CustomerBookingsPendingListModel> pendingBookingsjList;
     private javax.swing.JPanel pendingPanel;
-    private javax.swing.JList<String> previousBookingsjList;
+    private javax.swing.JList<CustomerBookingsUpcomingPreviousListModel> previousBookingsjList;
     private javax.swing.JPanel previousPanel;
     private javax.swing.JButton requestDetailsButton;
-    private javax.swing.JList<String> upcomingBookingsjList;
+    private javax.swing.JList<CustomerBookingsUpcomingPreviousListModel> upcomingBookingsjList;
     private javax.swing.JPanel upcomingPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,14 +12,24 @@ import Models.Vehicle;
  * @author asadb
  */
 public class NewBookingVehicleListModel {
+    int id;
     String model;
     int rate;
     float avg;
 
     public NewBookingVehicleListModel(Vehicle vehicle) {
+        this.id = vehicle.getId();
         this.model = vehicle.getModel();
         this.rate = vehicle.getRatePerDay();
         this.avg = vehicle.getAvgFuelEco();;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getModel() {
@@ -48,7 +58,7 @@ public class NewBookingVehicleListModel {
 
     @Override
     public String toString() {
-        return model + "\t\t" + rate + "\t\t" + avg;
+        return model + "                            " + rate + "                            " + avg;
     }
     
     

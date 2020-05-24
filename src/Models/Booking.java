@@ -57,7 +57,13 @@ public class Booking implements Billing{
 
     @Override
     public int calculateFare() {
-        return 0;
+        int total = 0;
+        long d = rental.getDateIn().getTime() - rental.getDateIn().getTime();
+        Long days =  new Long(d);
+        total = (rental.getVehicle().getRatePerDay() * days.intValue()) + rental.getTollTaxes() + rental.getExtraCharges();
+        total = total - (total*rental.discountPercentage/100);
+        
+        return total;
     }
 
     @Override

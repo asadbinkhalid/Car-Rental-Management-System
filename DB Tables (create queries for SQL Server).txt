@@ -58,7 +58,7 @@ create table vehicle(
 create table rental(
 	id int not null identity(1,1) primary key,
 	vehicleid int foreign key references vehicle(id) on delete set null on update cascade,
-	driverid int foreign key references driver(id) on delete set null on update cascade,
+	driverid int,
 	managerid int foreign key references manager(id) on delete set null on update cascade,
 	customerid int foreign key references customer(id) on delete set null on update cascade,
 	usagedetails varchar(200),

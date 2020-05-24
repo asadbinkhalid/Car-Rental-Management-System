@@ -27,17 +27,16 @@ public class Main {
 
         BL bl = BL.getBllInstance();
 
-        
-        
-        
 //        AdminLogin admin = new AdminLogin();
 //        admin.start();
-        AdminBookings page = new AdminBookings();
-        page.start();
+        
+        
+//        AdminBookings page = new AdminBookings();
+//        page.start();
         
 
-//        ClientLogin client = new ClientLogin();
-//        client.start();
+        ClientLogin client = new ClientLogin();
+        client.start();
     }
 
 }

@@ -157,7 +157,13 @@ public class EditVehicle extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Category:");
 
-        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economy", "VIP" }));
+        if(vehicle.getVehicleType().equalsIgnoreCase("economy")){
+            categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economy", "VIP" }));
+        }
+        else{
+            categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VIP", "Economy" }));
+        }
+
         Object a = vehicle.getVehicleType();
         categoryComboBox.setSelectedItem(a);
 
@@ -254,7 +260,7 @@ public class EditVehicle extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(statusLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(doneButton)
                 .addGap(96, 96, 96))
         );
@@ -308,7 +314,7 @@ public class EditVehicle extends javax.swing.JFrame {
     private void doneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseClicked
         // TODO add your handling code here:
         
-        
+        //update vehicle in DB function call here
         
         
         AdminVehicles page = new AdminVehicles();
