@@ -6,6 +6,7 @@
 package gui.client;
 
 import Main.BL;
+import Models.Booking;
 import Models.Customer;
 import gui.componentsmodels.CustomerBookingsPendingListModel;
 import gui.componentsmodels.CustomerBookingsUpcomingPreviousListModel;
@@ -478,8 +479,15 @@ public class ClientBookings extends javax.swing.JFrame {
 
     private void bookingDetailsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingDetailsButtonMouseClicked
         // TODO add your handling code here:
-        if ((upcomingBookingsjList.getSelectedIndex() >= 0)){
-            BookingDetails page = new BookingDetails();
+        if ((upcomingBookingsjList.getSelectedIndex() >= 0)){            
+            BL bl = BL.getBllInstance();
+            Booking booking = null;
+            for(int i=0; i < bl.getCompany().getBookingsList().size(); i++){
+                if(upcomingBookingsjList.getSelectedValue().getId() == bl.getCompany().getBookingsList().get(i).getId()){
+                    booking = bl.getCompany().getBookingsList().get(i);
+                }
+            }
+            BookingDetails page = new BookingDetails(booking);
             this.setVisible(false);
             page.start();
         }
@@ -491,8 +499,15 @@ public class ClientBookings extends javax.swing.JFrame {
     private void cancelBookingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBookingButtonMouseClicked
         // TODO add your handling code here:
         if ((upcomingBookingsjList.getSelectedIndex() >= 0)){
-            jLabel7.setVisible(true);
             jLabel8.setVisible(false);
+            
+            BL bl = BL.getBllInstance();
+            bl.deleteBookingById(upcomingBookingsjList.getSelectedValue().getId());
+            model1.removeElementAt(upcomingBookingsjList.getSelectedIndex());
+            
+            this.revalidate();
+            this.repaint();
+            jLabel7.setVisible(true);
         }
         else{
             jLabel7.setVisible(true);
@@ -503,7 +518,14 @@ public class ClientBookings extends javax.swing.JFrame {
     private void bookingDetailsButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingDetailsButton1MouseClicked
         // TODO add your handling code here:
         if ((previousBookingsjList.getSelectedIndex() >= 0)){
-            BookingDetails page = new BookingDetails();
+            BL bl = BL.getBllInstance();
+            Booking booking = null;
+            for(int i=0; i < bl.getCompany().getBookingsList().size(); i++){
+                if(previousBookingsjList.getSelectedValue().getId() == bl.getCompany().getBookingsList().get(i).getId()){
+                    booking = bl.getCompany().getBookingsList().get(i);
+                }
+            }
+            BookingDetails page = new BookingDetails(booking);
             this.setVisible(false);
             page.start();
         }
@@ -514,12 +536,14 @@ public class ClientBookings extends javax.swing.JFrame {
     private void requestDetailsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestDetailsButtonMouseClicked
         // TODO add your handling code here:
         if ((pendingBookingsjList.getSelectedIndex() >= 0)){
-            
-            
-            
-            
-            
-            RequestDetails page = new RequestDetails();
+            BL bl = BL.getBllInstance();
+            Booking booking = null;
+            for(int i=0; i < bl.getCompany().getBookingsList().size(); i++){
+                if(pendingBookingsjList.getSelectedValue().getId() == bl.getCompany().getBookingsList().get(i).getId()){
+                    booking = bl.getCompany().getBookingsList().get(i);
+                }
+            }
+            RequestDetails page = new RequestDetails(booking);
             this.setVisible(false);
             page.start();
         }
@@ -529,9 +553,22 @@ public class ClientBookings extends javax.swing.JFrame {
 
     private void cancelRequestButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelRequestButtonMouseClicked
         // TODO add your handling code here:
-         if ((pendingBookingsjList.getSelectedIndex() >= 0)){
-            jLabel18.setVisible(true);
+         if ((pendingBookingsjList.getSelectedIndex() >= 0)){ 
             jLabel19.setVisible(false);
+            
+             BL bl = BL.getBllInstance();
+            
+            
+            for(int i=0; i < pendingBookingsjList.getSelectedValuesList().size(); i++){
+                bl.deleteBookingById(pendingBookingsjList.getSelectedValuesList().get(i).getId());
+            }
+            for(int i=0; i < pendingBookingsjList.getSelectedIndices().length; i++){
+                model3.removeElementAt(pendingBookingsjList.getSelectedIndices()[i]);
+            }
+            
+            this.revalidate();
+            this.repaint();
+            jLabel18.setVisible(true);
         }
         else{
             jLabel19.setVisible(true);

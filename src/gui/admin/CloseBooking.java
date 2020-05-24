@@ -246,9 +246,14 @@ public class CloseBooking extends javax.swing.JFrame {
         booking.getRental().setKmUsed(Integer.parseInt(usedTextField.getText()));
         booking.setTotalFare(booking.calculateFare());
         booking.getRental().setRentalstatus("fulfilled");
+        booking.getRental().getVehicle().setVehicleStatus("available");
+        booking.getRental().getDriver().setDriverStatus("available");
         
+        //update rental in db function call here
         //update booking in db function call here
-
+        //update vehicle in db function call here
+        //update driver in db function call here
+        
         AdminBookings page = new AdminBookings();
         page.start();
         this.setVisible(false);

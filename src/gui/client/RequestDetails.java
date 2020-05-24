@@ -5,6 +5,11 @@
  */
 package gui.client;
 
+import Main.BL;
+import Models.Booking;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author gng
@@ -14,7 +19,11 @@ public class RequestDetails extends javax.swing.JFrame {
     /**
      * Creates new form RequestDetails
      */
-    public RequestDetails() {
+    Booking booking;
+    DateFormat dateFormat;
+    public RequestDetails(Booking booking) {
+        this.booking = booking;
+        dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         initComponents();
     }
 
@@ -57,8 +66,8 @@ public class RequestDetails extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Booking Request Details");
 
-        backButton.setText("Back");
         backButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        backButton.setText("Back");
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButtonMouseClicked(evt);
@@ -89,19 +98,19 @@ public class RequestDetails extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(177, 190, 224));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Vehicle ID:");
+        jLabel4.setText("Vehicle:");
 
-        jLabel5.setText("Driver ID:");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Driver ID:");
 
-        jLabel6.setText("Customer Username:");
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Customer Username:");
 
-        jLabel7.setText("Date Out:");
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Date Out:");
 
-        jLabel8.setText("Expected Date In:");
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("Expected Date In:");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Usage Details:");
@@ -109,26 +118,32 @@ public class RequestDetails extends javax.swing.JFrame {
         usageTextArea.setBackground(new java.awt.Color(177, 190, 224));
         usageTextArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         usageTextArea.setRows(5);
+        usageTextArea.setText(booking.getRental().getUsageDetails());
         usageTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         usageTextArea.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         usageTextArea.setEditable(false);
         jScrollPane1.setViewportView(usageTextArea);
 
-        vehicleLabel.setText("5");
+        vehicleLabel.setText(booking.getRental().getVehicle().getRegNum());
 
-        driverLabel.setText("3");
+        if(booking.getRental().getDriver() != null){
+            driverLabel.setText(Integer.toString(booking.getRental().getDriver().getId()));
+        }
+        else{
+            driverLabel.setText("No Driver");
+        }
 
-        customerLabel.setText("ahmed321");
+        customerLabel.setText(booking.getRental().getCustomer().getUsername());
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jFormattedTextField1.setText("May 14, 2020");
         jFormattedTextField1.setBackground(new java.awt.Color(177, 190, 224));
         jFormattedTextField1.setBorder(null);
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jFormattedTextField1.setText(dateFormat.format(booking.getRental().getDateOut()));
 
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jFormattedTextField2.setText("May 14, 2020");
         jFormattedTextField2.setBackground(new java.awt.Color(177, 190, 224));
         jFormattedTextField2.setBorder(null);
+        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jFormattedTextField2.setText(dateFormat.format(booking.getRental().getDateIn()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -147,7 +162,7 @@ public class RequestDetails extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(580, Short.MAX_VALUE))
+                        .addContainerGap(578, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -242,7 +257,7 @@ public class RequestDetails extends javax.swing.JFrame {
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
-        ClientBookings page = new ClientBookings();
+        ClientBookings page = new ClientBookings(BL.getBllInstance().getCompany().getcSession());
         page.start();
         this.setVisible(false);
     }//GEN-LAST:event_backButtonMouseClicked
@@ -277,7 +292,7 @@ public class RequestDetails extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RequestDetails().setVisible(true);
+                new RequestDetails(booking).setVisible(true);
             }
         });
     }

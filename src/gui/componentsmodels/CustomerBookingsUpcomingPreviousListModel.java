@@ -29,6 +29,23 @@ public class CustomerBookingsUpcomingPreviousListModel {
         this.dateIn = booking.getRental().getDateIn();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDateIn() {
+        return dateIn;
+    }
+
+    public void setDateIn(Date dateIn) {
+        this.dateIn = dateIn;
+    }
+    
+
     public String getManager() {
         return manager;
     }
@@ -66,8 +83,8 @@ public class CustomerBookingsUpcomingPreviousListModel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         String strDateOut = dateFormat.format(dateOut);
         String strDateIn = dateFormat.format(dateIn);
-        return manager + "                                          " + vehicle + "                                                   "
-                + strDateOut + "                                                     " + strDateIn;
+        return manager + "                                                                    " + vehicle + "                                                             "
+                + strDateOut + "                                                       " + strDateIn;
     }
     
     

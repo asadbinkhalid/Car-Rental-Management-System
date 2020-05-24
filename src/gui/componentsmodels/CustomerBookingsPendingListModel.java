@@ -27,6 +27,23 @@ public class CustomerBookingsPendingListModel {
         this.dateIn = booking.getRental().getDateIn();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDateIn() {
+        return dateIn;
+    }
+
+    public void setDateIn(Date dateIn) {
+        this.dateIn = dateIn;
+    }
+    
+
     public String getVehicle() {
         return vehicle;
     }
