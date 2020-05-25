@@ -15,7 +15,7 @@ For admin module:
 
 For customer module:
 - Request for Bookings
-* Cancel Bookings
+- Cancel Bookings
 - View Receipts
 - Edit  profile details
 
