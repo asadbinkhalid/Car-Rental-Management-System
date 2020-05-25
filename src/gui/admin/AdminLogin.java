@@ -6,7 +6,6 @@
 package gui.admin;
 
 import Main.BL;
-import Models.Manager;
 import gui.client.ClientLogin;
 import java.awt.event.KeyEvent;
 

@@ -7,7 +7,6 @@ package gui.admin;
 
 import Main.BL;
 import gui.componentsmodels.BookingRequestListModel;
-import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**

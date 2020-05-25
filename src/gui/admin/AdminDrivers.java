@@ -7,8 +7,6 @@ package gui.admin;
 import Main.BL;
 import Models.Driver;
 import gui.componentsmodels.DriverListModel;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 /**

@@ -6,7 +6,6 @@
 package gui.client;
 
 import Main.BL;
-import Models.Customer;
 
 /**
  *

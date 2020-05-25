@@ -12,7 +12,6 @@ import Models.Driver;
 import Models.Manager;
 import Models.Rental;
 import Models.Vehicle;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

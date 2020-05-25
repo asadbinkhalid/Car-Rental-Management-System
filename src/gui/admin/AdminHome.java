@@ -6,7 +6,6 @@
 package gui.admin;
 
 import Models.Manager;
-import java.util.List;
 
 /**
  *

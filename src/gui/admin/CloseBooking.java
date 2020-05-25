@@ -13,15 +13,10 @@ import Main.BL;
 import Models.Booking;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CloseBooking extends javax.swing.JFrame {
 
