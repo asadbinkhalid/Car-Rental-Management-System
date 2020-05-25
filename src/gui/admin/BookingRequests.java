@@ -20,19 +20,18 @@ public class BookingRequests extends javax.swing.JFrame {
      * Creates new form BookingRequests
      */
     DefaultListModel<BookingRequestListModel> model;
-    
+
     public BookingRequests() {
         BL bl = BL.getBllInstance();
         model = new DefaultListModel<>();
         BookingRequestListModel pending = null;
-        for(int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
-            if(bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("pending")){
+        for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
+            if (bl.getCompany().getBookingsList().get(i).getRental().getRentalstatus().equalsIgnoreCase("pending")) {
                 pending = new BookingRequestListModel(bl.getCompany().getBookingsList().get(i));
                 model.addElement(pending);
             }
         }
-        
-        
+
         initComponents();
     }
 
@@ -245,28 +244,31 @@ public class BookingRequests extends javax.swing.JFrame {
 
     private void acceptButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptButtonMouseClicked
         // TODO add your handling code here:
-        if ((requestsList.getSelectedIndex() >= 0)){
+        if ((requestsList.getSelectedIndex() >= 0)) {
             acceptedMsg.setVisible(true);
             selectError.setVisible(false);
             rejectMsg.setVisible(false);
             BL bl = BL.getBllInstance();
-            //List<BookingRequestListModel> selectedRequestsList = requestsList.getSelectedValuesList();
-            for(int i=0; i < requestsList.getSelectedValuesList().size(); i++){
-                for(int j = 0; j < bl.getCompany().getBookingsList().size(); j++){
-                    if(requestsList.getSelectedValuesList().get(i).getId() == bl.getCompany().getBookingsList().get(j).getId()){
+
+            for (int i = 0; i < requestsList.getSelectedValuesList().size(); i++) {
+                for (int j = 0; j < bl.getCompany().getBookingsList().size(); j++) {
+                    if (requestsList.getSelectedValuesList().get(i).getId() == bl.getCompany().getBookingsList().get(j).getId()) {
                         bl.getCompany().getBookingsList().get(j).getRental().setRentalstatus("upcoming");
-                        
-                        //update booking in DB function call here
-                        
-                        
+                        bl.getCompany().getBookingsList().get(j).getRental().getVehicle().setVehicleStatus("busy");
+                        if (bl.getCompany().getBookingsList().get(j).getRental().getDriver() != null) {
+                            bl.getCompany().getBookingsList().get(j).getRental().getDriver().setDriverStatus("busy");
+                            bl.updateDriver(bl.getCompany().getBookingsList().get(j).getRental().getDriver());
+                        }
+
+                        bl.updateVehicle(bl.getCompany().getBookingsList().get(j).getRental().getVehicle());
+                        bl.updateBooking(bl.getCompany().getBookingsList().get(j));
                     }
                 }
             }
-            for(int i=0; i < requestsList.getSelectedIndices().length; i++){
+            for (int i = 0; i < requestsList.getSelectedIndices().length; i++) {
                 model.removeElementAt(requestsList.getSelectedIndices()[i]);
             }
-        }
-        else{
+        } else {
             selectError.setVisible(true);
             acceptedMsg.setVisible(false);
             rejectMsg.setVisible(false);
@@ -275,25 +277,23 @@ public class BookingRequests extends javax.swing.JFrame {
 
     private void rejectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectButtonMouseClicked
         // TODO add your handling code here:
-        if ((requestsList.getSelectedIndex() >= 0)){
+        if ((requestsList.getSelectedIndex() >= 0)) {
             rejectMsg.setVisible(true);
             selectError.setVisible(false);
             acceptedMsg.setVisible(false);
-            
+
             BL bl = BL.getBllInstance();
-            
-            
-            for(int i=0; i < requestsList.getSelectedValuesList().size(); i++){
+
+            for (int i = 0; i < requestsList.getSelectedValuesList().size(); i++) {
                 bl.deleteBookingById(requestsList.getSelectedValuesList().get(i).getId());
             }
-            for(int i=0; i < requestsList.getSelectedIndices().length; i++){
+            for (int i = 0; i < requestsList.getSelectedIndices().length; i++) {
                 model.removeElementAt(requestsList.getSelectedIndices()[i]);
             }
-            
+
             this.revalidate();
             this.repaint();
-        }
-        else{
+        } else {
             selectError.setVisible(true);
             rejectMsg.setVisible(false);
             acceptedMsg.setVisible(false);

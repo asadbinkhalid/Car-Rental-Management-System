@@ -5,6 +5,13 @@
  */
 package Models;
 
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.text.DateFormatter;
 /**
  *
  * @author asadb
@@ -58,7 +65,16 @@ public class Booking implements Billing{
     @Override
     public int calculateFare() {
         int total = 0;
-        long d = rental.getDateIn().getTime() - rental.getDateIn().getTime();
+        
+        DateFormat df = new SimpleDateFormat("dd MM yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
+        String in = df.format(getRental().getDateIn());
+        String out = df.format(getRental().getDateOut());
+        
+        LocalDateTime lin = LocalDate.parse(in, dtf).atStartOfDay();
+        LocalDateTime lout = LocalDate.parse(out, dtf).atStartOfDay();
+        
+        long d = Duration.between(lout, lin).toDays();
         Long days =  new Long(d);
         total = (rental.getVehicle().getRatePerDay() * days.intValue()) + rental.getTollTaxes() + rental.getExtraCharges();
         total = total - (total*rental.discountPercentage/100);

@@ -81,7 +81,7 @@ public class BookingListModel {
 
     @Override
     public String toString() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDateOut = dateFormat.format(dateOut);
         String strDateIn = dateFormat.format(dateIn);
         return customer + "                                 " + vehicle + "                                   " + strDateOut + "                             " + strDateIn;

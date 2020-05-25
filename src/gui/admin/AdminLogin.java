@@ -7,6 +7,7 @@ package gui.admin;
 
 import Main.BL;
 import Models.Manager;
+import gui.client.ClientLogin;
 import java.awt.event.KeyEvent;
 
 /**
@@ -46,6 +47,7 @@ public class AdminLogin extends javax.swing.JFrame {
         passNotMatchedError = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        customerLoginButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -157,7 +159,7 @@ public class AdminLogin extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("LOGIN");
+        jLabel1.setText("ADMIN LOGIN");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -172,10 +174,10 @@ public class AdminLogin extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(loginButton)))
                 .addContainerGap())
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(152, 152, 152)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(124, 124, 124)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(121, 121, 121))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,19 +192,33 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addGap(0, 67, Short.MAX_VALUE))
         );
 
+        customerLoginButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
+        customerLoginButton.setText("Login as Customer");
+        customerLoginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerLoginButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(customerLoginButton)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap()
+                .addComponent(customerLoginButton)
+                .addGap(20, 20, 20)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -373,6 +389,14 @@ public class AdminLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passKeyPressed
 
+    private void customerLoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerLoginButtonMouseClicked
+        // TODO add your handling code here:
+        ClientLogin page = new ClientLogin();
+        page.start();
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_customerLoginButtonMouseClicked
+
     public void start() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -407,6 +431,7 @@ public class AdminLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton customerLoginButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

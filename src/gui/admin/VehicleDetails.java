@@ -27,7 +27,6 @@ public class VehicleDetails extends javax.swing.JFrame {
         BL bl = BL.getBllInstance();
         model = new DefaultListModel<>();
         VehicleBookingsListModel booking = null;
-        System.out.println(bl.getCompany().getBookingsList().size());
         for (int i = 0; i < bl.getCompany().getBookingsList().size(); i++) {
 
             if (this.vehicle.getId() == bl.getCompany().getBookingsList().get(i).getRental().getVehicle().getId()) {

@@ -78,7 +78,7 @@ public class ReceiptsListModel {
             str = str + driver;
         else
             str = str + "-";
-        str = str + "                                                          " + fare;
+        str = str + "                                                     " + fare;
         return str;
     }
     

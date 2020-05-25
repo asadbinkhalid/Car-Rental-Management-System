@@ -40,7 +40,7 @@ public class CloseBooking extends javax.swing.JFrame {
         dateSettings = new com.github.lgooddatepicker.components.DatePickerSettings();
 
         initComponents();
-        dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateSettings.setDateRangeLimits(LocalDate.now(), null);
     }
 
@@ -67,6 +67,8 @@ public class CloseBooking extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
         closeButton = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
+        dateError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(485, 560));
@@ -97,9 +99,9 @@ public class CloseBooking extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(backButton2)
-                .addGap(87, 87, 87)
+                .addGap(96, 96, 96)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(155, 155, 155))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,6 +125,12 @@ public class CloseBooking extends javax.swing.JFrame {
         jLabel4.setText("Vehicle Used (km):");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+        taxTextField.setText("0");
+
+        extraTextField.setText("0");
+
+        usedTextField.setText("0");
+
         jLabel5.setText("Date In:");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -136,6 +144,14 @@ public class CloseBooking extends javax.swing.JFrame {
             }
         });
 
+        errorLabel.setText("ERROR!");
+        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorLabel.setVisible(false);
+
+        dateError.setForeground(new java.awt.Color(255, 0, 0));
+        dateError.setText("Date is required");
+        dateError.setVisible(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -143,28 +159,34 @@ public class CloseBooking extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(taxTextField))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(usedTextField))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(extraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(206, 206, 206)
-                        .addComponent(closeButton)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(errorLabel))
+                            .addComponent(closeButton)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateError)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(taxTextField))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(usedTextField))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(extraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(139, 139, 139))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +195,9 @@ public class CloseBooking extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateError)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(taxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -187,7 +211,9 @@ public class CloseBooking extends javax.swing.JFrame {
                     .addComponent(usedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addComponent(closeButton)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorLabel)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -234,29 +260,43 @@ public class CloseBooking extends javax.swing.JFrame {
 
     private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
         // TODO add your handling code here:
+        if (datePicker1.getDate() != null) {
+            dateError.setVisible(false);
+            BL bl = BL.getBllInstance();
+            LocalDate in = datePicker1.getDate();
+            Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println(booking.getRental().getDateIn());
+            booking.getRental().setDateIn(dateIn);
+            System.out.println(booking.getRental().getDateIn());
+            booking.getRental().setTollTaxes(Integer.parseInt(taxTextField.getText()));
+            booking.getRental().setExtraCharges(Integer.parseInt(extraTextField.getText()));
+            booking.getRental().setKmUsed(Integer.parseInt(usedTextField.getText()));
+            booking.setTotalFare(booking.calculateFare());
+            booking.getRental().setRentalstatus("fulfilled");
+            booking.getRental().getVehicle().setVehicleStatus("available");
+            if (booking.getRental().getDriver() != null) {
+                booking.getRental().getDriver().setDriverStatus("available");
+                bl.updateDriver(booking.getRental().getDriver());
+            }
 
-        BL bl = BL.getBllInstance();
+            if (bl.updateVehicle(booking.getRental().getVehicle())
+                    && bl.updateBooking(booking)) {
+                errorLabel.setVisible(false);
+                AdminBookings page = new AdminBookings();
+                page.start();
+                this.setVisible(false);
+            } else {
+                errorLabel.setVisible(true);
+            }
+        } else {
+            dateError.setVisible(true);
+        }
 
-        LocalDate in = datePicker1.getDate();
-        Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        booking.getRental().setDateIn(dateIn);
-        booking.getRental().setTollTaxes(Integer.parseInt(taxTextField.getText()));
-        booking.getRental().setExtraCharges(Integer.parseInt(extraTextField.getText()));
-        booking.getRental().setKmUsed(Integer.parseInt(usedTextField.getText()));
-        booking.setTotalFare(booking.calculateFare());
-        booking.getRental().setRentalstatus("fulfilled");
-        booking.getRental().getVehicle().setVehicleStatus("available");
-        booking.getRental().getDriver().setDriverStatus("available");
-        
         //update rental in db function call here
         //update booking in db function call here
         //update vehicle in db function call here
         //update driver in db function call here
-        
-        AdminBookings page = new AdminBookings();
-        page.start();
-        this.setVisible(false);
+
     }//GEN-LAST:event_closeButtonMouseClicked
 
     public void start() {
@@ -299,7 +339,9 @@ public class CloseBooking extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton2;
     private javax.swing.JButton closeButton;
+    private javax.swing.JLabel dateError;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JTextField extraTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

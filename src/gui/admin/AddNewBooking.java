@@ -58,7 +58,7 @@ public class AddNewBooking extends javax.swing.JFrame {
             }
         }
         
-        dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         initComponents();
 
@@ -456,7 +456,7 @@ public class AddNewBooking extends javax.swing.JFrame {
                                 LocalDate in = datePicker2.getDate();
                                 Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-                                bl.addBooking(vehicle, driver, manager, customer, usageTextArea.getText(), dateOut, dateIn, 0, 0, 0, 0);
+                                bl.addBooking(vehicle, driver, manager, customer, usageTextArea.getText(), dateIn, dateOut, 0, 0, 0, 0);
 
                                 AdminBookings page = new AdminBookings();
                                 page.start();

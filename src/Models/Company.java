@@ -99,11 +99,19 @@ public class Company {
     }
     
     
-    
-    
     public Manager getManager(String username) {
         for(int i=0; i < getManagersList().size(); i++){
             if(username.equals(getManagersList().get(i).getUsername())){
+                
+                return getManagersList().get(i);
+            }
+        }
+        return null;
+    }
+    
+    public Manager getManager(int id) {
+        for(int i=0; i < getManagersList().size(); i++){
+            if(id == getManagersList().get(i).getId()){
                 
                 return getManagersList().get(i);
             }
@@ -136,6 +144,16 @@ public class Company {
             if(username.equals(getCustomersList().get(i).getUsername())){
                 
                 return getCustomersList().get(i);
+            }
+        }
+        return null;
+    }
+    
+    public Booking getBooking(int id) {
+        for(int i=0; i < getBookingsList().size(); i++){
+            if(id == getBookingsList().get(i).getId()){
+                
+                return getBookingsList().get(i);
             }
         }
         return null;
