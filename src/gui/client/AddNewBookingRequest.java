@@ -412,7 +412,7 @@ public class AddNewBookingRequest extends javax.swing.JFrame {
                             LocalDate in = datePicker2.getDate();
                             Date dateIn = Date.from(in.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-                            bl.addBooking(vehicle, driver, manager, customer, usageTextArea.getText(), dateOut, dateIn, 0, 0, 0, 0);
+                            bl.addBooking(vehicle, driver, manager, customer, usageTextArea.getText(), dateIn, dateOut, 0, 0, 0, 0);
 
                             ClientBookings page = new ClientBookings(bl.getCompany().getcSession());
                             page.start();

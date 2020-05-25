@@ -100,6 +100,10 @@ public class BL {
         return getCompany().getManager(username);
     }
     
+    public Manager getManager(int id){
+        return getCompany().getManager(id);
+    }
+    
     public Driver getDriver(int id){
         return company.getDriver(id);
     }
@@ -110,6 +114,9 @@ public class BL {
     
     public Vehicle getVehicle(int id){
         return company.getVehicle(id);
+    }
+    public Booking getBooking(int id){
+        return company.getBooking(id);
     }
     
     
@@ -222,16 +229,6 @@ public class BL {
         db.deleteVehicleById(id);
     }
     
-//    void deleteManagerById(int id){
-//        
-//        for(int i=0; i < company.getManagersList().size(); i++){
-//            if(id == company.getManagersList().get(i).getId()){
-//                company.getManagersList().remove(i);
-//            }
-//        }
-//        db.deleteManagerById(id);
-//    }
-    
     public void deleteBookingById(int id){
         for(int i=0; i<company.getBookingsList().size(); i++){
             if(id == company.getBookingsList().get(i).getId()){
@@ -246,20 +243,23 @@ public class BL {
     //          UPDATE
     //
     //
-//    public boolean updateManager(Manager manager){
-//        return db.updateManager(manager);
-//    }
-//    
-//    public boolean updateCustomer(Customer customer) {
-//        return db.updateCustomer(customer);
-//    }
-//    
-//    public boolean updateVehicle(Vehicle vehicle){
-//        return db.updateVehicle(vehicle);
-//    }
-//    
-//    public boolean updateDriver(Driver driver) {
-//        return db.updateDriver(driver);
-//    }
+    public boolean updateManager(Manager manager){
+        return db.updateManager(manager);
+    }
     
+    public boolean updateCustomer(Customer customer) {
+        return db.updateCustomer(customer);
+    }
+    
+    public boolean updateVehicle(Vehicle vehicle){
+        return db.updateVehicle(vehicle);
+    }
+    
+    public boolean updateDriver(Driver driver) {
+        return db.updateDriver(driver);
+    }
+    
+    public boolean updateBooking(Booking booking){
+        return db.updateBooking(booking);
+    }
 }

@@ -175,10 +175,14 @@
                                           <Component id="jPasswordField" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="usernameError" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="uniqueError" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="usernameError" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="passwordError" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="192" max="32767" attributes="0"/>
+                              <EmptySpace pref="156" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="addressError" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -228,7 +232,10 @@
                                   <Component id="usernameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="usernameError" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="usernameError" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="uniqueError" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -441,6 +448,17 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="// Code adding the component to the"/>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="passwordError.setVisible(false);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="uniqueError">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Username already taken"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="uniqueError.setVisible(false);"/>
               </AuxValues>
             </Component>
           </SubComponents>

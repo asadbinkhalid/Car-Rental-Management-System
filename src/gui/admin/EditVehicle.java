@@ -6,6 +6,7 @@
 package gui.admin;
 
 import Models.Vehicle;
+import Main.BL;
 
 /**
  *
@@ -17,6 +18,7 @@ public class EditVehicle extends javax.swing.JFrame {
      * Creates new form EditVehicle
      */
     Vehicle vehicle;
+
     public EditVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
         initComponents();
@@ -57,6 +59,11 @@ public class EditVehicle extends javax.swing.JFrame {
         avgtextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         categoryComboBox = new javax.swing.JComboBox<>();
+        companyError = new javax.swing.JLabel();
+        modelError = new javax.swing.JLabel();
+        regnumError = new javax.swing.JLabel();
+        uniqueError = new javax.swing.JLabel();
+        rateError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,6 +174,26 @@ public class EditVehicle extends javax.swing.JFrame {
         Object a = vehicle.getVehicleType();
         categoryComboBox.setSelectedItem(a);
 
+        companyError.setForeground(new java.awt.Color(255, 0, 0));
+        companyError.setText("Company name is required");
+        companyError.setVisible(false);
+
+        modelError.setForeground(new java.awt.Color(255, 0, 0));
+        modelError.setText("Model name is required");
+        modelError.setVisible(false);
+
+        regnumError.setForeground(new java.awt.Color(255, 0, 0));
+        regnumError.setText("Registration Number is required");
+        regnumError.setVisible(false);
+
+        uniqueError.setForeground(new java.awt.Color(255, 0, 0));
+        uniqueError.setText("A vehicle with this Registration Number already Exists");
+        uniqueError.setVisible(false);
+
+        rateError.setForeground(new java.awt.Color(255, 0, 0));
+        rateError.setText("Rate is required");
+        rateError.setVisible(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -176,50 +203,57 @@ public class EditVehicle extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(colorTextField))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(idLabel))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(companyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(modelTextField))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(regTextField)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(statusLabel))
+                            .addComponent(companyError)
+                            .addComponent(modelError)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(colorTextField))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(idLabel))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(companyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(modelTextField))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(regTextField)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(mileageTextField))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(avgtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(categoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(uniqueError)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(regnumError)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rateError)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(rateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(mileageTextField))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(avgtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(categoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(doneButton)))
@@ -238,19 +272,29 @@ public class EditVehicle extends javax.swing.JFrame {
                     .addComponent(companyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(rateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(companyError)
+                    .addComponent(rateError))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(modelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(mileageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modelError)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(regTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(avgtextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(regnumError)
+                    .addComponent(uniqueError))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(colorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,13 +357,45 @@ public class EditVehicle extends javax.swing.JFrame {
 
     private void doneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseClicked
         // TODO add your handling code here:
-        
-        //update vehicle in DB function call here
-        
-        
-        AdminVehicles page = new AdminVehicles();
-        page.start();
-        this.setVisible(false);
+        if (!companyTextField.getText().isBlank()) {
+            companyError.setVisible(false);
+            if (!modelTextField.getText().isBlank()) {
+                modelError.setVisible(false);
+                if (!regTextField.getText().isBlank()) {
+                    regnumError.setVisible(false);
+                    if (!rateTextField.getText().isBlank()) {
+                        rateError.setVisible(false);
+                        
+                        vehicle.setCompany(companyTextField.getText());
+                        vehicle.setModel(modelTextField.getText());
+                        vehicle.setRegNum(regTextField.getText());
+                        vehicle.setColor(colorTextField.getText());
+                        vehicle.setRatePerDay(Integer.parseInt(rateTextField.getText()));
+                        vehicle.setMileage(Long.parseLong(mileageTextField.getText()));
+                        vehicle.setAvgFuelEco(Float.parseFloat(avgtextField.getText()));
+                        vehicle.setVehicleType(String.valueOf(categoryComboBox.getSelectedItem()));
+                        
+                        if (BL.getBllInstance().updateVehicle(vehicle)) {
+                            uniqueError.setVisible(false);
+                            AdminVehicles page = new AdminVehicles();
+                            page.start();
+                            this.setVisible(false);
+                        } else {
+                            uniqueError.setVisible(true);
+                        }
+                        
+                    } else {
+                        rateError.setVisible(true);
+                    }
+                } else {
+                    regnumError.setVisible(true);
+                }
+            } else {
+                modelError.setVisible(true);
+            }
+        } else {
+            companyError.setVisible(true);
+        }
     }//GEN-LAST:event_doneButtonMouseClicked
 
     /**
@@ -362,6 +438,7 @@ public class EditVehicle extends javax.swing.JFrame {
     private javax.swing.JButton backButton2;
     private javax.swing.JComboBox<String> categoryComboBox;
     private javax.swing.JTextField colorTextField;
+    private javax.swing.JLabel companyError;
     private javax.swing.JTextField companyTextField;
     private javax.swing.JButton doneButton;
     private javax.swing.JLabel idLabel;
@@ -380,9 +457,13 @@ public class EditVehicle extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField mileageTextField;
+    private javax.swing.JLabel modelError;
     private javax.swing.JTextField modelTextField;
+    private javax.swing.JLabel rateError;
     private javax.swing.JTextField rateTextField;
     private javax.swing.JTextField regTextField;
+    private javax.swing.JLabel regnumError;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel uniqueError;
     // End of variables declaration//GEN-END:variables
 }

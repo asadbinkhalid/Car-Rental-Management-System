@@ -5,6 +5,7 @@
  */
 package gui.client;
 
+import Main.BL;
 import Models.Customer;
 
 /**
@@ -17,6 +18,7 @@ public class EditCustomerProfile extends javax.swing.JFrame {
      * Creates new form EditCustomerProfile
      */
     Customer customer;
+
     public EditCustomerProfile(Customer customer) {
         this.customer = customer;
         initComponents();
@@ -57,6 +59,7 @@ public class EditCustomerProfile extends javax.swing.JFrame {
         usernameError = new javax.swing.JLabel();
         // Code adding the component to the
         passwordError = new javax.swing.JLabel();
+        uniqueError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,6 +170,10 @@ public class EditCustomerProfile extends javax.swing.JFrame {
         passwordError.setText("Password is required");
         passwordError.setVisible(false);
 
+        uniqueError.setForeground(new java.awt.Color(255, 0, 0));
+        uniqueError.setText("Username already taken");
+        uniqueError.setVisible(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -198,9 +205,12 @@ public class EditCustomerProfile extends javax.swing.JFrame {
                                     .addComponent(jLabel11)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jPasswordField)))
-                            .addComponent(usernameError)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(uniqueError)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(usernameError))
                             .addComponent(passwordError))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(addressError)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -239,7 +249,9 @@ public class EditCustomerProfile extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(usernameError)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(usernameError)
+                            .addComponent(uniqueError))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
@@ -321,16 +333,23 @@ public class EditCustomerProfile extends javax.swing.JFrame {
                             addressError.setVisible(false);
                             if (!cnicTextField.getText().equals("")) {
                                 cnicError.setVisible(false);
-                                
-                                
-                                
-                                // update customer in DB function call here
-                                
-                                
-                                
-                                ClientHome page = new ClientHome(customer);
-                                page.start();
-                                this.setVisible(false);
+
+                                customer.setUsername(usernameTextField.getText());
+                                customer.setPassword(jPasswordField.getText());
+                                customer.setName(nameTextField.getText());
+                                customer.setPhone(phoneTextField.getText());
+                                customer.setAddress(addressTextArea.getText());
+                                customer.setCnic(cnicTextField.getText());
+
+                                if (BL.getBllInstance().updateCustomer(customer)) {
+                                    uniqueError.setVisible(false);
+                                    ClientHome page = new ClientHome(customer);
+                                    page.start();
+                                    this.setVisible(false);
+                                } else {
+                                    uniqueError.setVisible(true);
+                                }
+
                             } else {
                                 cnicError.setVisible(true);
                             }
@@ -410,6 +429,7 @@ public class EditCustomerProfile extends javax.swing.JFrame {
     private javax.swing.JLabel passwordError;
     private javax.swing.JLabel phoneError;
     private javax.swing.JTextField phoneTextField;
+    private javax.swing.JLabel uniqueError;
     private javax.swing.JLabel usernameError;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables

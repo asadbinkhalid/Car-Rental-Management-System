@@ -102,7 +102,7 @@ public class DB {
         List<Rental> list = new ArrayList<>();
         try {
             Rental rental = null;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             ResultSet rs = stmt.executeQuery("SELECT * FROM rental");
             while (rs.next()) {
                 java.sql.Date sqlDateIn  = rs.getDate(7);
@@ -127,7 +127,7 @@ public class DB {
                     }
                 }
                 for (int i = 0; i < company.getManagersList().size(); i++) { //get manager from managersList
-                    if (company.getManagersList().get(i).getId() == rs.getInt(5)) {
+                    if (company.getManagersList().get(i).getId() == rs.getInt(4)) {
                         rental.setManager(company.getManagersList().get(i));
                     }
                 }
@@ -350,7 +350,6 @@ public class DB {
 
     Rental insertRental(Rental rental) {
         try {
-            DateFormat utilToSql = new SimpleDateFormat("");
             Date dateOut = new java.sql.Date(rental.getDateOut().getTime());
             Date dateIn = new java.sql.Date(rental.getDateIn().getTime());
             
@@ -473,15 +472,88 @@ public class DB {
     //          UPDATE
     //
     //
-//    boolean updateManager(Manager manager) {
-//        try{
-//            
-//            
-//            
-//            return true;
-//        } catch(SQLException e) {
-//            System.out.println("\nSql Exception Update Manager: " + e);
-//            return false;
-//        }
-//    }
+    boolean updateManager(Manager manager) {
+        try{
+            int rs = stmt.executeUpdate("UPDATE manager SET name='" + manager.getName() + "', phone='" + manager.getPhone() + "', address='" + manager.getAddress() +
+                    "', cnic='" + manager.getCnic() + "', gender='" + manager.getGender() + "',salary=" + manager.getSalary() +
+                    ", bonuspercentage=" + manager.getBonusPercentage() + ", username='" + manager.getUsername() + "', password='" + manager.getPassword() +
+                            "' WHERE id=" + manager.getId() );
+            
+            System.out.println("\nUpdated Manager with id=" + manager.getId() + ":\nRows Affected:\t" + rs);
+            return true;
+        } catch(SQLException e) {
+            System.out.println("\nSql Exception Update Manager: " + e);
+            return false;
+        }
+    }
+    
+    boolean updateCustomer(Customer customer) {
+        try{
+            int rs = stmt.executeUpdate("UPDATE customer SET name='" + customer.getName() + "', phone='" + customer.getPhone() + "', address='" + customer.getAddress() +
+                    "', cnic='" + customer.getCnic() + "', username='" + customer.getUsername() + "', password='" + customer.getPassword() +
+                            "' WHERE id=" + customer.getId() );
+            
+            System.out.println("\nUpdated Customer with id=" + customer.getId() + ":\nRows Affected:\t" + rs);
+            return true;
+        } catch(SQLException e) {
+            System.out.println("\nSql Exception Update Customer: " + e);
+            return false;
+        }
+    }
+    
+    boolean updateDriver(Driver driver) {
+        try{
+            int rs = stmt.executeUpdate("UPDATE driver SET name='" + driver.getName() + "', phone='" + driver.getPhone() + "', address='" + driver.getAddress() +
+                    "', cnic='" + driver.getCnic() + "', gender='" + driver.getGender() + "',salary=" + driver.getSalary() +
+                    ", bonuspercentage=" + driver.getBonusPercentage() + ", licencenum='" + driver.getLicenceNum()+ "', licencetype='" + driver.getLicenceType() +
+                            "', driverstatus='" + driver.getDriverStatus() + "' WHERE id=" + driver.getId() );
+            
+            System.out.println("\nUpdated Driver with id=" + driver.getId() + ":\nRows Affected:\t" + rs);
+            return true;
+        } catch(SQLException e) {
+            System.out.println("\nSql Exception Update Driver: " + e);
+            return false;
+        }
+    }
+    
+    boolean updateVehicle(Vehicle vehicle) {
+        try{
+            int rs = stmt.executeUpdate("UPDATE vehicle SET company='" + vehicle.getCompany() + "', model='" + vehicle.getModel() + "', regnum='" + vehicle.getRegNum() +
+                    "', color='" + vehicle.getColor() + "', vehicletype='" + vehicle.getVehicleType() + "', rateperday=" + vehicle.getRatePerDay() +
+                    ", mileage=" + vehicle.getMileage() + ", vehiclestatus='" + vehicle.getVehicleStatus()+ "', avgfueleco=" + vehicle.getAvgFuelEco() +
+                            " WHERE id=" + vehicle.getId() );
+            
+            System.out.println("\nUpdated Vehicle with id=" + vehicle.getId() + ":\nRows Affected:\t" + rs);
+            return true;
+        } catch(SQLException e) {
+            System.out.println("\nSql Exception Update Vehicle: " + e);
+            return false;
+        }
+    }
+    
+    boolean updateBooking(Booking booking) {
+        try{
+            Date dateIn = new java.sql.Date(booking.getRental().getDateIn().getTime());
+            
+            int rs = stmt.executeUpdate("UPDATE rental SET rentalstatus='" + booking.getRental().getRentalstatus() + "', tolltaxes=" + booking.getRental().getTollTaxes() +
+                    ", kmused=" + booking.getRental().getKmUsed() + ", extracharges=" + booking.getRental().getExtraCharges() + ", datein='" + dateIn +
+                     "' WHERE id=" + booking.getRental().getId() );
+            
+            System.out.println("\nUpdated Rental with id=" + booking.getRental().getId() + ":\nRows Affected:\t" + rs);
+            
+        } catch(SQLException e) {
+            System.out.println("\nSql Exception Update Rental: " + e);
+            return false;
+        }
+        
+        try{
+            int rs = stmt.executeUpdate("UPDATE booking SET totalfare=" + booking.getTotalFare() +" WHERE id=" + booking.getId());
+            System.out.println("\nUpdated Booking with id=" + booking.getId() + ":\nRows Affected:\t" + rs);
+            return true;
+        } catch (SQLException e){
+            System.out.println("\nSql Exception Update Booking: " + e);
+            return false;
+        }
+    }
+    
 }

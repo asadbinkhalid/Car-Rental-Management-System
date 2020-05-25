@@ -51,7 +51,7 @@ public class CustomerListModel {
     @Override
     public String toString() {
         return username + "                                                                                                 " + name +
-                "                                                                                                             " + phone;
+                "                                                                                                       " + phone;
     } 
 
     public int getId() {

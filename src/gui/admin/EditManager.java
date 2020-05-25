@@ -5,6 +5,7 @@
  */
 package gui.admin;
 
+import Main.BL;
 import Models.Manager;
 
 /**
@@ -17,14 +18,12 @@ public class EditManager extends javax.swing.JFrame {
      * Creates new form EditManager
      */
     Manager manager;
+
     public EditManager(Manager manager) {
-        
+
         this.manager = manager;
         initComponents();
-        
-        
-        
-        
+
     }
 
     /**
@@ -63,6 +62,16 @@ public class EditManager extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
+        usernameError = new javax.swing.JLabel();
+        // Code adding the component to the
+        passwordError = new javax.swing.JLabel();
+        nameError = new javax.swing.JLabel();
+        phoneError = new javax.swing.JLabel();
+        addressError = new javax.swing.JLabel();
+        cnicError = new javax.swing.JLabel();
+        salaryError = new javax.swing.JLabel();
+        bonusError = new javax.swing.JLabel();
+        uniqueError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +82,7 @@ public class EditManager extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(105, 132, 207));
         jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel3.setText("Edit Driver Details");
+        jLabel3.setText("Edit Manager Details");
 
         backButton4.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.focus"));
         backButton4.setText("Back");
@@ -89,9 +98,9 @@ public class EditManager extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addComponent(backButton4)
-                .addGap(237, 237, 237)
+                .addGap(230, 230, 230)
                 .addComponent(jLabel3)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addGap(279, 279, 279))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +186,47 @@ public class EditManager extends javax.swing.JFrame {
 
         phoneTextField.setText(manager.getPhone());
 
+        usernameError.setForeground(new java.awt.Color(255, 0, 0));
+        usernameError.setText("Username is required");
+        usernameError.setVisible(false);
+
+        passwordError.setForeground(new java.awt.Color(255, 0, 0));
+        passwordError.setText("Password is required");
+        passwordError.setVisible(false);
+
+        nameError.setForeground(new java.awt.Color(255, 0, 0));
+        nameError.setText("Name is required");
+        nameError.setVisible(false);
+
+        phoneError.setForeground(new java.awt.Color(255, 0, 0));
+        phoneError.setText("Phone number is required");
+        phoneError.setVisible(false);
+
+        addressError.setForeground(new java.awt.Color(255, 0, 0));
+        addressError.setText("Address is required");
+        addressError.setVisible(false);
+
+        cnicError.setForeground(new java.awt.Color(255, 0, 0));
+        cnicError.setText("CNIC number is required");
+        cnicError.setVisible(false);
+
+        salaryError.setForeground(new java.awt.Color(255, 0, 0));
+        salaryError.setText("Salary must be a number");
+        salaryError.setVisible(false);
+
+        bonusError.setForeground(new java.awt.Color(255, 0, 0));
+        bonusError.setText("Bonus% must be a number");
+        bonusError.setVisible(false);
+
+        uniqueError.setForeground(new java.awt.Color(255, 0, 0));
+        uniqueError.setText("Username already taken");
+        uniqueError.setVisible(false);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
@@ -198,23 +243,32 @@ public class EditManager extends javax.swing.JFrame {
                         .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(idLabel))
+                                .addComponent(jLabel7)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(passwordField))
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1))
+                            .addComponent(passwordError)
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(uniqueError)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idLabel))
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(passwordField))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
+                                .addComponent(usernameError)))
                         .addGap(184, 184, 184)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(nameError)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel8Layout.createSequentialGroup()
@@ -227,16 +281,25 @@ public class EditManager extends javax.swing.JFrame {
                                         .addComponent(phoneTextField)))
                                 .addGap(85, 85, 85))
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(salaryTextField))
-                                    .addGroup(jPanel8Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(salaryTextField))
+                                        .addGroup(jPanel8Layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(phoneError)
+                                    .addComponent(salaryError)
+                                    .addComponent(bonusError))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cnicError)
+                            .addComponent(addressError))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,13 +314,22 @@ public class EditManager extends javax.swing.JFrame {
                     .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameLabel)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameError)
+                    .addComponent(nameError)
+                    .addComponent(uniqueError))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordError)
+                    .addComponent(phoneError))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -267,15 +339,23 @@ public class EditManager extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(salaryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(salaryError)
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                            .addComponent(bonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bonusError)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addressError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(cnicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cnicError)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,14 +411,133 @@ public class EditManager extends javax.swing.JFrame {
 
     private void doneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseClicked
         // TODO add your handling code here:
-        
-        
+
+        if (!usernameTextField.getText().isBlank()) {
+            usernameError.setVisible(false);
+            if (!passwordField.getText().isBlank()) {
+                passwordError.setVisible(false);
+                if (!nameTextField.getText().isBlank()) {
+                    nameError.setVisible(false);
+                    if (!phoneTextField.getText().isBlank()) {
+                        phoneError.setVisible(false);
+                        if (!addressTextArea.getText().isBlank()) {
+                            addressError.setVisible(false);
+                            if (!cnicTextField.getText().isBlank()) {
+                                cnicError.setVisible(false);
+                                if (!salaryTextField.getText().isBlank()) {
+                                    if (salaryTextField.getText().matches("[0-9]+")) {
+                                        salaryError.setVisible(false);
+                                        if (!bonusTextField.getText().isBlank()) {
+                                            if (bonusTextField.getText().matches("[0-9]+")) {
+                                                bonusError.setVisible(false);
+
+                                                manager.setUsername(usernameTextField.getText());
+                                                manager.setPassword(passwordField.getText());
+                                                manager.setName(nameTextField.getText());
+                                                manager.setPhone(phoneTextField.getText());
+                                                manager.setAddress(addressTextArea.getText());
+                                                manager.setCnic(cnicTextField.getText());
+                                                manager.setGender(String.valueOf(genderComboBox.getSelectedItem()));
+                                                manager.setSalary(Integer.parseInt(salaryTextField.getText()));
+                                                manager.setBonusPercentage(Integer.parseInt(bonusTextField.getText()));
+
+                                                if (BL.getBllInstance().updateManager(manager)) {
+                                                    uniqueError.setVisible(false);
+                                                    AdminHome page = new AdminHome(manager);
+                                                    page.start();
+                                                    this.setVisible(false);
+                                                } else {
+                                                    uniqueError.setVisible(true);
+                                                }
+                                            } else {
+                                                bonusError.setVisible(true);
+                                            }
+                                        } else {
+                                            manager.setUsername(usernameTextField.getText());
+                                            manager.setPassword(passwordField.getText());
+                                            manager.setName(nameTextField.getText());
+                                            manager.setPhone(phoneTextField.getText());
+                                            manager.setAddress(addressTextArea.getText());
+                                            manager.setCnic(cnicTextField.getText());
+                                            manager.setGender(String.valueOf(genderComboBox.getSelectedItem()));
+                                            manager.setSalary(Integer.parseInt(salaryTextField.getText()));
+                                            manager.setBonusPercentage(Integer.parseInt(bonusTextField.getText()));
+
+                                            if (BL.getBllInstance().updateManager(manager)) {
+                                                AdminHome page = new AdminHome(manager);
+                                                page.start();
+                                                this.setVisible(false);
+                                            } else {
+                                                uniqueError.setVisible(true);
+                                            }
+                                        }
+                                    } else {
+                                        salaryError.setVisible(true);
+                                    }
+                                } else {
+                                    if (!bonusTextField.getText().isBlank()) {
+                                        if (bonusTextField.getText().matches("[0-9]")) {
+                                            bonusError.setVisible(false);
+
+                                            manager.setUsername(usernameTextField.getText());
+                                            manager.setPassword(passwordField.getText());
+                                            manager.setName(nameTextField.getText());
+                                            manager.setPhone(phoneTextField.getText());
+                                            manager.setAddress(addressTextArea.getText());
+                                            manager.setCnic(cnicTextField.getText());
+                                            manager.setGender(String.valueOf(genderComboBox.getSelectedItem()));
+                                            manager.setSalary(Integer.parseInt(salaryTextField.getText()));
+                                            manager.setBonusPercentage(Integer.parseInt(bonusTextField.getText()));
+
+                                            if (BL.getBllInstance().updateManager(manager)) {
+                                                AdminHome page = new AdminHome(manager);
+                                                page.start();
+                                                this.setVisible(false);
+                                            } else {
+                                                uniqueError.setVisible(true);
+                                            }
+                                        } else {
+                                            bonusError.setVisible(true);
+                                        }
+                                    } else {
+                                        manager.setUsername(usernameTextField.getText());
+                                        manager.setPassword(passwordField.getText());
+                                        manager.setName(nameTextField.getText());
+                                        manager.setPhone(phoneTextField.getText());
+                                        manager.setAddress(addressTextArea.getText());
+                                        manager.setCnic(cnicTextField.getText());
+                                        manager.setGender(String.valueOf(genderComboBox.getSelectedItem()));
+                                        manager.setSalary(Integer.parseInt(salaryTextField.getText()));
+                                        manager.setBonusPercentage(Integer.parseInt(bonusTextField.getText()));
+
+                                        if (BL.getBllInstance().updateManager(manager)) {
+                                            AdminHome page = new AdminHome(manager);
+                                            page.start();
+                                            this.setVisible(false);
+                                        } else {
+                                            uniqueError.setVisible(true);
+                                        }
+                                    }
+                                }
+                            } else {
+                                cnicError.setVisible(true);
+                            }
+                        } else {
+                            addressError.setVisible(true);
+                        }
+                    } else {
+                        phoneError.setVisible(true);
+                    }
+                } else {
+                    nameError.setVisible(true);
+                }
+            } else {
+                passwordError.setVisible(true);
+            }
+        } else {
+            usernameError.setVisible(true);
+        }
         //update manager in DB function call here
-        
-        
-        AdminHome page = new AdminHome(manager);
-        page.start();
-        this.setVisible(false);
     }//GEN-LAST:event_doneButtonMouseClicked
 
     /**
@@ -377,9 +576,12 @@ public class EditManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addressError;
     private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton backButton4;
+    private javax.swing.JLabel bonusError;
     private javax.swing.JTextField bonusTextField;
+    private javax.swing.JLabel cnicError;
     private javax.swing.JTextField cnicTextField;
     private javax.swing.JButton doneButton;
     private javax.swing.JComboBox<String> genderComboBox;
@@ -398,11 +600,17 @@ public class EditManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nameError;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel passwordError;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel phoneError;
     private javax.swing.JTextField phoneTextField;
+    private javax.swing.JLabel salaryError;
     private javax.swing.JTextField salaryTextField;
+    private javax.swing.JLabel uniqueError;
+    private javax.swing.JLabel usernameError;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
 }

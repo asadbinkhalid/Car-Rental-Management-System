@@ -416,8 +416,14 @@ public class AdminBookings extends javax.swing.JFrame {
         // TODO add your handling code here:
         if ((upcomingBookingsjList.getSelectedIndex() >= 0)){
             jLabel7.setVisible(true);
-            
             BL bl = BL.getBllInstance();
+            if(bl.getBooking(upcomingBookingsjList.getSelectedValue().getId()).getRental().getDriver() != null){
+                bl.getBooking(upcomingBookingsjList.getSelectedValue().getId()).getRental().getDriver().setDriverStatus("available");
+                bl.updateDriver(bl.getBooking(upcomingBookingsjList.getSelectedValue().getId()).getRental().getDriver());
+            }
+            bl.getBooking(upcomingBookingsjList.getSelectedValue().getId()).getRental().getVehicle().setVehicleStatus("available");
+            bl.updateVehicle(bl.getBooking(upcomingBookingsjList.getSelectedValue().getId()).getRental().getVehicle());
+            
             bl.deleteBookingById(upcomingBookingsjList.getSelectedValue().getId());
             model1.removeElementAt(upcomingBookingsjList.getSelectedIndex());
             
