@@ -17,7 +17,7 @@ The application provides 2 modules:
   - View Receipts
   - Edit profile details
 
-###Screenshots
+### Screenshots
 ![Admin Login](https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/homepage.png)
 
 ![Amid Homepage](https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/admin%20homepage.png)
