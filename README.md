@@ -1,23 +1,21 @@
 # Car Rental Management System
-Created as a project for Advanced Programming course (Spring 2020),
-it is a local desktop application to manage car rental services of a company.
-It is designed using Java Swing and SQL Server.
-It provides 2 modules:
+It is a local desktop application to manage car rental services of a company designed and developed using Java Swing and SQL Server.
+The application provides 2 modules:
 - Admin
 - Customer
 
 ### Functionalities
-For admin module:
-- Add, edit, remove Drivers, Vehicles and Customers
-- Edit profile details
-- Create Bookings, Accept/Reject them
-- Close Bookings and Calculate Fare
+1. For admin module:
+  - Add, edit, remove Drivers, Vehicles and Customers
+  - Edit profile details
+  - Create Bookings, Accept/Reject them
+  - Close Bookings and Calculate Fare
 
-For customer module:
-- Request for Bookings
-- Cancel Bookings
-- View Receipts
-- Edit  profile details
+2. For customer module:
+  - Request for Bookings
+  - Cancel Bookings
+  - View Receipts
+  - Edit  profile details
 
 
 #
