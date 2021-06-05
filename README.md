@@ -4,7 +4,7 @@ The application provides 2 modules:
 - Admin
 - Customer
 
-### Functionalities
+## Functionalities
 1. For admin module:
   - Add, edit, remove Drivers, Vehicles and Customers
   - Edit profile details
@@ -15,10 +15,15 @@ The application provides 2 modules:
   - Request for Bookings
   - Cancel Bookings
   - View Receipts
-  - Edit  profile details
+  - Edit profile details
 
+###Screenshots
+![Admin Login](https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/homepage.png)
 
-#
-> Developed by: Asad Bin Khalid
+![Amid Homepage](https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/admin%20homepage.png)
 
-> Student, FAST NUCES Lahore
+## Dependencies
+- Java
+- JDK
+- MS SQL Server JDBC
+- Apache Netbeans IDE 11.2 (or newer) with Maven
