@@ -18,9 +18,12 @@ The application provides 2 modules:
   - Edit profile details
 
 ### Screenshots
-![Admin Login](https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/homepage.png)
-
-![Amid Homepage](https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/admin%20homepage.png)
+<p align="left">
+  <img height="520" alt="a" src="https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/homepage.png">
+</p>
+<p align="center">
+  <img height="520" alt="a" src="https://github.com/asadbinkhalid/Car-Rental-Management-System/blob/master/Images/admin%20homepage.png">
+</p>
 
 ## Dependencies
 - Java
