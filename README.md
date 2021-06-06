@@ -30,3 +30,9 @@ The application provides 2 modules:
 - JDK
 - MS SQL Server JDBC
 - Apache Netbeans IDE 11.2 (or newer) with Maven
+
+> ## Developed by:
+> 👤 **Asad Bin Khalid**
+> * Github: [@asadbinkhalid](https://github.com/asadbinkhalid)
+
+
